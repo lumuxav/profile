@@ -1,0 +1,78 @@
+name: Deploy to InfinityFree
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: infinityfree-production
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Check out the portfolio
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+
+      - name: Set up Node.js
+        uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: '24'
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build the portfolio
+        run: npm run build
+
+      - name: Check hosting configuration
+        id: hosting
+        env:
+          FTP_SERVER: ${{ secrets.FTP_SERVER }}
+          FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
+          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+          FTP_SERVER_DIR: ${{ secrets.FTP_SERVER_DIR }}
+        run: |
+          if [[ -z "$FTP_SERVER" || -z "$FTP_USERNAME" || -z "$FTP_PASSWORD" || -z "$FTP_SERVER_DIR" ]]; then
+            echo "ready=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::Upload skipped. Add FTP_SERVER, FTP_USERNAME, FTP_PASSWORD, and FTP_SERVER_DIR in repository Actions secrets, then run this workflow again."
+            echo "Build passed. Upload skipped because the InfinityFree secrets are not fully configured. Follow the README setup instructions, then choose Run workflow." >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+          case "$FTP_SERVER_DIR" in
+            htdocs/|/htdocs/|*/htdocs/) ;;
+            *)
+              echo "::error::FTP_SERVER_DIR must be the site's htdocs directory, including the final slash."
+              exit 1
+              ;;
+          esac
+          echo "ready=true" >> "$GITHUB_OUTPUT"
+
+      - name: Upload the built site
+        if: steps.hosting.outputs.ready == 'true'
+        uses: SamKirkland/FTP-Deploy-Action@110f9186c050f71550953127052e77650219c287 # v4.4.0
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftps
+          port: 21
+          security: strict
+          local-dir: ./dist/
+          server-dir: ${{ secrets.FTP_SERVER_DIR }}
+          dangerous-clean-slate: false
+          timeout: 60000
+
+      - name: Record the deployment
+        if: steps.hosting.outputs.ready == 'true'
+        run: echo "Portfolio files uploaded to InfinityFree. Open https://lumuxavier.site.je/ to check the live site." >> "$GITHUB_STEP_SUMMARY"
