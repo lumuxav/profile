@@ -3,9 +3,10 @@ export const profile = {
   location: "Kampala, Uganda",
   university: "International University of East Africa",
   degree: "B.Sc. Software Engineering",
-  github: "https://github.com/lumu-xavier",
-  email: "",
-  linkedin: "",
+  github: "https://github.com/lumuxav",
+  whatsapp: "https://wa.me/256757742177",
+  whatsappDisplay: "0757 742 177",
+  instagram: "https://www.instagram.com/_l.u.m.u_/",
   portrait: "",
 };
 
@@ -27,8 +28,6 @@ export const projects = [
       "Responsive layouts for phones and desktop",
       "Deployed on Vercel",
     ],
-    liveUrl: "",
-    codeUrl: "",
     image: "",
   },
   {
@@ -54,8 +53,6 @@ export const projects = [
       { value: "81.4%", label: "Recall" },
     ],
     note: "Reported detector results from a 50-epoch YOLO26 run; these are not end-to-end disease-classification scores. The water-quality panel uses simulated data, and dashboard authentication is a prototype.",
-    liveUrl: "",
-    codeUrl: "",
     image: "",
   },
   {
@@ -74,8 +71,6 @@ export const projects = [
       "Responsive design and animated interactions",
       "WhatsApp contact flow",
     ],
-    liveUrl: "",
-    codeUrl: "",
     image: "",
   },
   {
@@ -94,8 +89,6 @@ export const projects = [
       "VLAN segmentation and inter-VLAN routing",
       "Ubuntu Server and Alpine Linux administration",
     ],
-    liveUrl: "",
-    codeUrl: "",
     image: "",
   },
 ];

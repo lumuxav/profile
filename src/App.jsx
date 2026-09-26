@@ -2,26 +2,21 @@ import React, { useEffect, useRef, useState } from "react";
 import {
   ArrowDown,
   ArrowUpRight,
-  Braces,
   BrainCircuit,
   Check,
   ChevronRight,
   Code2,
-  Copy,
   Cpu,
   GitBranch as Github,
   Globe2,
   GraduationCap,
   Layers3,
-  BriefcaseBusiness as Linkedin,
-  Mail,
   Menu,
   MessageSquare,
   Monitor,
   Network,
   ShieldCheck,
   Terminal,
-  Workflow,
   X,
   Gamepad2,
 } from "lucide-react";
@@ -38,9 +33,9 @@ const icons = {
   terminal: Terminal,
 };
 const navItems = [
-  ["work", "Work"],
-  ["expertise", "Expertise"],
   ["about", "About"],
+  ["work", "Projects"],
+  ["expertise", "Expertise"],
 ];
 
 function ExternalLink({ href, children, className = "", ...props }) {
@@ -137,117 +132,82 @@ function Header() {
   );
 }
 
-function StackDiagram() {
-  return (
-    <div
-      className="stack-diagram"
-      aria-label="My development stack: interfaces with React and JavaScript, intelligence with Python and PyTorch, and infrastructure with Linux and networks"
-    >
-      <div className="diagram-header">
-        <span className="micro">FROM INTERFACE TO INFRASTRUCTURE</span>
-        <Workflow size={18} aria-hidden="true" />
-      </div>
-      <div className="stack-layer layer-interface">
-        <div className="layer-icon">
-          <Braces size={22} aria-hidden="true" />
-        </div>
-        <div>
-          <span className="micro">01 / INTERFACE</span>
-          <h3>Make it intuitive.</h3>
-          <p>
-            React <span>·</span> JavaScript <span>·</span> APIs
-          </p>
-        </div>
-      </div>
-      <div className="stack-connector" aria-hidden="true">
-        <span>connect</span>
-      </div>
-      <div className="stack-layer layer-intelligence">
-        <div className="layer-icon">
-          <BrainCircuit size={22} aria-hidden="true" />
-        </div>
-        <div>
-          <span className="micro">02 / INTELLIGENCE</span>
-          <h3>Make it intelligent.</h3>
-          <p>
-            Python <span>·</span> PyTorch <span>·</span> Vision
-          </p>
-        </div>
-      </div>
-      <div className="stack-connector" aria-hidden="true">
-        <span>deploy</span>
-      </div>
-      <div className="stack-layer layer-infrastructure">
-        <div className="layer-icon">
-          <Network size={22} aria-hidden="true" />
-        </div>
-        <div>
-          <span className="micro">03 / INFRASTRUCTURE</span>
-          <h3>Make it work.</h3>
-          <p>
-            Linux <span>·</span> Networks <span>·</span> Cloud
-          </p>
-        </div>
-      </div>
-      <div className="diagram-footer">
-        <span className="micro">ONE CURIOUS MIND. THE WHOLE STACK.</span>
-        <span className="diagram-bracket" aria-hidden="true">
-          {"</>"}
-        </span>
-      </div>
-    </div>
-  );
-}
-
 function Hero() {
   return (
-    <section className="hero container" id="home" aria-labelledby="hero-title">
-      <div className="hero-main">
-        <div className="hero-copy">
-          <p className="eyebrow">
-            <span className="eyebrow-line" aria-hidden="true" />
-            SOFTWARE ENGINEER · FULL-STACK & ML
-          </p>
-          <h1 id="hero-title">
-            Lumu Francis
-            <br />
-            <span>Xavier.</span>
-          </h1>
-          <p className="hero-statement">
-            I turn ideas into systems
-            <br className="desktop-break" /> that{" "}
-            <span>do something useful.</span>
-          </p>
-          <p className="hero-description">
-            Building AI-powered systems, web applications, and connected
-            hardware. Software engineering student at IUEA, based in Kampala,
-            Uganda.
-          </p>
-          <div className="hero-actions">
-            <a className="button button-primary" href="#work">
-              View projects <ArrowDown size={18} aria-hidden="true" />
-            </a>
-            <a className="button button-quiet" href="#contact">
-              Get in touch <ArrowUpRight size={18} aria-hidden="true" />
-            </a>
+    <section className="hero" id="home" aria-labelledby="hero-title">
+      <div className="hero-glow" aria-hidden="true" />
+      <div className="container hero-inner">
+        <div className="hero-topline">
+          <p>Hi, I’m</p>
+          <span className="micro">SOFTWARE ENGINEER / KAMPALA, UG</span>
+        </div>
+        <h1 id="hero-title">
+          <span className="hero-name-prefix">Lumu Francis</span>{" "}
+          <span className="hero-name-surname">
+            Xavier<span className="hero-period">.</span>
+          </span>
+        </h1>
+        <div className="hero-details">
+          <div className="hero-purpose">
+            <p className="hero-statement">
+              Ideas into code.
+              <br />
+              Code into <span>possibility.</span>
+            </p>
+            <div className="hero-actions">
+              <ExternalLink
+                href={profile.whatsapp}
+                className="button button-primary"
+              >
+                Let’s talk <ArrowUpRight size={18} aria-hidden="true" />
+              </ExternalLink>
+              <a className="text-link" href="#work">
+                View my work <ArrowDown size={16} aria-hidden="true" />
+              </a>
+            </div>
+          </div>
+          <div className="hero-intro">
+            <p>
+              AI-powered systems, full-stack applications, and the networks that
+              connect them.
+            </p>
+            <span>
+              Software engineering student at IUEA.
+              <br />
+              Curious by nature. Hands-on by choice.
+            </span>
+            <ExternalLink href={profile.github} className="hero-github">
+              <Github size={18} aria-hidden="true" />
+              github.com/lumuxav
+              <ArrowUpRight size={16} aria-hidden="true" />
+            </ExternalLink>
           </div>
         </div>
-        <div className="hero-visual">
-          <StackDiagram />
+        <div className="hero-footer">
+          <span>
+            <Globe2 size={15} aria-hidden="true" />
+            BASED IN UGANDA
+          </span>
+          <a href="#about">
+            MORE ABOUT ME <ArrowDown size={15} aria-hidden="true" />
+          </a>
         </div>
       </div>
-      <div className="hero-footer">
+      <div
+        className="capability-band"
+        aria-label="Full-stack development, applied machine learning, and network systems"
+      >
         <div>
-          <Globe2 size={16} aria-hidden="true" />
-          <span>KAMPALA, UGANDA</span>
+          <span>Full-stack development</span>
+          <span className="band-star" aria-hidden="true">
+            ✦
+          </span>
+          <span>Applied machine learning</span>
+          <span className="band-star" aria-hidden="true">
+            ✦
+          </span>
+          <span>Network systems</span>
         </div>
-        <div>
-          <span>DESIGN WITH INTENT. BUILD WITH CARE.</span>
-        </div>
-        <a href="#work" aria-label="Scroll to selected work">
-          <span>SCROLL TO EXPLORE</span>
-          <ArrowDown size={16} aria-hidden="true" />
-        </a>
       </div>
     </section>
   );
@@ -407,7 +367,8 @@ function ProjectCard({ project, onOpen }) {
             onClick={() => onOpen(project)}
             aria-label={`Explore ${project.title}`}
           >
-            <ArrowUpRight size={24} aria-hidden="true" />
+            <span>Read story</span>
+            <ArrowUpRight size={18} aria-hidden="true" />
           </button>
         </div>
       </div>
@@ -484,26 +445,6 @@ function ProjectDialog({ project, onClose }) {
               <li key={tag}>{tag}</li>
             ))}
           </ul>
-          {(project.liveUrl || project.codeUrl) && (
-            <div className="dialog-actions">
-              {project.liveUrl && (
-                <ExternalLink
-                  href={project.liveUrl}
-                  className="button button-primary"
-                >
-                  Visit project <ArrowUpRight size={18} aria-hidden="true" />
-                </ExternalLink>
-              )}
-              {project.codeUrl && (
-                <ExternalLink
-                  href={project.codeUrl}
-                  className="button button-quiet"
-                >
-                  View source <Github size={18} aria-hidden="true" />
-                </ExternalLink>
-              )}
-            </div>
-          )}
         </div>
       )}
     </dialog>
@@ -518,11 +459,11 @@ function Work({ onOpen }) {
       aria-labelledby="work-title"
     >
       <SectionHeading
-        number="01"
+        number="02"
         eyebrow="SELECTED WORK"
         title={
           <span id="work-title">
-            Ideas, put to work<span className="accent">.</span>
+            Selected work. Real problems<span className="accent">.</span>
           </span>
         }
       >
@@ -567,7 +508,7 @@ function Expertise() {
     >
       <div className="container section">
         <SectionHeading
-          number="02"
+          number="03"
           eyebrow="TECHNICAL EXPERTISE"
           title={
             <span id="expertise-title">
@@ -613,7 +554,7 @@ function About() {
     >
       <div className="about-heading">
         <p className="eyebrow">
-          <span className="section-number">03</span>THE PERSON BEHIND THE CODE
+          <span className="section-number">01</span>THE PERSON BEHIND THE CODE
         </p>
         <h2 id="about-title">
           Rooted in Kampala.
@@ -687,95 +628,72 @@ function About() {
 }
 
 function ContactForm() {
-  const [status, setStatus] = useState("");
+  const [error, setError] = useState("");
+  const [draftUrl, setDraftUrl] = useState("");
   function compose(event) {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    const name = String(data.get("name")).trim();
-    const email = String(data.get("email")).trim();
-    const message = String(data.get("message")).trim();
-    if (!name || !email || !message) {
-      setStatus("Please complete all three fields.");
+    const name = String(data.get("name") || "").trim();
+    const message = String(data.get("message") || "").trim();
+    if (!name || !message) {
+      setError("Please add your name and a message.");
       return;
     }
-    const subject = encodeURIComponent(`Portfolio enquiry from ${name}`);
-    const body = encodeURIComponent(
-      `${message}\n\nFrom: ${name}\nEmail: ${email}`,
-    );
-    window.location.href = `mailto:${profile.email}?subject=${subject}&body=${body}`;
-    setStatus(
-      "Your email app will open with this draft. Send it there to get in touch.",
-    );
+    setError("");
+    const url = new URL(profile.whatsapp);
+    url.searchParams.set("text", `Hi Xavier, I’m ${name}.\n\n${message}`);
+    setDraftUrl(url.href);
+    window.open(url.href, "_blank", "noopener,noreferrer");
   }
   return (
     <form className="contact-form" onSubmit={compose}>
-      <div className="form-row">
-        <label>
-          Your name
-          <input
-            name="name"
-            autoComplete="name"
-            maxLength="120"
-            required
-            placeholder="Name"
-          />
-        </label>
-        <label>
-          Email address
-          <input
-            name="email"
-            type="email"
-            autoComplete="email"
-            maxLength="254"
-            required
-            placeholder="you@example.com"
-          />
-        </label>
-      </div>
+      <p className="form-intro">Tell me what you have in mind.</p>
       <label>
-        What are you working on?
+        Your name
+        <input
+          name="name"
+          autoComplete="name"
+          maxLength="120"
+          required
+          placeholder="Your name"
+        />
+      </label>
+      <label>
+        Your idea
         <textarea
           name="message"
           rows="4"
           maxLength="2000"
           required
-          placeholder="A little about your idea…"
+          placeholder="A project, a collaboration, or just a hello…"
         />
       </label>
       <div className="form-bottom">
-        <span>Opens your email app.</span>
+        <p>
+          Opens a WhatsApp draft.
+          <br />
+          You send it when you’re ready.
+        </p>
         <button className="button button-primary" type="submit">
-          Compose email <ArrowUpRight size={18} aria-hidden="true" />
+          Open WhatsApp <ArrowUpRight size={18} aria-hidden="true" />
         </button>
       </div>
-      <p className="form-status" role="status">
-        {status}
-      </p>
+      {error && (
+        <p className="form-status" role="alert">
+          {error}
+        </p>
+      )}
+      {draftUrl && (
+        <p className="form-status" role="status">
+          Your draft is ready.{" "}
+          <ExternalLink href={draftUrl}>Continue to WhatsApp</ExternalLink>
+        </p>
+      )}
     </form>
   );
 }
 
 function Contact() {
-  const [copied, setCopied] = useState(false);
-  const [copyStatus, setCopyStatus] = useState("");
-  const timer = useRef(null);
-  useEffect(() => () => clearTimeout(timer.current), []);
-  async function copyEmail() {
-    try {
-      await navigator.clipboard.writeText(profile.email);
-      setCopied(true);
-      setCopyStatus("Email address copied.");
-      clearTimeout(timer.current);
-      timer.current = setTimeout(() => {
-        setCopied(false);
-        setCopyStatus("");
-      }, 2500);
-    } catch {
-      setCopyStatus(
-        "Copy unavailable. Select the email address or open the email link.",
-      );
-    }
-  }
   return (
     <section
       className="contact-section"
@@ -785,77 +703,59 @@ function Contact() {
       <div className="container contact-inner">
         <div className="contact-copy">
           <p className="eyebrow">
-            <span className="section-number">04</span>LET’S CONNECT
+            <span className="section-number">04</span>LET’S BUILD SOMETHING
           </p>
           <h2 id="contact-title">
-            Have something
+            Good ideas start
             <br />
-            <span>in mind?</span>
+            with <span>a hello.</span>
           </h2>
           <p>
             A useful product. An interesting problem.
-            <br />A chance to build something together.
+            <br />A chance to make something that matters.
           </p>
-          <div className="contact-links">
-            {profile.email && (
-              <div className="email-row">
-                <a href={`mailto:${profile.email}`}>
-                  <Mail size={19} aria-hidden="true" />
-                  {profile.email}
-                </a>
-                <button
-                  className="icon-button"
-                  type="button"
-                  onClick={copyEmail}
-                  aria-label="Copy email address"
-                >
-                  {copied ? (
-                    <Check size={17} aria-hidden="true" />
-                  ) : (
-                    <Copy size={17} aria-hidden="true" />
-                  )}
-                </button>
-              </div>
-            )}
-            <div className="social-links">
-              <ExternalLink href={profile.github}>
-                <Github size={19} aria-hidden="true" />
-                GitHub
-                <ArrowUpRight size={15} aria-hidden="true" />
-              </ExternalLink>
-              {profile.linkedin && (
-                <ExternalLink href={profile.linkedin}>
-                  <Linkedin size={19} aria-hidden="true" />
-                  LinkedIn
-                  <ArrowUpRight size={15} aria-hidden="true" />
-                </ExternalLink>
-              )}
-            </div>
-            <span className="copy-status" role="status">
-              {copyStatus}
+          <ExternalLink href={profile.whatsapp} className="whatsapp-link">
+            <MessageSquare size={23} aria-hidden="true" />
+            <span>
+              <small>WHATSAPP</small>
+              {profile.whatsappDisplay}
             </span>
-          </div>
-        </div>
-        {profile.email ? (
-          <ContactForm />
-        ) : (
-          <div className="contact-note">
-            <span className="micro">BUILT ON CURIOSITY</span>
-            <p>
-              Good things start
-              <br />
-              with a <em>conversation.</em>
-            </p>
-            <ExternalLink
-              href={profile.github}
-              className="button button-primary"
-            >
-              Explore my GitHub <ArrowUpRight size={18} aria-hidden="true" />
+            <ArrowUpRight size={23} aria-hidden="true" />
+          </ExternalLink>
+          <div className="social-links">
+            <ExternalLink href={profile.github}>
+              <Github size={18} aria-hidden="true" />
+              GitHub
+              <ArrowUpRight size={15} aria-hidden="true" />
+            </ExternalLink>
+            <ExternalLink href={profile.instagram}>
+              <CameraIcon />
+              Instagram
+              <ArrowUpRight size={15} aria-hidden="true" />
             </ExternalLink>
           </div>
-        )}
+        </div>
+        <ContactForm />
       </div>
     </section>
+  );
+}
+
+function CameraIcon() {
+  return (
+    <svg
+      width="18"
+      height="18"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.6"
+      aria-hidden="true"
+    >
+      <rect x="3" y="3" width="18" height="18" rx="5" />
+      <circle cx="12" cy="12" r="4" />
+      <circle cx="17.5" cy="6.5" r=".8" fill="currentColor" stroke="none" />
+    </svg>
   );
 }
 
@@ -883,9 +783,9 @@ export default function App() {
       <Header />
       <main id="main">
         <Hero />
+        <About />
         <Work onOpen={setProject} />
         <Expertise />
-        <About />
         <Contact />
       </main>
       <Footer />
