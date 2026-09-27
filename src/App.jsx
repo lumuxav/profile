@@ -3,301 +3,1288 @@ import {
   ArrowDown,
   ArrowRight,
   ArrowUpRight,
+  AudioLines,
   BrainCircuit,
+  Check,
   Code2,
   Cpu,
   Database,
-  GitBranch as Github,
+  Gamepad2,
+  GitBranch,
+  Globe2,
+  GraduationCap,
   Layers3,
   Menu,
+  MessageCircle,
+  Monitor,
   Network,
+  Play,
+  Plus,
+  ShieldCheck,
   Smartphone,
   Sparkles,
   Terminal,
   X,
 } from "lucide-react";
-import { profile } from "./profile";
+import { experiments, profile, projects, skills, toolbelt } from "./profile";
 
-const navItems = [
+const icons = {
+  code: Code2,
+  brain: BrainCircuit,
+  network: Network,
+  cpu: Cpu,
+  phone: Smartphone,
+  database: Database,
+  message: MessageCircle,
+  window: Monitor,
+  game: Gamepad2,
+  terminal: Terminal,
+};
+const navigation = [
+  ["work", "Work"],
+  ["expertise", "Expertise"],
   ["about", "About"],
-  ["capabilities", "Capabilities"],
-  ["systems", "What I build"],
-  ["approach", "Approach"],
 ];
 
-const capabilities = [
-  { number: "01", title: "Web applications", icon: Code2, copy: "Fast, responsive interfaces connected to real backends, APIs, authentication and deployment workflows.", tags: ["React", "Vite", "Node.js", "REST APIs"] },
-  { number: "02", title: "System development", icon: Cpu, copy: "Operational systems built around the way a business actually works — records, workflows, roles, reporting and automation.", tags: ["Architecture", "Dashboards", "Automation", "Workflows"] },
-  { number: "03", title: "AI & machine learning", icon: BrainCircuit, copy: "Applied computer vision and intelligent workflows that turn raw video, data and conversations into useful decisions.", tags: ["Python", "YOLO", "PyTorch", "Gemini"] },
-  { number: "04", title: "Networking", icon: Network, copy: "The infrastructure underneath the interface: Linux services, routing, VLANs, DHCP, DNS and repeatable network automation.", tags: ["Linux", "Cisco", "GNS3", "Bash"] },
-  { number: "05", title: "Database management", icon: Database, copy: "Structured data models that keep products reliable as they grow — from transactional records to searchable operational data.", tags: ["SQL", "MySQL", "Data modelling", "CRUD"] },
-  { number: "06", title: "Mobile-ready products", icon: Smartphone, copy: "Responsive product experiences and API-first foundations designed to move naturally from the browser to mobile clients.", tags: ["Responsive UI", "API-first", "PWA thinking", "UX"] },
-];
-
-const capabilityMarquee = ["WEB APPLICATIONS", "SYSTEM DEVELOPMENT", "AI + MACHINE LEARNING", "NETWORK ENGINEERING", "DATABASES", "MOBILE EXPERIENCES"];
-
-const buildDomains = [
-  {
-    id: "business-systems",
-    number: "01",
-    title: "Business Systems",
-    category: "Systems engineering",
-    status: "Workflows → software",
-    summary: "Operational software designed around the way a real organisation works, not the other way around.",
-    detail: "I translate messy day-to-day processes into structured digital workflows: records, permissions, payments, dashboards, reporting, automation and the logic that holds everything together.",
-    role: "System architecture · workflow modelling · implementation",
-    stack: ["Business logic", "Databases", "Dashboards", "Automation"],
-    highlights: [
-      "Role-aware workflows and operational dashboards",
-      "Transaction, inventory and record-management logic",
-      "Systems designed to grow without becoming confusing",
-    ],
-  },
-  {
-    id: "web-platforms",
-    number: "02",
-    title: "Web Platforms",
-    category: "Full-stack development",
-    status: "Interface → deployment",
-    summary: "Fast, responsive digital products that feel deliberate on every screen.",
-    detail: "From the interface to APIs, deployment and integration, I approach websites as products rather than pages — with performance, usability, maintainability and a clear path for future features.",
-    role: "Front-end · APIs · deployment · product structure",
-    stack: ["React", "Vite", "JavaScript", "Node.js", "REST APIs"],
-    highlights: [
-      "Responsive, motion-led user interfaces",
-      "API-ready architecture and integration workflows",
-      "Production deployment across modern hosting platforms",
-    ],
-  },
-  {
-    id: "intelligent-systems",
-    number: "03",
-    title: "Intelligent Systems",
-    category: "AI & machine learning",
-    status: "Data → useful decisions",
-    summary: "AI that does something useful with vision, data or conversation.",
-    detail: "I explore applied machine learning through computer vision, tracking, sequence models and AI-assisted workflows — focusing on how models connect to interfaces and real system behaviour.",
-    role: "Applied ML · prototyping · integration",
-    stack: ["Python", "PyTorch", "YOLO", "OpenCV", "Gemini"],
-    highlights: [
-      "Computer-vision detection and tracking pipelines",
-      "Sequence-aware classification concepts",
-      "AI features integrated into practical application flows",
-    ],
-  },
-  {
-    id: "network-infrastructure",
-    number: "04",
-    title: "Network Infrastructure",
-    category: "Networking & Linux",
-    status: "Below the interface",
-    summary: "The networks, services and automation that keep applications connected.",
-    detail: "I work with routing, switching, segmentation and Linux services, then automate repetitive setup where possible. The goal is infrastructure that is understandable, testable and reliable.",
-    role: "Network configuration · Linux services · automation",
-    stack: ["Cisco IOS", "GNS3", "Linux", "Bash", "DHCP / DNS"],
-    highlights: [
-      "VLANs and inter-VLAN routing",
-      "DHCP and DNS service configuration",
-      "Linux-based network automation and lab environments",
-    ],
-  },
-  {
-    id: "data-layer",
-    number: "05",
-    title: "Data & Databases",
-    category: "Data architecture",
-    status: "Structure before scale",
-    summary: "Clean data models that make software easier to trust, query and extend.",
-    detail: "I design relational structures around the questions a system needs to answer: who did what, when it happened, what changed, what is owed and what should happen next.",
-    role: "Data modelling · relational design · application data",
-    stack: ["SQL", "MySQL", "Relational modelling", "CRUD"],
-    highlights: [
-      "Structured relational schemas",
-      "Transaction and history-oriented records",
-      "Data models designed around real application workflows",
-    ],
-  },
-  {
-    id: "mobile-ready",
-    number: "06",
-    title: "Mobile-Ready Products",
-    category: "Product engineering",
-    status: "Designed beyond desktop",
-    summary: "Experiences designed to move naturally between browser, phone and future clients.",
-    detail: "I build responsive interfaces and API-first foundations with mobile use in mind, so a product can evolve without having to rethink its entire architecture later.",
-    role: "Responsive UX · API-first thinking · product architecture",
-    stack: ["Responsive UI", "PWA thinking", "REST APIs", "Mobile UX"],
-    highlights: [
-      "Phone-first responsive interaction patterns",
-      "Reusable interface components",
-      "Architecture prepared for future mobile clients",
-    ],
-  },
-];
-
-const principles = [
-  {
-    title: "Prototype fast",
-    description: "Turn the idea into something visible early, then improve it with evidence instead of assumptions.",
-    stack: "IDEA / PROTOTYPE / TEST",
-  },
-  {
-    title: "Think in systems",
-    description: "Treat interface, logic, data, infrastructure and deployment as connected parts of the same product.",
-    stack: "UI / LOGIC / DATA / INFRA",
-  },
-  {
-    title: "Automate repetition",
-    description: "If a process keeps repeating, I look for a clean way to make the machine do more of it.",
-    stack: "SCRIPTS / APIs / WORKFLOWS",
-  },
-  {
-    title: "Keep learning",
-    description: "New tools are useful when they solve a real problem. I learn by building, breaking, debugging and rebuilding.",
-    stack: "BUILD / BREAK / LEARN / SHIP",
-  },
-];
-
-function ExternalLink({ href, children, className = "", ...props }) {
-  return <a href={href} target="_blank" rel="noopener noreferrer" className={className} {...props}>{children}</a>;
+function ExternalLink({ href, children, ...props }) {
+  return (
+    <a href={href} target="_blank" rel="noopener noreferrer" {...props}>
+      {children}
+    </a>
+  );
 }
 
-function Header() {
+function useMotion() {
+  const [motion, setMotion] = useState(true);
+  useEffect(() => {
+    const media = window.matchMedia("(prefers-reduced-motion: reduce)");
+    let preference;
+    try {
+      preference = localStorage.getItem("lumu-motion");
+    } catch {}
+    setMotion(
+      preference === null || preference === undefined
+        ? !media.matches
+        : preference === "on",
+    );
+    const update = () => {
+      try {
+        if (localStorage.getItem("lumu-motion") !== null) return;
+      } catch {}
+      setMotion(!media.matches);
+    };
+    media.addEventListener("change", update);
+    return () => media.removeEventListener("change", update);
+  }, []);
+  function toggle() {
+    setMotion((value) => {
+      try {
+        localStorage.setItem("lumu-motion", value ? "off" : "on");
+      } catch {}
+      return !value;
+    });
+  }
+  return [motion, toggle];
+}
+
+function useReveal(root, motion) {
+  useEffect(() => {
+    if (!motion || !root.current || !("IntersectionObserver" in window)) return;
+    const nodes = [...root.current.querySelectorAll("[data-reveal]")];
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.dataset.visible = "true";
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.08, rootMargin: "0px 0px -20px 0px" },
+    );
+    nodes.forEach((node) => {
+      if (node.getBoundingClientRect().top > window.innerHeight * 0.95)
+        node.dataset.visible = "false";
+      observer.observe(node);
+    });
+    return () => {
+      observer.disconnect();
+      nodes.forEach((node) => {
+        node.dataset.visible = "true";
+      });
+    };
+  }, [root, motion]);
+}
+
+function Tilt({ children, className = "", motion = true, ...props }) {
+  function move(event) {
+    if (!motion || event.pointerType !== "mouse") return;
+    const element = event.currentTarget;
+    const box = element.getBoundingClientRect();
+    const x = (event.clientX - box.left) / box.width;
+    const y = (event.clientY - box.top) / box.height;
+    element.style.setProperty("--rx", `${(0.5 - y) * 5}deg`);
+    element.style.setProperty("--ry", `${(x - 0.5) * 7}deg`);
+    element.style.setProperty("--mx", `${x * 100}%`);
+    element.style.setProperty("--my", `${y * 100}%`);
+  }
+  function reset(event) {
+    event.currentTarget.style.setProperty("--rx", "0deg");
+    event.currentTarget.style.setProperty("--ry", "0deg");
+  }
+  return (
+    <div
+      className={`tilt ${className}`}
+      onPointerMove={move}
+      onPointerLeave={reset}
+      {...props}
+    >
+      {children}
+    </div>
+  );
+}
+
+function OrbitScene({ motion }) {
+  const host = useRef(null);
+  const controller = useRef(null);
+  const [ready, setReady] = useState(false);
+  const currentMotion = useRef(motion);
+  useEffect(() => {
+    currentMotion.current = motion;
+    controller.current?.setMotion(motion);
+  }, [motion]);
+  useEffect(() => {
+    let cancelled = false;
+    import("./createOrbitScene")
+      .then(({ createOrbitScene }) => {
+        if (cancelled || !host.current) return;
+        controller.current = createOrbitScene(
+          host.current,
+          currentMotion.current,
+        );
+        setReady(true);
+      })
+      .catch(() => {
+        if (!cancelled) setReady(false);
+      });
+    return () => {
+      cancelled = true;
+      controller.current?.dispose();
+      controller.current = null;
+    };
+  }, []);
+  return (
+    <div
+      className={`orbit-scene ${ready ? "is-ready" : ""}`}
+      aria-hidden="true"
+    >
+      <div className="orbit-fallback">
+        <i />
+        <i />
+        <i />
+      </div>
+      <div className="webgl-host" ref={host} />
+    </div>
+  );
+}
+
+function Header({ motion, onToggle }) {
   const [open, setOpen] = useState(false);
   useEffect(() => {
     if (!open) return;
-    const onKey = (event) => event.key === "Escape" && setOpen(false);
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
+    const escape = (event) => {
+      if (event.key === "Escape") {
+        setOpen(false);
+        document.getElementById("menu-button")?.focus();
+      }
+    };
+    window.addEventListener("keydown", escape);
+    return () => window.removeEventListener("keydown", escape);
   }, [open]);
   return (
     <header className="site-header">
-      <div className="nav-shell">
-        <a href="#home" className="brand" onClick={() => setOpen(false)}>
-          <span className="brand-mark">LX</span>
-          <span className="brand-copy">Lumu Xavier<small>software engineer</small></span>
+      <div className="header-inner glass">
+        <a
+          className="wordmark"
+          href="#home"
+          aria-label="Lumu Xavier, home"
+          onClick={() => setOpen(false)}
+        >
+          <span className="brand-mark">
+            lx<span>✳</span>
+          </span>
+          <span>
+            LUMU XAVIER<small>SOFTWARE ENGINEER</small>
+          </span>
         </a>
-        <nav className={`nav-links ${open ? "open" : ""}`} aria-label="Primary navigation">
-          {navItems.map(([id, label]) => <a key={id} href={`#${id}`} onClick={() => setOpen(false)}>{label}</a>)}
-          <a className="nav-cta" href="#contact" onClick={() => setOpen(false)}>Start a project <ArrowUpRight size={15} /></a>
+        <nav
+          className={`navigation ${open ? "is-open" : ""}`}
+          id="main-navigation"
+          aria-label="Main navigation"
+        >
+          {navigation.map(([id, label]) => (
+            <a key={id} href={`#${id}`} onClick={() => setOpen(false)}>
+              {label}
+            </a>
+          ))}
+          <a
+            href="#contact"
+            className="nav-contact"
+            onClick={() => setOpen(false)}
+          >
+            Let’s talk <ArrowUpRight size={14} aria-hidden="true" />
+          </a>
         </nav>
-        <button className="menu-button" type="button" aria-label={open ? "Close navigation" : "Open navigation"} aria-expanded={open} onClick={() => setOpen((value) => !value)}>{open ? <X /> : <Menu />}</button>
+        <div className="header-controls">
+          <button
+            className="motion-toggle"
+            type="button"
+            onClick={onToggle}
+            aria-label={motion ? "Pause motion" : "Enable motion"}
+            aria-pressed={!motion}
+            title={motion ? "Pause motion" : "Enable motion"}
+          >
+            {motion ? <AudioLines size={17} /> : <Play size={15} />}
+          </button>
+          <a href="#contact" className="header-cta">
+            Let’s talk <ArrowUpRight size={15} aria-hidden="true" />
+          </a>
+          <button
+            className="menu-toggle"
+            id="menu-button"
+            type="button"
+            aria-label={open ? "Close navigation" : "Open navigation"}
+            aria-expanded={open}
+            aria-controls="main-navigation"
+            onClick={() => setOpen(!open)}
+          >
+            {open ? <X /> : <Menu />}
+          </button>
+        </div>
       </div>
     </header>
   );
 }
 
-function PortraitStage() {
-  const stageRef = useRef(null);
-  const handlePointerMove = (event) => {
-    const stage = stageRef.current;
-    if (!stage) return;
-    const rect = stage.getBoundingClientRect();
-    const x = (event.clientX - rect.left) / rect.width - 0.5;
-    const y = (event.clientY - rect.top) / rect.height - 0.5;
-    stage.style.setProperty("--tilt-x", `${(-y * 8).toFixed(2)}deg`);
-    stage.style.setProperty("--tilt-y", `${(x * 10).toFixed(2)}deg`);
-    stage.style.setProperty("--shift-x", `${(x * 14).toFixed(2)}px`);
-    stage.style.setProperty("--shift-y", `${(y * 14).toFixed(2)}px`);
-  };
-  const resetTilt = () => {
-    const stage = stageRef.current;
-    if (!stage) return;
-    ["--tilt-x", "--tilt-y"].forEach((key) => stage.style.setProperty(key, "0deg"));
-    ["--shift-x", "--shift-y"].forEach((key) => stage.style.setProperty(key, "0px"));
-  };
+function Hero({ motion }) {
   return (
-    <div className="portrait-stage" ref={stageRef} onPointerMove={handlePointerMove} onPointerLeave={resetTilt}>
-      <div className="orbit orbit-one" aria-hidden="true" /><div className="orbit orbit-two" aria-hidden="true" /><div className="portrait-glow" aria-hidden="true" />
-      <div className="portrait-card">
-        <img src={profile.portrait} alt="Stylized portrait of Lumu Francis Xavier" width="1080" height="1080" fetchPriority="high" style={{ width: "88%", height: "88%", objectFit: "contain", margin: "6% auto", borderRadius: "24px", filter: "none" }} />
-        <div className="portrait-overlay" aria-hidden="true" />
-        <div className="portrait-corner top-left">01 / 26</div><div className="portrait-corner bottom-right">BUILD / LEARN / SHIP</div>
-      </div>
-      <div className="float-chip chip-ai"><BrainCircuit size={17} /> AI / ML</div>
-      <div className="float-chip chip-systems"><Layers3 size={17} /> SYSTEMS</div>
-      <div className="float-chip chip-network"><Network size={17} /> NETWORKS</div>
-      <div className="availability-card glass-panel"><span className="availability-dot" /><div><small>AVAILABLE FOR</small><strong>Ambitious builds</strong></div><ArrowUpRight size={18} /></div>
-    </div>
-  );
-}
-
-function Hero() {
-  return (
-    <section className="hero" id="home">
-      <div className="hero-grid-bg" aria-hidden="true" /><div className="aurora aurora-a" aria-hidden="true" /><div className="aurora aurora-b" aria-hidden="true" />
-      <div className="page-shell hero-layout">
-        <div className="hero-copy" data-reveal>
-          <p className="eyebrow hero-eyebrow"><span className="status-dot" /> SOFTWARE ENGINEER · KAMPALA / WORLDWIDE</p>
-          <h1>I build digital systems<span className="hero-outline"> that feel like the future.</span></h1>
-          <p className="hero-lead">From web applications and business systems to AI, networks and data — I turn ambitious ideas into working technology.</p>
-          <div className="hero-actions"><a className="button button-primary" href="#systems">See what I build <ArrowRight size={18} /></a><ExternalLink className="button button-ghost" href={profile.whatsapp}>Let&apos;s build <ArrowUpRight size={18} /></ExternalLink></div>
-          <div className="hero-proof"><div><strong>06</strong><span>capability lanes</span></div><div><strong>{buildDomains.length.toString().padStart(2, "0")}</strong><span>build domains</span></div><div><strong>∞</strong><span>room to build</span></div></div>
+    <section
+      className="hero section-shell"
+      id="home"
+      aria-labelledby="hero-title"
+    >
+      <div className="hero-aurora" aria-hidden="true" />
+      <div className="hero-grid container">
+        <div className="hero-copy">
+          <div className="availability">
+            <span className="status-dot" /> OPEN TO COLLABORATIONS{" "}
+            <span className="availability-line" />
+          </div>
+          <p className="hero-introduction">Hello, I’m Lumu Francis Xavier.</p>
+          <h1 id="hero-title">
+            Big ideas.
+            <br />
+            Real-world
+            <br />
+            <em>possibilities.</em>
+            <span className="title-star" aria-hidden="true">
+              ✳
+            </span>
+          </h1>
+          <p className="hero-description">
+            I turn curiosity into code—and ambitious ideas into thoughtful
+            digital experiences. Web, AI, and the systems that connect it all.
+          </p>
+          <div className="hero-actions">
+            <a href="#work" className="button button-light">
+              Explore my work <ArrowUpRight size={19} aria-hidden="true" />
+            </a>
+            <a href="#contact" className="button button-outline">
+              Let’s build something <ArrowRight size={18} aria-hidden="true" />
+            </a>
+          </div>
+          <div className="hero-location">
+            <Globe2 size={15} aria-hidden="true" />
+            <span>Based in Kampala. Building beyond borders.</span>
+          </div>
         </div>
-        <div className="hero-visual" data-reveal><PortraitStage /></div>
+        <div className="hero-visual">
+          <div className="portrait-halo" aria-hidden="true" />
+          <div className="orbit-track track-one" aria-hidden="true" />
+          <div className="orbit-track track-two" aria-hidden="true" />
+          <span className="visual-coordinate coord-top" aria-hidden="true">
+            00°19′ N · 32°35′ E
+          </span>
+          <Tilt className="portrait-stage" motion={motion}>
+            <div className="portrait-outline" />
+            <div className="portrait-image">
+              <img
+                src={profile.portrait}
+                alt="Lumu Francis Xavier"
+                width="1080"
+                height="1080"
+                fetchPriority="high"
+              />
+              <div className="portrait-shade" />
+            </div>
+            <div className="portrait-caption">
+              <span>THE MIND BEHIND THE CODE</span>
+              <strong>
+                Lumu Xavier<span>↗</span>
+              </strong>
+            </div>
+            <div className="portrait-glint" aria-hidden="true" />
+          </Tilt>
+          <div className="floating-badge badge-ai glass">
+            <BrainCircuit size={20} aria-hidden="true" />
+            <div>
+              <strong>Intelligence, applied.</strong>
+              <span>AI & MACHINE LEARNING</span>
+            </div>
+            <span className="badge-dot" />
+          </div>
+          <div className="floating-badge badge-code glass">
+            <Code2 size={18} aria-hidden="true" />
+            <span>Built with curiosity.</span>
+          </div>
+          <div className="hero-orbit">
+            <OrbitScene motion={motion} />
+          </div>
+          <div className="idea-note glass">
+            <span className="note-icon">
+              <Sparkles size={19} aria-hidden="true" />
+            </span>
+            <p>
+              Imagine it.
+              <br />
+              <strong>Let’s engineer it.</strong>
+            </p>
+            <ArrowUpRight size={21} aria-hidden="true" />
+          </div>
+          <span className="visual-coordinate coord-bottom" aria-hidden="true">
+            ALWAYS EXPLORING / ALWAYS EVOLVING
+          </span>
+        </div>
       </div>
-      <a href="#about" className="scroll-cue" aria-label="Scroll to about section">SCROLL TO EXPLORE <ArrowDown size={15} /></a>
+      <div className="hero-bottom container">
+        <span>SOFTWARE ENGINEERING STUDENT @ IUEA</span>
+        <a href="#expertise">
+          SCROLL TO DISCOVER <ArrowDown size={15} aria-hidden="true" />
+        </a>
+        <span className="hero-bottom-last">IDEAS HAVE NO CEILING.</span>
+      </div>
     </section>
   );
 }
 
-function Marquee() {
-  return <div className="marquee" aria-hidden="true"><div className="marquee-track">{[...capabilityMarquee, ...capabilityMarquee].map((item, index) => <React.Fragment key={`${item}-${index}`}><span>{item}</span><Sparkles size={16} /></React.Fragment>)}</div></div>;
+function CapabilityRail() {
+  return (
+    <div
+      className="capability-rail"
+      aria-label="Web applications, artificial intelligence, networks, mobile applications, systems, and databases"
+    >
+      <div className="rail-track" aria-hidden="true">
+        {[0, 1].map((copy) => (
+          <div className="rail-group" key={copy}>
+            {[
+              "Web experiences",
+              "Artificial intelligence",
+              "Network systems",
+              "Mobile applications",
+              "Database design",
+            ].map((text) => (
+              <span key={text}>
+                {text}
+                <i>✳</i>
+              </span>
+            ))}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
 }
 
-function SectionHeading({ kicker, title, copy }) {
-  return <div className="section-heading split" data-reveal><div><p className="eyebrow">{kicker}</p><h2>{title}</h2></div>{copy && <p>{copy}</p>}</div>;
+function SectionHeading({ number, label, title, description }) {
+  return (
+    <div className="section-heading" data-reveal>
+      <div>
+        <p className="eyebrow">
+          <span>{number}</span>
+          {label}
+        </p>
+        <h2>{title}</h2>
+      </div>
+      {description && <p className="section-description">{description}</p>}
+    </div>
+  );
+}
+
+function Expertise({ motion }) {
+  return (
+    <section
+      className="expertise-section container section"
+      id="expertise"
+      aria-labelledby="expertise-title"
+    >
+      <SectionHeading
+        number="01"
+        label="A MULTIDISCIPLINARY MIND"
+        title={
+          <span id="expertise-title">
+            Different dimensions.
+            <br />
+            <span className="muted-text">One connected vision.</span>
+          </span>
+        }
+        description="The best ideas rarely fit into one box. I connect interfaces, intelligence, data, and infrastructure to bring the bigger picture to life."
+      />
+      <div className="skills-grid">
+        {skills.map((skill) => {
+          const Icon = icons[skill.icon];
+          return (
+            <Tilt
+              key={skill.id}
+              motion={motion}
+              className={`skill-shell skill-${skill.id}`}
+              data-reveal
+            >
+              <article className="skill-card glass">
+                <div className="skill-top">
+                  <span className="skill-icon">
+                    <Icon size={25} aria-hidden="true" />
+                  </span>
+                  <span className="micro">/{skill.number}</span>
+                </div>
+                <h3>{skill.title}</h3>
+                <p>{skill.description}</p>
+                <ul className="skill-tags">
+                  {skill.items.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
+                <div className="skill-proof">
+                  <span />
+                  {skill.proof}
+                </div>
+              </article>
+            </Tilt>
+          );
+        })}
+      </div>
+      <div className="toolbelt" data-reveal>
+        <span className="micro">THE TOOLS BEHIND THE THINKING</span>
+        <div>
+          {toolbelt.map((item) => (
+            <span key={item}>{item}</span>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function VisionObject({ className = "" }) {
+  return (
+    <svg className={className} viewBox="0 0 110 50" fill="none">
+      <path
+        d="m55 3 25 11v22L55 47 30 36V14L55 3Z"
+        fill="currentColor"
+        fillOpacity=".12"
+        stroke="currentColor"
+        strokeWidth="1.3"
+      />
+      <path
+        d="m30 14 25 12 25-12M55 26v21M41 9l26 11v21"
+        stroke="currentColor"
+        opacity=".6"
+      />
+      <circle cx="55" cy="26" r="3" fill="currentColor" />
+    </svg>
+  );
+}
+
+function ProjectVisual({ id }) {
+  if (id === "intelligent-systems")
+    return (
+      <div className="project-visual aqua-visual" aria-hidden="true">
+        <div className="visual-grid" />
+        <div className="visual-brand">
+          <span className="aqua-logo">
+            <BrainCircuit size={20} />
+          </span>
+          INTELLIGENT SYSTEMS
+          <span className="visual-live">
+            <i /> VISION SYSTEM
+          </span>
+        </div>
+        <div className="sonar-ring r1" />
+        <div className="sonar-ring r2" />
+        <div className="sonar-ring r3" />
+        <div className="scan-line" />
+        <div className="tracked-fish fish-one">
+          <span>
+            TRACK 01 <b>●</b>
+          </span>
+          <VisionObject />
+        </div>
+        <div className="tracked-fish fish-two">
+          <span>
+            TRACK 02 <b>●</b>
+          </span>
+          <VisionObject />
+        </div>
+        <div className="aqua-console glass">
+          <span>FROM FRAMES TO INSIGHT</span>
+          <div>
+            <i />
+            <i />
+            <i />
+            <i />
+            <i />
+            <i />
+            <i />
+            <i />
+            <i />
+            <i />
+            <i />
+            <i />
+          </div>
+          <small>
+            DETECT <ArrowRight size={11} /> TRACK <ArrowRight size={11} />{" "}
+            UNDERSTAND
+          </small>
+        </div>
+        <div className="aqua-stat glass">
+          <small>FROM DATA TO</small>
+          <strong>
+            Insight<span>↗</span>
+          </strong>
+        </div>
+      </div>
+    );
+  if (id === "web-platforms")
+    return (
+      <div className="project-visual rental-visual" aria-hidden="true">
+        <div className="rental-glow" />
+        <div className="rental-browser glass">
+          <div className="mock-browser-bar">
+            <span>
+              <i />
+              <i />
+              <i />
+            </span>
+            <small>interface / experience</small>
+            <Layers3 size={12} />
+          </div>
+          <div className="rental-content">
+            <p className="rental-logo">
+              spaces<span>✳</span>
+            </p>
+            <h4>
+              Your next chapter.
+              <br />
+              <em>Your next space.</em>
+            </h4>
+            <div className="rental-search">
+              <span>
+                <Globe2 size={11} /> Kampala, Uganda
+              </span>
+              <i>
+                <ArrowUpRight size={13} />
+              </i>
+            </div>
+            <div className="house-art">
+              <div className="house-block block-back" />
+              <div className="house-block block-front">
+                <i />
+                <i />
+                <i />
+                <i />
+                <i />
+                <i />
+              </div>
+              <span className="house-ground" />
+              <div className="house-label">
+                SPACES THAT FEEL LIKE YOU <ArrowUpRight size={12} />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="rental-float glass">
+          <Check size={14} />
+          <span>
+            Hosts & guests.
+            <br />
+            <strong>One connected platform.</strong>
+          </span>
+        </div>
+      </div>
+    );
+  if (id === "business-systems")
+    return (
+      <div className="project-visual sm-visual" aria-hidden="true">
+        <div className="engineering-grid" />
+        <div className="sm-browser">
+          <div className="sm-nav">
+            <strong>
+              lx<span>✳</span>
+            </strong>
+            <span>BUSINESS SYSTEMS</span>
+            <Menu size={15} />
+          </div>
+          <div className="sm-content">
+            <span>BUILT TO PERFORM.</span>
+            <h4>
+              Precision.
+              <br />
+              Power.
+              <br />
+              <em>Possibility.</em>
+            </h4>
+            <div className="metal-form">
+              <i />
+              <i />
+              <i />
+            </div>
+            <small>INTERFACES / WORKFLOWS / AUTOMATION</small>
+          </div>
+          <div className="sm-bottom">
+            REAL PROBLEMS. USEFUL SOFTWARE.
+            <ArrowUpRight size={17} />
+          </div>
+        </div>
+        <span className="visual-corner">
+          DIGITAL EXPERIENCES / ILLUSTRATION
+        </span>
+      </div>
+    );
+  return (
+    <div className="project-visual network-visual" aria-hidden="true">
+      <div className="visual-grid" />
+      <div className="network-topline">
+        <Network size={17} />
+        <span>CONNECTED BY DESIGN</span>
+        <span>SYS.04</span>
+      </div>
+      <svg className="network-diagram" viewBox="0 0 540 230">
+        <defs>
+          <linearGradient id="networkLine">
+            <stop stopColor="#73a9ff" />
+            <stop offset="1" stopColor="#b191ff" />
+          </linearGradient>
+        </defs>
+        <g
+          className="network-lines"
+          stroke="url(#networkLine)"
+          strokeWidth="1.2"
+          fill="none"
+        >
+          <path d="M270 52V100H70V168M270 100H200V168M270 100H340V168M270 100H470V168" />
+        </g>
+        <g
+          className="network-pulses"
+          stroke="#b9d5ff"
+          strokeWidth="2"
+          fill="none"
+        >
+          <path d="M270 52V100H70V168M270 100H200V168M270 100H340V168M270 100H470V168" />
+        </g>
+        <g fill="#141b33" stroke="#536b9b">
+          <rect x="207" y="12" width="126" height="50" rx="12" />
+          {[30, 160, 300, 430].map((x) => (
+            <rect x={x} y="165" width="80" height="42" rx="10" key={x} />
+          ))}
+        </g>
+        <g
+          textAnchor="middle"
+          fill="#d4ddff"
+          fontFamily="monospace"
+          fontSize="10"
+        >
+          <text x="270" y="41">
+            CORE / ROUTING
+          </text>
+          <text x="70" y="190">
+            VLAN 20
+          </text>
+          <text x="200" y="190">
+            VLAN 30
+          </text>
+          <text x="340" y="190">
+            VLAN 40
+          </text>
+          <text x="470" y="190">
+            VLAN 50
+          </text>
+        </g>
+        <g fill="#81e0c4">
+          {[248, 270, 292].map((x) => (
+            <circle cx={x} cy="53" r="1.6" key={x} />
+          ))}
+        </g>
+      </svg>
+      <div className="terminal-strip">
+        <span>~</span> automate the routine. understand the system.
+        <i />
+      </div>
+    </div>
+  );
+}
+
+function ProjectCard({ project, onOpen, motion }) {
+  const wide =
+    project.id === "intelligent-systems" ||
+    project.id === "network-infrastructure";
+  return (
+    <article
+      className={`project-card ${wide ? "project-wide" : ""} project-${project.id}`}
+      data-reveal
+    >
+      <Tilt className="project-art" motion={motion}>
+        <ProjectVisual id={project.id} />
+      </Tilt>
+      <div className="project-body">
+        <div className="project-eyebrow">
+          <span>{project.category}</span>
+          <span>/{project.number}</span>
+        </div>
+        <h3>
+          {project.title}
+          <span>↗</span>
+        </h3>
+        <p className="project-summary">{project.summary}</p>
+        <p className="project-description">{project.description}</p>
+        <ul className="project-tags">
+          {project.stack.slice(0, 4).map((tag) => (
+            <li key={tag}>{tag}</li>
+          ))}
+        </ul>
+        <button
+          type="button"
+          className="project-link"
+          onClick={() => onOpen(project)}
+          aria-label={`Explore ${project.title}`}
+        >
+          Explore this capability <ArrowUpRight size={18} aria-hidden="true" />
+        </button>
+      </div>
+    </article>
+  );
+}
+
+function Work({ onOpen, motion }) {
+  const [filter, setFilter] = useState("All work");
+  const filters = ["All work", "Applications", "AI & data", "Networks"];
+  const shown = projects.filter(
+    (project) => filter === "All work" || project.filter === filter,
+  );
+  return (
+    <section
+      className="work-section section container"
+      id="work"
+      aria-labelledby="work-title"
+    >
+      <SectionHeading
+        number="02"
+        label="WHAT I BUILD"
+        title={
+          <span id="work-title">
+            Ideas made <em>tangible.</em>
+          </span>
+        }
+        description="Four connected areas of my practice. From the interface you see to the intelligence and infrastructure underneath."
+      />
+      <div className="work-toolbar" data-reveal>
+        <div
+          className="project-filters"
+          role="group"
+          aria-label="Filter capabilities"
+        >
+          {filters.map((value) => (
+            <button
+              type="button"
+              key={value}
+              aria-pressed={filter === value}
+              onClick={() => setFilter(value)}
+            >
+              {value}
+              {value === "All work" && <span>04</span>}
+            </button>
+          ))}
+        </div>
+        <span className="micro work-index" aria-live="polite">
+          {String(shown.length).padStart(2, "0")} BUILD DOMAINS
+        </span>
+      </div>
+      <div className="projects-grid">
+        {shown.map((project) => (
+          <ProjectCard
+            key={project.id}
+            project={project}
+            onOpen={onOpen}
+            motion={motion}
+          />
+        ))}
+      </div>
+      <div className="workbench" data-reveal>
+        <div className="workbench-heading">
+          <span className="eyebrow">ALWAYS EXPLORING</span>
+          <span className="micro">MORE WAYS TO TURN IDEAS INTO REALITY.</span>
+        </div>
+        {experiments.map((experiment, index) => {
+          const Icon = icons[experiment.icon];
+          return (
+            <details key={experiment.title} className="experiment">
+              <summary>
+                <span className="experiment-index">0{index + 5}</span>
+                <Icon size={20} aria-hidden="true" />
+                <h3>{experiment.title}</h3>
+                <span className="experiment-stack">{experiment.stack}</span>
+                <Plus
+                  size={20}
+                  className="experiment-plus"
+                  aria-hidden="true"
+                />
+              </summary>
+              <p>{experiment.description}</p>
+            </details>
+          );
+        })}
+      </div>
+    </section>
+  );
+}
+
+function ProjectDialog({ project, onClose }) {
+  const dialog = useRef(null);
+  useEffect(() => {
+    const node = dialog.current;
+    if (!project) {
+      if (node.open) node.close();
+      return;
+    }
+    if (!node.open) node.showModal();
+    const previous = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = previous;
+    };
+  }, [project]);
+  function backdrop(event) {
+    if (event.target === dialog.current) {
+      const rect = dialog.current.getBoundingClientRect();
+      if (
+        event.clientX < rect.left ||
+        event.clientX > rect.right ||
+        event.clientY < rect.top ||
+        event.clientY > rect.bottom
+      )
+        onClose();
+    }
+  }
+  return (
+    <dialog
+      ref={dialog}
+      className="project-dialog"
+      aria-labelledby="dialog-title"
+      onCancel={(event) => {
+        event.preventDefault();
+        onClose();
+      }}
+      onClose={onClose}
+      onClick={backdrop}
+    >
+      {project && (
+        <div className="dialog-content">
+          <button
+            className="dialog-close"
+            type="button"
+            onClick={onClose}
+            aria-label="Close capability details"
+            autoFocus
+          >
+            <X size={20} />
+          </button>
+          <p className="eyebrow">
+            CAPABILITY / {project.number}{" "}
+            <span className="dialog-status">{project.status}</span>
+          </p>
+          <h2 id="dialog-title">{project.title}</h2>
+          <p className="dialog-lead">{project.summary}</p>
+          <p className="dialog-role">{project.role}</p>
+          <div className="case-study">
+            <section>
+              <span>01 / THE CHALLENGE</span>
+              <p>{project.challenge}</p>
+            </section>
+            <section>
+              <span>02 / THE APPROACH</span>
+              <p>{project.detail}</p>
+            </section>
+            <section>
+              <span>03 / WHAT I BRING</span>
+              <p>{project.result}</p>
+            </section>
+          </div>
+          {project.metrics && (
+            <div className="project-metrics">
+              {project.metrics.map((metric) => (
+                <div key={metric.label}>
+                  <strong>{metric.value}</strong>
+                  <span>{metric.label}</span>
+                </div>
+              ))}
+            </div>
+          )}
+          <ul className="project-highlights">
+            {project.highlights.map((highlight) => (
+              <li key={highlight}>
+                <Check size={16} aria-hidden="true" />
+                {highlight}
+              </li>
+            ))}
+          </ul>
+          {project.note && <p className="project-note">{project.note}</p>}
+          <ul className="project-tags">
+            {project.stack.map((tag) => (
+              <li key={tag}>{tag}</li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </dialog>
+  );
 }
 
 function About() {
   return (
-    <section className="about section" id="about"><div className="page-shell about-grid">
-      <div className="about-intro" data-reveal><p className="eyebrow">01 / ABOUT</p><h2>Not just websites.<br /><span>Systems.</span></h2></div>
-      <div className="about-copy" data-reveal><p className="about-lead">I&apos;m Lumu Francis Xavier — a software engineering student and hands-on builder working across product, infrastructure and intelligent systems.</p><p>My work moves between interfaces people touch and the deeper layers they depend on: APIs, databases, Linux services, networks, automation and machine learning. That range lets me think beyond a single page and design the whole experience around the problem.</p><p>I learn aggressively and build with a simple mindset: understand the problem, prototype the idea, test the assumptions, improve the system and ship something useful.</p></div>
-      <div className="about-object" data-reveal aria-hidden="true"><div className="core-orb"><div className="core-ring ring-a" /><div className="core-ring ring-b" /><div className="core-ring ring-c" /><div className="core-center"><Cpu size={34} /></div></div><span>IDEA</span><span>ARCHITECTURE</span><span>BUILD</span><span>ITERATE</span></div>
-    </div></section>
+    <section
+      className="about-section section container"
+      id="about"
+      aria-labelledby="about-title"
+    >
+      <div className="about-portrait" data-reveal>
+        <div className="about-photo-frame">
+          <img
+            src={profile.portrait}
+            alt="Portrait of Lumu Francis Xavier"
+            width="1080"
+            height="1080"
+            loading="lazy"
+          />
+          <div className="about-photo-gradient" />
+          <div className="photo-caption">
+            <span>CURIOUS MIND. BUILDER AT HEART.</span>
+            <strong>
+              More than
+              <br />a line of code.
+            </strong>
+          </div>
+        </div>
+        <div className="about-location glass">
+          <Globe2 size={23} aria-hidden="true" />
+          <span>
+            Kampala, Uganda<small>LOCAL ROOTS. LIMITLESS OUTLOOK.</small>
+          </span>
+          <span className="status-dot" />
+        </div>
+      </div>
+      <div className="about-content" data-reveal>
+        <p className="eyebrow">
+          <span>03</span>THE HUMAN BEHIND THE SYSTEMS
+        </p>
+        <h2 id="about-title">
+          Curiosity is
+          <br />
+          my <em>operating system.</em>
+        </h2>
+        <p className="about-lead">
+          I’m Lumu, a software engineering student who sees technology as a way
+          to turn “what if?” into “it works.”
+        </p>
+        <p>
+          I move between building web platforms, training computer vision
+          models, configuring networks, and understanding the data underneath.
+          Every project adds a new way to think. Every challenge is an
+          invitation to go deeper.
+        </p>
+        <p>
+          My ambition is to build independent, useful products that solve real
+          problems—starting with the communities and businesses around me, and
+          thinking far beyond them.
+        </p>
+        <div className="about-credentials">
+          <div>
+            <GraduationCap size={21} aria-hidden="true" />
+            <span>
+              B.Sc. Software Engineering
+              <small>International University of East Africa</small>
+            </span>
+          </div>
+          <div>
+            <BrainCircuit size={21} aria-hidden="true" />
+            <span>
+              IUEA-Labs AI Team
+              <small>Junior member · Applied computer vision</small>
+            </span>
+          </div>
+          <div>
+            <Code2 size={21} aria-hidden="true" />
+            <span>
+              Bank of Uganda Hackathon<small>Participant</small>
+            </span>
+          </div>
+        </div>
+        <div className="about-signoff">
+          <span className="signature">Lumu Xavier</span>
+          <span className="micro">THINKPAD. FEDORA. POSSIBILITIES.</span>
+        </div>
+      </div>
+    </section>
   );
 }
 
-function Capabilities() {
+function Philosophy() {
   return (
-    <section className="section capabilities" id="capabilities"><div className="page-shell">
-      <SectionHeading kicker="02 / CAPABILITIES" title="One builder. Multiple layers." copy="The strongest products happen when interface, logic, data and infrastructure are designed as one connected system." />
-      <div className="capability-grid">{capabilities.map((item) => { const Icon = item.icon; return <article className="capability-card glass-panel" key={item.number} data-reveal><div className="capability-top"><span>{item.number}</span><Icon size={24} /></div><h3>{item.title}</h3><p>{item.copy}</p><div className="tag-row">{item.tags.map((tag) => <span key={tag}>{tag}</span>)}</div></article>; })}</div>
-    </div></section>
+    <section
+      className="philosophy container"
+      aria-labelledby="philosophy-title"
+      data-reveal
+    >
+      <div className="philosophy-light" aria-hidden="true" />
+      <span className="philosophy-star" aria-hidden="true">
+        ✳
+      </span>
+      <p className="eyebrow">THE WAY I THINK</p>
+      <h2 id="philosophy-title">
+        “Impossible” is a starting point.
+        <br />
+        <span>Let’s see what we can build.</span>
+      </h2>
+      <div className="process">
+        <div>
+          <span>01</span>
+          <strong>Understand</strong>
+          <p>Find the problem worth solving.</p>
+        </div>
+        <div>
+          <span>02</span>
+          <strong>Connect</strong>
+          <p>Design how the pieces fit.</p>
+        </div>
+        <div>
+          <span>03</span>
+          <strong>Build</strong>
+          <p>Turn the idea into something real.</p>
+        </div>
+        <div>
+          <span>04</span>
+          <strong>Evolve</strong>
+          <p>Test, learn, and make it better.</p>
+        </div>
+      </div>
+      <div className="exploration">
+        <ShieldCheck size={17} aria-hidden="true" />
+        <p>
+          Currently exploring{" "}
+          <strong>network access & bandwidth products</strong> for small
+          businesses in Uganda.
+        </p>
+        <ArrowUpRight size={18} aria-hidden="true" />
+      </div>
+    </section>
   );
 }
 
-function BuildCard({ item, index }) {
-  const icons = [Layers3, Code2, BrainCircuit, Network, Database, Smartphone];
-  const Icon = icons[index % icons.length];
-  return <article className="project-card" data-reveal><div className={`project-visual project-tone-${(index % 4) + 1}`}><div className="project-visual-grid" aria-hidden="true" /><div className="project-visual-top"><span>{item.number}</span><span>{item.category}</span></div><div className="project-symbol" aria-hidden="true"><div className="project-symbol-ring" /><Icon size={56} /></div><div className="project-visual-title">{item.title}</div><div className="project-status">{item.status}</div></div><div className="project-copy"><div className="project-copy-top"><span>{item.role}</span><ArrowUpRight size={20} /></div><h3>{item.summary}</h3><p>{item.detail}</p><div className="tag-row project-tags">{item.stack.map((tech) => <span key={tech}>{tech}</span>)}</div><ul className="project-points">{item.highlights.map((point) => <li key={point}>{point}</li>)}</ul></div></article>;
+function InstagramIcon() {
+  return (
+    <svg
+      width="18"
+      height="18"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.6"
+      aria-hidden="true"
+    >
+      <rect x="3" y="3" width="18" height="18" rx="5" />
+      <circle cx="12" cy="12" r="4" />
+      <circle cx="17.5" cy="6.5" r=".8" fill="currentColor" stroke="none" />
+    </svg>
+  );
 }
 
-function Systems() {
-  return <section className="section work" id="systems"><div className="page-shell"><SectionHeading kicker="03 / WHAT I BUILD" title="Capability without exposing private work." copy="This is the kind of engineering I can take on. The portfolio shows the thinking and technical range without publishing private client names, unfinished products or confidential project details." /><div className="project-list">{buildDomains.map((item, index) => <BuildCard key={item.id} item={item} index={index} />)}</div></div></section>;
-}
-
-function Approach() {
-  return <section className="section lab" id="approach"><div className="page-shell"><SectionHeading kicker="04 / APPROACH" title="Build. Test. Improve. Repeat." copy="The tools change. The method stays simple: understand the problem deeply, make the architecture clear and keep moving until the system works." /><div className="lab-grid">{principles.map((item, index) => <article className={`lab-card lab-card-${index + 1}`} key={item.title} data-reveal><div className="lab-index">0{index + 1}</div><h3>{item.title}</h3><p>{item.description}</p><span>{item.stack}</span><ArrowUpRight size={20} /></article>)}<article className="lab-card lab-manifesto" data-reveal><Sparkles size={30} /><p>Nothing is impossible. Some things just need a better first prototype.</p></article></div></div></section>;
+function ContactForm() {
+  const [error, setError] = useState("");
+  const [draftUrl, setDraftUrl] = useState("");
+  function compose(event) {
+    event.preventDefault();
+    const data = new FormData(event.currentTarget);
+    const name = String(data.get("name") || "").trim();
+    const message = String(data.get("message") || "").trim();
+    if (!name || !message) {
+      setError("Add your name and a message to start the conversation.");
+      return;
+    }
+    setError("");
+    const url = new URL(profile.whatsapp);
+    url.searchParams.set("text", `Hi Xavier, I’m ${name}.\n\n${message}`);
+    setDraftUrl(url.href);
+    window.open(url.href, "_blank", "noopener,noreferrer");
+  }
+  return (
+    <form className="contact-form glass" onSubmit={compose}>
+      <div className="form-heading">
+        <span className="form-symbol">
+          <MessageCircle size={22} aria-hidden="true" />
+        </span>
+        <div>
+          <h3>Start a conversation.</h3>
+          <p>Good things begin with a hello.</p>
+        </div>
+        <span className="status-dot" />
+      </div>
+      <label>
+        Your name
+        <input
+          name="name"
+          placeholder="What should I call you?"
+          autoComplete="name"
+          required
+          maxLength="120"
+        />
+      </label>
+      <label>
+        What are you imagining?
+        <textarea
+          name="message"
+          placeholder="An idea, a challenge, a collaboration…"
+          rows="4"
+          required
+          maxLength="2000"
+        />
+      </label>
+      <button className="button button-light" type="submit">
+        Let’s make it happen <ArrowUpRight size={20} aria-hidden="true" />
+      </button>
+      <p className="form-note">
+        <MessageCircle size={13} aria-hidden="true" /> Opens a WhatsApp draft.
+        You choose when to send.
+      </p>
+      {error && (
+        <p className="form-status" role="alert">
+          {error}
+        </p>
+      )}
+      {draftUrl && (
+        <p className="form-status" role="status">
+          Your draft is ready.{" "}
+          <ExternalLink href={draftUrl}>
+            Continue to WhatsApp <ArrowUpRight size={13} />
+          </ExternalLink>
+        </p>
+      )}
+    </form>
+  );
 }
 
 function Contact() {
-  return <section className="contact section" id="contact"><div className="page-shell contact-panel" data-reveal><div className="contact-orb" aria-hidden="true" /><p className="eyebrow">05 / LET&apos;S BUILD</p><h2>Have an idea that feels<span> too ambitious?</span></h2><p className="contact-copy">Good. Those are the interesting ones. Tell me what you&apos;re trying to create and we&apos;ll turn it into a system we can actually ship.</p><div className="contact-actions"><ExternalLink href={profile.whatsapp} className="button button-primary button-large">WhatsApp me <ArrowUpRight size={20} /></ExternalLink><ExternalLink href={profile.github} className="button button-ghost button-large"><Github size={19} /> GitHub</ExternalLink><ExternalLink href={profile.instagram} className="button button-ghost button-large">Instagram <ArrowUpRight size={18} /></ExternalLink></div><div className="contact-meta"><span>Based in Kampala · building for anywhere</span><span>{profile.whatsappDisplay}</span></div></div></section>;
+  return (
+    <section
+      className="contact-section section container"
+      id="contact"
+      aria-labelledby="contact-title"
+    >
+      <div className="contact-copy" data-reveal>
+        <p className="eyebrow">
+          <span>04</span>YOUR NEXT IDEA STARTS HERE
+        </p>
+        <h2 id="contact-title">
+          Let’s make
+          <br />
+          <em>something</em>
+          <br />
+          extraordinary<span>.</span>
+        </h2>
+        <p>
+          A platform. An intelligent system. A better way of doing things. Tell
+          me what’s on your mind.
+        </p>
+        <ExternalLink href={profile.whatsapp} className="whatsapp-link">
+          <MessageCircle size={20} aria-hidden="true" />{" "}
+          {profile.whatsappDisplay}
+          <ArrowUpRight size={18} aria-hidden="true" />
+        </ExternalLink>
+        <div className="social-links">
+          <ExternalLink href={profile.github}>
+            <GitBranch size={17} aria-hidden="true" />
+            GitHub
+            <ArrowUpRight size={13} aria-hidden="true" />
+          </ExternalLink>
+          <ExternalLink href={profile.instagram}>
+            <InstagramIcon />
+            Instagram
+            <ArrowUpRight size={13} aria-hidden="true" />
+          </ExternalLink>
+        </div>
+      </div>
+      <div data-reveal>
+        <ContactForm />
+      </div>
+    </section>
+  );
 }
 
 function Footer() {
-  return <footer className="footer"><div className="page-shell footer-inner"><a className="brand footer-brand" href="#home"><span className="brand-mark">LX</span><span className="brand-copy">Lumu Xavier</span></a><p>Designing possibility through code, systems and curiosity.</p><span>© {new Date().getFullYear()}</span></div></footer>;
+  return (
+    <footer className="site-footer container">
+      <a
+        className="footer-logo"
+        href="#home"
+        aria-label="Lumu Xavier, back to top"
+      >
+        lumu<span>✳</span>
+      </a>
+      <p>
+        © {new Date().getFullYear()} Lumu Francis Xavier
+        <br />
+        <span>Thoughtfully built. Endlessly evolving.</span>
+      </p>
+      <a href="#home" className="back-top">
+        BACK TO TOP <ArrowUpRight size={17} aria-hidden="true" />
+      </a>
+    </footer>
+  );
 }
 
 export default function App() {
-  useEffect(() => {
-    const root = document.documentElement;
-    const onPointerMove = (event) => { root.style.setProperty("--cursor-x", `${event.clientX}px`); root.style.setProperty("--cursor-y", `${event.clientY}px`); };
-    window.addEventListener("pointermove", onPointerMove, { passive: true });
-    const observer = new IntersectionObserver((entries) => entries.forEach((entry) => { if (entry.isIntersecting) { entry.target.classList.add("revealed"); observer.unobserve(entry.target); } }), { threshold: 0.12, rootMargin: "0px 0px -8% 0px" });
-    document.querySelectorAll("[data-reveal]").forEach((node) => observer.observe(node));
-    return () => { window.removeEventListener("pointermove", onPointerMove); observer.disconnect(); };
-  }, []);
-  return <div className="site-wrap"><div className="cursor-glow" aria-hidden="true" /><Header /><main><Hero /><Marquee /><About /><Capabilities /><Systems /><Approach /><Contact /></main><Footer /></div>;
+  const [motion, toggleMotion] = useMotion();
+  const [project, setProject] = useState(null);
+  const root = useRef(null);
+  useReveal(root, motion);
+  return (
+    <div
+      className="portfolio"
+      ref={root}
+      data-motion={motion ? "running" : "paused"}
+    >
+      <a className="skip-link" href="#main">
+        Skip to content
+      </a>
+      <div className="ambient-backdrop" aria-hidden="true" />
+      <Header motion={motion} onToggle={toggleMotion} />
+      <main id="main">
+        <Hero motion={motion} />
+        <CapabilityRail />
+        <Expertise motion={motion} />
+        <Work motion={motion} onOpen={setProject} />
+        <About />
+        <Philosophy />
+        <Contact />
+      </main>
+      <Footer />
+      <ProjectDialog project={project} onClose={() => setProject(null)} />
+    </div>
+  );
 }
