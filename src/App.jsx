@@ -1,795 +1,180 @@
 import React, { useEffect, useRef, useState } from "react";
 import {
   ArrowDown,
+  ArrowRight,
   ArrowUpRight,
   BrainCircuit,
-  Check,
-  ChevronRight,
   Code2,
   Cpu,
-  GitBranch as Github,
-  Globe2,
-  GraduationCap,
+  Database,
+  Github,
   Layers3,
   Menu,
-  MessageSquare,
-  Monitor,
   Network,
-  ShieldCheck,
+  Smartphone,
+  Sparkles,
   Terminal,
   X,
-  Gamepad2,
 } from "lucide-react";
-import { experiments, profile, projects, skills } from "./profile";
+import { experiments, profile, projects } from "./profile";
 
-const icons = {
-  code: Code2,
-  brain: BrainCircuit,
-  network: Network,
-  shield: ShieldCheck,
-  message: MessageSquare,
-  game: Gamepad2,
-  window: Monitor,
-  terminal: Terminal,
-};
 const navItems = [
   ["about", "About"],
+  ["capabilities", "Capabilities"],
   ["work", "Projects"],
-  ["expertise", "Expertise"],
+  ["lab", "Lab"],
 ];
 
+const capabilities = [
+  { number: "01", title: "Web applications", icon: Code2, copy: "Fast, responsive interfaces connected to real backends, APIs, authentication and deployment workflows.", tags: ["React", "Vite", "Node.js", "REST APIs"] },
+  { number: "02", title: "System development", icon: Cpu, copy: "Operational systems built around the way a business actually works — records, workflows, roles, reporting and automation.", tags: ["Architecture", "Dashboards", "Automation", "Workflows"] },
+  { number: "03", title: "AI & machine learning", icon: BrainCircuit, copy: "Applied computer vision and intelligent workflows that turn raw video, data and conversations into useful decisions.", tags: ["Python", "YOLO", "PyTorch", "Gemini"] },
+  { number: "04", title: "Networking", icon: Network, copy: "The infrastructure underneath the interface: Linux services, routing, VLANs, DHCP, DNS and repeatable network automation.", tags: ["Linux", "Cisco", "GNS3", "Bash"] },
+  { number: "05", title: "Database management", icon: Database, copy: "Structured data models that keep products reliable as they grow — from transactional records to searchable operational data.", tags: ["SQL", "MySQL", "Data modelling", "CRUD"] },
+  { number: "06", title: "Mobile-ready products", icon: Smartphone, copy: "Responsive product experiences and API-first foundations designed to move naturally from the browser to mobile clients.", tags: ["Responsive UI", "API-first", "PWA thinking", "UX"] },
+];
+
+const capabilityMarquee = ["WEB APPLICATIONS", "SYSTEM DEVELOPMENT", "AI + MACHINE LEARNING", "NETWORK ENGINEERING", "DATABASES", "MOBILE EXPERIENCES"];
+
 function ExternalLink({ href, children, className = "", ...props }) {
-  return (
-    <a
-      href={href}
-      target="_blank"
-      rel="noopener noreferrer"
-      className={className}
-      {...props}
-    >
-      {children}
-    </a>
-  );
+  return <a href={href} target="_blank" rel="noopener noreferrer" className={className} {...props}>{children}</a>;
 }
 
 function Header() {
   const [open, setOpen] = useState(false);
-  const [active, setActive] = useState("");
-
-  useEffect(() => {
-    const sections = navItems.map(([id]) => document.getElementById(id));
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries.find((entry) => entry.isIntersecting);
-        if (visible) setActive(visible.target.id);
-      },
-      { rootMargin: "-18% 0px -58% 0px" },
-    );
-    sections.forEach((section) => section && observer.observe(section));
-    return () => observer.disconnect();
-  }, []);
-
   useEffect(() => {
     if (!open) return;
-    const closeOnEscape = (event) => {
-      if (event.key === "Escape") {
-        setOpen(false);
-        document.getElementById("menu-button")?.focus();
-      }
-    };
-    window.addEventListener("keydown", closeOnEscape);
-    return () => window.removeEventListener("keydown", closeOnEscape);
+    const onKey = (event) => event.key === "Escape" && setOpen(false);
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
   }, [open]);
-
   return (
     <header className="site-header">
-      <div className="container header-inner">
-        <a
-          href="#home"
-          className="wordmark"
-          aria-label="Lumu Xavier, home"
-          onClick={() => setOpen(false)}
-        >
-          lumu<span>.</span>
-          <span className="wordmark-label">/ xavier</span>
+      <div className="nav-shell">
+        <a href="#home" className="brand" onClick={() => setOpen(false)}>
+          <span className="brand-mark">LX</span>
+          <span className="brand-copy">Lumu Xavier<small>software engineer</small></span>
         </a>
-        <nav
-          className={`navigation ${open ? "is-open" : ""}`}
-          id="main-navigation"
-          aria-label="Main navigation"
-        >
-          {navItems.map(([id, label]) => (
-            <a
-              key={id}
-              href={`#${id}`}
-              aria-current={active === id ? "location" : undefined}
-              onClick={() => setOpen(false)}
-            >
-              {label}
-            </a>
-          ))}
-          <a
-            className="nav-contact"
-            href="#contact"
-            onClick={() => setOpen(false)}
-          >
-            Let’s talk <ArrowUpRight size={16} aria-hidden="true" />
-          </a>
+        <nav className={`nav-links ${open ? "open" : ""}`} aria-label="Primary navigation">
+          {navItems.map(([id, label]) => <a key={id} href={`#${id}`} onClick={() => setOpen(false)}>{label}</a>)}
+          <a className="nav-cta" href="#contact" onClick={() => setOpen(false)}>Start a project <ArrowUpRight size={15} /></a>
         </nav>
-        <button
-          type="button"
-          className="menu-toggle"
-          id="menu-button"
-          aria-label={open ? "Close navigation" : "Open navigation"}
-          aria-expanded={open}
-          aria-controls="main-navigation"
-          onClick={() => setOpen((value) => !value)}
-        >
-          {open ? <X aria-hidden="true" /> : <Menu aria-hidden="true" />}
-        </button>
+        <button className="menu-button" type="button" aria-label={open ? "Close navigation" : "Open navigation"} aria-expanded={open} onClick={() => setOpen((value) => !value)}>{open ? <X /> : <Menu />}</button>
       </div>
     </header>
   );
 }
 
+function PortraitStage() {
+  const stageRef = useRef(null);
+  const handlePointerMove = (event) => {
+    const stage = stageRef.current;
+    if (!stage) return;
+    const rect = stage.getBoundingClientRect();
+    const x = (event.clientX - rect.left) / rect.width - 0.5;
+    const y = (event.clientY - rect.top) / rect.height - 0.5;
+    stage.style.setProperty("--tilt-x", `${(-y * 10).toFixed(2)}deg`);
+    stage.style.setProperty("--tilt-y", `${(x * 12).toFixed(2)}deg`);
+    stage.style.setProperty("--shift-x", `${(x * 18).toFixed(2)}px`);
+    stage.style.setProperty("--shift-y", `${(y * 18).toFixed(2)}px`);
+  };
+  const resetTilt = () => {
+    const stage = stageRef.current;
+    if (!stage) return;
+    ["--tilt-x", "--tilt-y"].forEach((key) => stage.style.setProperty(key, "0deg"));
+    ["--shift-x", "--shift-y"].forEach((key) => stage.style.setProperty(key, "0px"));
+  };
+  return (
+    <div className="portrait-stage" ref={stageRef} onPointerMove={handlePointerMove} onPointerLeave={resetTilt}>
+      <div className="orbit orbit-one" aria-hidden="true" /><div className="orbit orbit-two" aria-hidden="true" /><div className="portrait-glow" aria-hidden="true" />
+      <div className="portrait-card">
+        <img src={profile.portrait} alt="Stylized portrait of Lumu Francis Xavier" width="360" height="360" fetchPriority="high" />
+        <div className="portrait-overlay" aria-hidden="true" />
+        <div className="portrait-corner top-left">01 / 26</div><div className="portrait-corner bottom-right">BUILD / LEARN / SHIP</div>
+      </div>
+      <div className="float-chip chip-ai"><BrainCircuit size={17} /> AI / ML</div>
+      <div className="float-chip chip-systems"><Layers3 size={17} /> SYSTEMS</div>
+      <div className="float-chip chip-network"><Network size={17} /> NETWORKS</div>
+      <div className="availability-card glass-panel"><span className="availability-dot" /><div><small>AVAILABLE FOR</small><strong>Ambitious builds</strong></div><ArrowUpRight size={18} /></div>
+    </div>
+  );
+}
+
 function Hero() {
   return (
-    <section className="hero" id="home" aria-labelledby="hero-title">
-      <div className="hero-glow" aria-hidden="true" />
-      <div className="container hero-inner">
-        <div className="hero-topline">
-          <p>Hi, I’m</p>
-          <span className="micro">SOFTWARE ENGINEER / KAMPALA, UG</span>
+    <section className="hero" id="home">
+      <div className="hero-grid-bg" aria-hidden="true" /><div className="aurora aurora-a" aria-hidden="true" /><div className="aurora aurora-b" aria-hidden="true" />
+      <div className="page-shell hero-layout">
+        <div className="hero-copy" data-reveal>
+          <p className="eyebrow hero-eyebrow"><span className="status-dot" /> SOFTWARE ENGINEER · KAMPALA / WORLDWIDE</p>
+          <h1>I build digital systems<span className="hero-outline"> that feel like the future.</span></h1>
+          <p className="hero-lead">From web applications and business systems to AI, networks and data — I turn ambitious ideas into working technology.</p>
+          <div className="hero-actions"><a className="button button-primary" href="#work">Explore projects <ArrowRight size={18} /></a><ExternalLink className="button button-ghost" href={profile.whatsapp}>Let&apos;s build <ArrowUpRight size={18} /></ExternalLink></div>
+          <div className="hero-proof"><div><strong>06</strong><span>capability lanes</span></div><div><strong>{projects.length.toString().padStart(2, "0")}</strong><span>featured builds</span></div><div><strong>∞</strong><span>room to build</span></div></div>
         </div>
-        <h1 id="hero-title">
-          <span className="hero-name-prefix">Lumu Francis</span>{" "}
-          <span className="hero-name-surname">
-            Xavier<span className="hero-period">.</span>
-          </span>
-        </h1>
-        <div className="hero-details">
-          <div className="hero-purpose">
-            <p className="hero-statement">
-              Ideas into code.
-              <br />
-              Code into <span>possibility.</span>
-            </p>
-            <div className="hero-actions">
-              <ExternalLink
-                href={profile.whatsapp}
-                className="button button-primary"
-              >
-                Let’s talk <ArrowUpRight size={18} aria-hidden="true" />
-              </ExternalLink>
-              <a className="text-link" href="#work">
-                View my work <ArrowDown size={16} aria-hidden="true" />
-              </a>
-            </div>
-          </div>
-          <div className="hero-intro">
-            <p>
-              AI-powered systems, full-stack applications, and the networks that
-              connect them.
-            </p>
-            <span>
-              Software engineering student at IUEA.
-              <br />
-              Curious by nature. Hands-on by choice.
-            </span>
-            <ExternalLink href={profile.github} className="hero-github">
-              <Github size={18} aria-hidden="true" />
-              github.com/lumuxav
-              <ArrowUpRight size={16} aria-hidden="true" />
-            </ExternalLink>
-          </div>
-        </div>
-        <div className="hero-footer">
-          <span>
-            <Globe2 size={15} aria-hidden="true" />
-            BASED IN UGANDA
-          </span>
-          <a href="#about">
-            MORE ABOUT ME <ArrowDown size={15} aria-hidden="true" />
-          </a>
-        </div>
+        <div className="hero-visual" data-reveal><PortraitStage /></div>
       </div>
-      <div
-        className="capability-band"
-        aria-label="Full-stack development, applied machine learning, and network systems"
-      >
-        <div>
-          <span>Full-stack development</span>
-          <span className="band-star" aria-hidden="true">
-            ✦
-          </span>
-          <span>Applied machine learning</span>
-          <span className="band-star" aria-hidden="true">
-            ✦
-          </span>
-          <span>Network systems</span>
-        </div>
-      </div>
+      <a href="#about" className="scroll-cue" aria-label="Scroll to about section">SCROLL TO EXPLORE <ArrowDown size={15} /></a>
     </section>
   );
 }
 
-function SectionHeading({ number, eyebrow, title, children }) {
-  return (
-    <div className="section-heading">
-      <div>
-        <p className="eyebrow">
-          <span className="section-number">{number}</span>
-          {eyebrow}
-        </p>
-        <h2>{title}</h2>
-      </div>
-      {children && <p className="section-intro">{children}</p>}
-    </div>
-  );
+function Marquee() {
+  return <div className="marquee" aria-hidden="true"><div className="marquee-track">{[...capabilityMarquee, ...capabilityMarquee].map((item, index) => <React.Fragment key={`${item}-${index}`}><span>{item}</span><Sparkles size={16} /></React.Fragment>)}</div></div>;
 }
 
-function ProjectVisual({ project }) {
-  if (project.image)
-    return (
-      <div className={`project-visual visual-${project.id}`}>
-        <img
-          src={project.image}
-          alt={`${project.title} project interface`}
-          loading="lazy"
-          width="720"
-          height="440"
-        />
-      </div>
-    );
-  if (project.id === "rentalhub")
-    return (
-      <div className="project-visual visual-rentalhub">
-        <div className="visual-topline">
-          <span>RENTAL EXPERIENCES, RECONSIDERED</span>
-          <Layers3 size={19} aria-hidden="true" />
-        </div>
-        <div className="rental-wordmark">
-          Rental<span>Hub</span>
-          <span className="rental-period">.</span>
-        </div>
-        <div className="rental-roles">
-          <span>FOR HOSTS</span>
-          <span className="roles-rule" aria-hidden="true" />
-          <span>FOR GUESTS</span>
-        </div>
-        <div className="visual-bottomline">
-          <span>UGANDA</span>
-          <span>A PLACE TO BELONG.</span>
-        </div>
-      </div>
-    );
-  if (project.id === "aquasentinel")
-    return (
-      <div className="project-visual visual-aquasentinel">
-        <div className="visual-topline">
-          <span>COMPUTER VISION / AQUACULTURE</span>
-          <BrainCircuit size={19} aria-hidden="true" />
-        </div>
-        <div className="aqua-wordmark">
-          Aqua<span>Sentinel</span>
-          <span className="micro">_ML</span>
-        </div>
-        <div
-          className="pipeline"
-          aria-label="YOLO detection, ByteTrack tracking, BiLSTM classification"
-        >
-          <span>
-            YOLO<small>DETECT</small>
-          </span>
-          <ChevronRight size={18} aria-hidden="true" />
-          <span>
-            ByteTrack<small>TRACK</small>
-          </span>
-          <ChevronRight size={18} aria-hidden="true" />
-          <span>
-            BiLSTM<small>CLASSIFY</small>
-          </span>
-        </div>
-        <div className="visual-bottomline">
-          <span>IUEA-LABS AI TEAM</span>
-          <span>VIDEO → INSIGHT</span>
-        </div>
-      </div>
-    );
-  if (project.id === "sm-engineering")
-    return (
-      <div className="project-visual visual-sm-engineering">
-        <div className="visual-topline">
-          <span>INDUSTRIAL SERVICES / CLIENT WORK</span>
-          <Cpu size={19} aria-hidden="true" />
-        </div>
-        <div className="sm-wordmark">
-          SM
-          <span>
-            ENGINEERING
-            <br />
-            WORKS
-          </span>
-        </div>
-        <div className="visual-bottomline">
-          <span>FABRICATION / REPAIR / ELECTRONICS</span>
-          <span>BUILT FOR BUSINESS.</span>
-        </div>
-      </div>
-    );
-  return (
-    <div className="project-visual visual-network-labs">
-      <div className="visual-topline">
-        <span>NETWORK LABS / AUTOMATION</span>
-        <Network size={19} aria-hidden="true" />
-      </div>
-      <div className="network-title">
-        Connected.
-        <br />
-        <span>Configured.</span>
-      </div>
-      <div className="network-services">
-        <span>DHCP</span>
-        <span>DNS</span>
-        <span>VLAN</span>
-        <span>BASH</span>
-      </div>
-      <div className="visual-bottomline">
-        <span>LINUX / CISCO / GNS3</span>
-        <span>BELOW THE SURFACE.</span>
-      </div>
-    </div>
-  );
-}
-
-function ProjectCard({ project, onOpen }) {
-  return (
-    <article className={`project-card project-${project.id}`}>
-      <ProjectVisual project={project} />
-      <div className="project-content">
-        <div className="project-meta">
-          <span>
-            {project.number} / {project.category}
-          </span>
-          <span className="project-status">{project.status}</span>
-        </div>
-        <h3>{project.title}</h3>
-        <p>{project.summary}</p>
-        <div className="project-card-footer">
-          <ul className="tags" aria-label="Technologies">
-            {project.stack.slice(0, 4).map((tag) => (
-              <li key={tag}>{tag}</li>
-            ))}
-          </ul>
-          <button
-            type="button"
-            className="project-open"
-            onClick={() => onOpen(project)}
-            aria-label={`Explore ${project.title}`}
-          >
-            <span>Read story</span>
-            <ArrowUpRight size={18} aria-hidden="true" />
-          </button>
-        </div>
-      </div>
-    </article>
-  );
-}
-
-function ProjectDialog({ project, onClose }) {
-  const ref = useRef(null);
-  useEffect(() => {
-    if (!project) return;
-    const dialog = ref.current;
-    const previousOverflow = document.body.style.overflow;
-    dialog.showModal();
-    document.body.style.overflow = "hidden";
-    return () => {
-      dialog.close();
-      document.body.style.overflow = previousOverflow;
-    };
-  }, [project]);
-
-  return (
-    <dialog
-      ref={ref}
-      className="project-dialog"
-      aria-labelledby="dialog-title"
-      onCancel={onClose}
-      onClick={(event) => {
-        if (event.target === event.currentTarget) onClose();
-      }}
-    >
-      {project && (
-        <div className="dialog-inner">
-          <button
-            type="button"
-            className="dialog-close icon-button"
-            aria-label="Close project details"
-            onClick={onClose}
-            autoFocus
-          >
-            <X size={22} aria-hidden="true" />
-          </button>
-          <p className="eyebrow">{project.category}</p>
-          <h2 id="dialog-title">{project.title}</h2>
-          <p className="dialog-role">{project.role}</p>
-          <p className="dialog-description">{project.detail}</p>
-          {project.metrics && (
-            <>
-              <div className="metrics">
-                {project.metrics.map((metric) => (
-                  <div key={metric.label}>
-                    <strong>{metric.value}</strong>
-                    <span>{metric.label}</span>
-                  </div>
-                ))}
-              </div>
-              <p className="metric-caption">
-                DETECTOR EVALUATION · 50-EPOCH RUN
-              </p>
-            </>
-          )}
-          <h3>Inside the project</h3>
-          <ul className="project-highlights">
-            {project.highlights.map((item) => (
-              <li key={item}>
-                <Check size={17} aria-hidden="true" />
-                <span>{item}</span>
-              </li>
-            ))}
-          </ul>
-          {project.note && <p className="project-note">{project.note}</p>}
-          <ul className="tags dialog-tags" aria-label="Technologies">
-            {project.stack.map((tag) => (
-              <li key={tag}>{tag}</li>
-            ))}
-          </ul>
-        </div>
-      )}
-    </dialog>
-  );
-}
-
-function Work({ onOpen }) {
-  return (
-    <section
-      className="work-section section container"
-      id="work"
-      aria-labelledby="work-title"
-    >
-      <SectionHeading
-        number="02"
-        eyebrow="SELECTED WORK"
-        title={
-          <span id="work-title">
-            Selected work. Real problems<span className="accent">.</span>
-          </span>
-        }
-      >
-        Real projects. Different challenges.
-        <br />
-        The same drive to figure things out.
-      </SectionHeading>
-      <div className="projects-grid">
-        {projects.map((project) => (
-          <ProjectCard key={project.id} project={project} onOpen={onOpen} />
-        ))}
-      </div>
-      <div className="experiments">
-        <div className="experiments-heading">
-          <span className="micro">ALSO ON MY WORKBENCH</span>
-          <span className="micro">SMALLER BUILDS. MORE EXPLORATION.</span>
-        </div>
-        <div className="experiments-grid">
-          {experiments.map((item) => {
-            const Icon = icons[item.icon];
-            return (
-              <article className="experiment" key={item.title}>
-                <Icon size={21} aria-hidden="true" />
-                <h3>{item.title}</h3>
-                <p>{item.description}</p>
-                <span>{item.stack}</span>
-              </article>
-            );
-          })}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function Expertise() {
-  return (
-    <section
-      className="expertise-section"
-      id="expertise"
-      aria-labelledby="expertise-title"
-    >
-      <div className="container section">
-        <SectionHeading
-          number="03"
-          eyebrow="TECHNICAL EXPERTISE"
-          title={
-            <span id="expertise-title">
-              Curious across the stack<span className="accent">.</span>
-            </span>
-          }
-        >
-          I like understanding how the pieces fit—
-          <br />
-          from the interface down to the network.
-        </SectionHeading>
-        <div className="skills-grid">
-          {skills.map((skill) => {
-            const Icon = icons[skill.icon];
-            return (
-              <article className="skill-card" key={skill.id}>
-                <div className="skill-topline">
-                  <Icon size={25} aria-hidden="true" />
-                  <span className="micro">/{skill.number}</span>
-                </div>
-                <h3>{skill.title}</h3>
-                <p>{skill.description}</p>
-                <ul>
-                  {skill.items.map((item) => (
-                    <li key={item}>{item}</li>
-                  ))}
-                </ul>
-              </article>
-            );
-          })}
-        </div>
-      </div>
-    </section>
-  );
+function SectionHeading({ kicker, title, copy }) {
+  return <div className="section-heading split" data-reveal><div><p className="eyebrow">{kicker}</p><h2>{title}</h2></div>{copy && <p>{copy}</p>}</div>;
 }
 
 function About() {
   return (
-    <section
-      className="about-section section container"
-      id="about"
-      aria-labelledby="about-title"
-    >
-      <div className="about-heading">
-        <p className="eyebrow">
-          <span className="section-number">01</span>THE PERSON BEHIND THE CODE
-        </p>
-        <h2 id="about-title">
-          Rooted in Kampala.
-          <br />
-          <span>Thinking beyond it.</span>
-        </h2>
-        {profile.portrait && (
-          <img
-            className="portrait"
-            src={profile.portrait}
-            alt="Lumu Francis Xavier"
-            loading="lazy"
-            width="480"
-            height="560"
-          />
-        )}
-        <div className="about-signature">
-          Lumu Xavier<span>SOFTWARE ENGINEERING STUDENT</span>
-        </div>
-      </div>
-      <div className="about-body">
-        <p className="about-lead">
-          I’m Lumu, a software engineering student who likes getting past the
-          surface of how things work.
-        </p>
-        <p>
-          That curiosity takes me from training computer vision models to
-          building client websites, configuring Linux servers, and working out
-          why a network isn’t behaving. I learn best by making something,
-          testing it, and improving it.
-        </p>
-        <p>
-          My long-term direction is building useful products for problems close
-          to home. Right now, I’m exploring network access and bandwidth
-          management for small businesses, hostels, and gaming lounges in
-          Uganda.
-        </p>
-        <div className="milestones">
-          <div className="milestone">
-            <GraduationCap size={21} aria-hidden="true" />
-            <div>
-              <h3>B.Sc. Software Engineering</h3>
-              <p>International University of East Africa</p>
-              <span>Undergraduate · Kampala, Uganda</span>
-            </div>
-          </div>
-          <div className="milestone">
-            <BrainCircuit size={21} aria-hidden="true" />
-            <div>
-              <h3>IUEA-Labs AI Team</h3>
-              <p>Junior team member</p>
-              <span>Applied computer vision & aquaculture monitoring</span>
-            </div>
-          </div>
-          <div className="milestone">
-            <Code2 size={21} aria-hidden="true" />
-            <div>
-              <h3>Bank of Uganda Hackathon</h3>
-              <p>Participant</p>
-              <span>Exploring technology in a financial-services context</span>
-            </div>
-          </div>
-        </div>
-        <div className="setup-line">
-          <Terminal size={16} aria-hidden="true" />
-          <span>THINKPAD · FEDORA KDE · ALWAYS LEARNING</span>
-        </div>
-      </div>
-    </section>
+    <section className="about section" id="about"><div className="page-shell about-grid">
+      <div className="about-intro" data-reveal><p className="eyebrow">01 / ABOUT</p><h2>Not just websites.<br /><span>Systems.</span></h2></div>
+      <div className="about-copy" data-reveal><p className="about-lead">I&apos;m Lumu Francis Xavier — a software engineering student and hands-on builder working across product, infrastructure and intelligent systems.</p><p>My work moves between interfaces people touch and the deeper layers they depend on: APIs, databases, Linux services, networks, automation and machine learning. That range lets me think beyond a single page and design the whole experience around the problem.</p><p>I&apos;m still learning aggressively, but I build like the answer is discoverable: research it, prototype it, break it, improve it, ship it.</p></div>
+      <div className="about-object" data-reveal aria-hidden="true"><div className="core-orb"><div className="core-ring ring-a" /><div className="core-ring ring-b" /><div className="core-ring ring-c" /><div className="core-center"><Cpu size={34} /></div></div><span>IDEA</span><span>ARCHITECTURE</span><span>BUILD</span><span>ITERATE</span></div>
+    </div></section>
   );
 }
 
-function ContactForm() {
-  const [error, setError] = useState("");
-  const [draftUrl, setDraftUrl] = useState("");
-  function compose(event) {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    const name = String(data.get("name") || "").trim();
-    const message = String(data.get("message") || "").trim();
-    if (!name || !message) {
-      setError("Please add your name and a message.");
-      return;
-    }
-    setError("");
-    const url = new URL(profile.whatsapp);
-    url.searchParams.set("text", `Hi Xavier, I’m ${name}.\n\n${message}`);
-    setDraftUrl(url.href);
-    window.open(url.href, "_blank", "noopener,noreferrer");
-  }
+function Capabilities() {
   return (
-    <form className="contact-form" onSubmit={compose}>
-      <p className="form-intro">Tell me what you have in mind.</p>
-      <label>
-        Your name
-        <input
-          name="name"
-          autoComplete="name"
-          maxLength="120"
-          required
-          placeholder="Your name"
-        />
-      </label>
-      <label>
-        Your idea
-        <textarea
-          name="message"
-          rows="4"
-          maxLength="2000"
-          required
-          placeholder="A project, a collaboration, or just a hello…"
-        />
-      </label>
-      <div className="form-bottom">
-        <p>
-          Opens a WhatsApp draft.
-          <br />
-          You send it when you’re ready.
-        </p>
-        <button className="button button-primary" type="submit">
-          Open WhatsApp <ArrowUpRight size={18} aria-hidden="true" />
-        </button>
-      </div>
-      {error && (
-        <p className="form-status" role="alert">
-          {error}
-        </p>
-      )}
-      {draftUrl && (
-        <p className="form-status" role="status">
-          Your draft is ready.{" "}
-          <ExternalLink href={draftUrl}>Continue to WhatsApp</ExternalLink>
-        </p>
-      )}
-    </form>
+    <section className="section capabilities" id="capabilities"><div className="page-shell">
+      <SectionHeading kicker="02 / CAPABILITIES" title="One builder. Multiple layers." copy="The strongest products happen when interface, logic, data and infrastructure are designed as one connected system." />
+      <div className="capability-grid">{capabilities.map((item) => { const Icon = item.icon; return <article className="capability-card glass-panel" key={item.number} data-reveal><div className="capability-top"><span>{item.number}</span><Icon size={24} /></div><h3>{item.title}</h3><p>{item.copy}</p><div className="tag-row">{item.tags.map((tag) => <span key={tag}>{tag}</span>)}</div></article>; })}</div>
+    </div></section>
   );
+}
+
+function ProjectCard({ project, index }) {
+  const icons = [Layers3, BrainCircuit, Cpu, Code2, Terminal, Network, Database]; const Icon = icons[index % icons.length];
+  return <article className="project-card" data-reveal><div className={`project-visual project-tone-${(index % 4) + 1}`}><div className="project-visual-grid" aria-hidden="true" /><div className="project-visual-top"><span>{project.number}</span><span>{project.category}</span></div><div className="project-symbol" aria-hidden="true"><div className="project-symbol-ring" /><Icon size={56} /></div><div className="project-visual-title">{project.title}</div><div className="project-status">{project.status}</div></div><div className="project-copy"><div className="project-copy-top"><span>{project.role}</span><ArrowUpRight size={20} /></div><h3>{project.summary}</h3><p>{project.detail}</p><div className="tag-row project-tags">{project.stack.map((item) => <span key={item}>{item}</span>)}</div><ul className="project-points">{project.highlights.slice(0, 3).map((item) => <li key={item}>{item}</li>)}</ul></div></article>;
+}
+
+function Work() {
+  return <section className="section work" id="work"><div className="page-shell"><SectionHeading kicker="03 / SELECTED WORK" title="Proof lives in the build." copy="A mix of client work, product experiments, infrastructure labs and applied AI — each one teaching a different layer of engineering." /><div className="project-list">{projects.map((project, index) => <ProjectCard key={project.id} project={project} index={index} />)}</div></div></section>;
+}
+
+function Lab() {
+  return <section className="section lab" id="lab"><div className="page-shell"><SectionHeading kicker="04 / EXPERIMENTS" title="The lab is always open." copy="Small builds are where I test new tools, architectures and ideas before they become bigger systems." /><div className="lab-grid">{experiments.map((item, index) => <article className={`lab-card lab-card-${index + 1}`} key={item.title} data-reveal><div className="lab-index">0{index + 1}</div><h3>{item.title}</h3><p>{item.description}</p><span>{item.stack}</span><ArrowUpRight size={20} /></article>)}<article className="lab-card lab-manifesto" data-reveal><Sparkles size={30} /><p>Nothing is impossible. Some things just need a better first prototype.</p></article></div></div></section>;
 }
 
 function Contact() {
-  return (
-    <section
-      className="contact-section"
-      id="contact"
-      aria-labelledby="contact-title"
-    >
-      <div className="container contact-inner">
-        <div className="contact-copy">
-          <p className="eyebrow">
-            <span className="section-number">04</span>LET’S BUILD SOMETHING
-          </p>
-          <h2 id="contact-title">
-            Good ideas start
-            <br />
-            with <span>a hello.</span>
-          </h2>
-          <p>
-            A useful product. An interesting problem.
-            <br />A chance to make something that matters.
-          </p>
-          <ExternalLink href={profile.whatsapp} className="whatsapp-link">
-            <MessageSquare size={23} aria-hidden="true" />
-            <span>
-              <small>WHATSAPP</small>
-              {profile.whatsappDisplay}
-            </span>
-            <ArrowUpRight size={23} aria-hidden="true" />
-          </ExternalLink>
-          <div className="social-links">
-            <ExternalLink href={profile.github}>
-              <Github size={18} aria-hidden="true" />
-              GitHub
-              <ArrowUpRight size={15} aria-hidden="true" />
-            </ExternalLink>
-            <ExternalLink href={profile.instagram}>
-              <CameraIcon />
-              Instagram
-              <ArrowUpRight size={15} aria-hidden="true" />
-            </ExternalLink>
-          </div>
-        </div>
-        <ContactForm />
-      </div>
-    </section>
-  );
-}
-
-function CameraIcon() {
-  return (
-    <svg
-      width="18"
-      height="18"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.6"
-      aria-hidden="true"
-    >
-      <rect x="3" y="3" width="18" height="18" rx="5" />
-      <circle cx="12" cy="12" r="4" />
-      <circle cx="17.5" cy="6.5" r=".8" fill="currentColor" stroke="none" />
-    </svg>
-  );
+  return <section className="contact section" id="contact"><div className="page-shell contact-panel" data-reveal><div className="contact-orb" aria-hidden="true" /><p className="eyebrow">05 / LET&apos;S BUILD</p><h2>Have an idea that feels<span> too ambitious?</span></h2><p className="contact-copy">Good. Those are the interesting ones. Tell me what you&apos;re trying to create and we&apos;ll turn it into a system we can actually ship.</p><div className="contact-actions"><ExternalLink href={profile.whatsapp} className="button button-primary button-large">WhatsApp me <ArrowUpRight size={20} /></ExternalLink><ExternalLink href={profile.github} className="button button-ghost button-large"><Github size={19} /> GitHub</ExternalLink><ExternalLink href={profile.instagram} className="button button-ghost button-large">Instagram <ArrowUpRight size={18} /></ExternalLink></div><div className="contact-meta"><span>Based in Kampala · building for anywhere</span><span>{profile.whatsappDisplay}</span></div></div></section>;
 }
 
 function Footer() {
-  return (
-    <footer className="site-footer container">
-      <a href="#home" className="wordmark" aria-label="Back to top">
-        lumu<span>.</span>
-      </a>
-      <p>© {new Date().getFullYear()} Lumu Francis Xavier</p>
-      <a href="#home">
-        BACK TO TOP <ArrowUpRight size={16} aria-hidden="true" />
-      </a>
-    </footer>
-  );
+  return <footer className="footer"><div className="page-shell footer-inner"><a className="brand footer-brand" href="#home"><span className="brand-mark">LX</span><span className="brand-copy">Lumu Xavier</span></a><p>Designing possibility through code, systems and curiosity.</p><span>© {new Date().getFullYear()}</span></div></footer>;
 }
 
 export default function App() {
-  const [project, setProject] = useState(null);
-  return (
-    <>
-      <a className="skip-link" href="#main">
-        Skip to content
-      </a>
-      <Header />
-      <main id="main">
-        <Hero />
-        <About />
-        <Work onOpen={setProject} />
-        <Expertise />
-        <Contact />
-      </main>
-      <Footer />
-      <ProjectDialog project={project} onClose={() => setProject(null)} />
-    </>
-  );
+  useEffect(() => {
+    const root = document.documentElement;
+    const onPointerMove = (event) => { root.style.setProperty("--cursor-x", `${event.clientX}px`); root.style.setProperty("--cursor-y", `${event.clientY}px`); };
+    window.addEventListener("pointermove", onPointerMove, { passive: true });
+    const observer = new IntersectionObserver((entries) => entries.forEach((entry) => { if (entry.isIntersecting) { entry.target.classList.add("revealed"); observer.unobserve(entry.target); } }), { threshold: 0.12, rootMargin: "0px 0px -8% 0px" });
+    document.querySelectorAll("[data-reveal]").forEach((node) => observer.observe(node));
+    return () => { window.removeEventListener("pointermove", onPointerMove); observer.disconnect(); };
+  }, []);
+  return <div className="site-wrap"><div className="cursor-glow" aria-hidden="true" /><Header /><main><Hero /><Marquee /><About /><Capabilities /><Work /><Lab /><Contact /></main><Footer /></div>;
 }
