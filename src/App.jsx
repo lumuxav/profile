@@ -16,13 +16,13 @@ import {
   Terminal,
   X,
 } from "lucide-react";
-import { experiments, profile, projects } from "./profile";
+import { profile } from "./profile";
 
 const navItems = [
   ["about", "About"],
   ["capabilities", "Capabilities"],
-  ["work", "Projects"],
-  ["lab", "Lab"],
+  ["systems", "What I build"],
+  ["approach", "Approach"],
 ];
 
 const capabilities = [
@@ -35,6 +35,128 @@ const capabilities = [
 ];
 
 const capabilityMarquee = ["WEB APPLICATIONS", "SYSTEM DEVELOPMENT", "AI + MACHINE LEARNING", "NETWORK ENGINEERING", "DATABASES", "MOBILE EXPERIENCES"];
+
+const buildDomains = [
+  {
+    id: "business-systems",
+    number: "01",
+    title: "Business Systems",
+    category: "Systems engineering",
+    status: "Workflows → software",
+    summary: "Operational software designed around the way a real organisation works, not the other way around.",
+    detail: "I translate messy day-to-day processes into structured digital workflows: records, permissions, payments, dashboards, reporting, automation and the logic that holds everything together.",
+    role: "System architecture · workflow modelling · implementation",
+    stack: ["Business logic", "Databases", "Dashboards", "Automation"],
+    highlights: [
+      "Role-aware workflows and operational dashboards",
+      "Transaction, inventory and record-management logic",
+      "Systems designed to grow without becoming confusing",
+    ],
+  },
+  {
+    id: "web-platforms",
+    number: "02",
+    title: "Web Platforms",
+    category: "Full-stack development",
+    status: "Interface → deployment",
+    summary: "Fast, responsive digital products that feel deliberate on every screen.",
+    detail: "From the interface to APIs, deployment and integration, I approach websites as products rather than pages — with performance, usability, maintainability and a clear path for future features.",
+    role: "Front-end · APIs · deployment · product structure",
+    stack: ["React", "Vite", "JavaScript", "Node.js", "REST APIs"],
+    highlights: [
+      "Responsive, motion-led user interfaces",
+      "API-ready architecture and integration workflows",
+      "Production deployment across modern hosting platforms",
+    ],
+  },
+  {
+    id: "intelligent-systems",
+    number: "03",
+    title: "Intelligent Systems",
+    category: "AI & machine learning",
+    status: "Data → useful decisions",
+    summary: "AI that does something useful with vision, data or conversation.",
+    detail: "I explore applied machine learning through computer vision, tracking, sequence models and AI-assisted workflows — focusing on how models connect to interfaces and real system behaviour.",
+    role: "Applied ML · prototyping · integration",
+    stack: ["Python", "PyTorch", "YOLO", "OpenCV", "Gemini"],
+    highlights: [
+      "Computer-vision detection and tracking pipelines",
+      "Sequence-aware classification concepts",
+      "AI features integrated into practical application flows",
+    ],
+  },
+  {
+    id: "network-infrastructure",
+    number: "04",
+    title: "Network Infrastructure",
+    category: "Networking & Linux",
+    status: "Below the interface",
+    summary: "The networks, services and automation that keep applications connected.",
+    detail: "I work with routing, switching, segmentation and Linux services, then automate repetitive setup where possible. The goal is infrastructure that is understandable, testable and reliable.",
+    role: "Network configuration · Linux services · automation",
+    stack: ["Cisco IOS", "GNS3", "Linux", "Bash", "DHCP / DNS"],
+    highlights: [
+      "VLANs and inter-VLAN routing",
+      "DHCP and DNS service configuration",
+      "Linux-based network automation and lab environments",
+    ],
+  },
+  {
+    id: "data-layer",
+    number: "05",
+    title: "Data & Databases",
+    category: "Data architecture",
+    status: "Structure before scale",
+    summary: "Clean data models that make software easier to trust, query and extend.",
+    detail: "I design relational structures around the questions a system needs to answer: who did what, when it happened, what changed, what is owed and what should happen next.",
+    role: "Data modelling · relational design · application data",
+    stack: ["SQL", "MySQL", "Relational modelling", "CRUD"],
+    highlights: [
+      "Structured relational schemas",
+      "Transaction and history-oriented records",
+      "Data models designed around real application workflows",
+    ],
+  },
+  {
+    id: "mobile-ready",
+    number: "06",
+    title: "Mobile-Ready Products",
+    category: "Product engineering",
+    status: "Designed beyond desktop",
+    summary: "Experiences designed to move naturally between browser, phone and future clients.",
+    detail: "I build responsive interfaces and API-first foundations with mobile use in mind, so a product can evolve without having to rethink its entire architecture later.",
+    role: "Responsive UX · API-first thinking · product architecture",
+    stack: ["Responsive UI", "PWA thinking", "REST APIs", "Mobile UX"],
+    highlights: [
+      "Phone-first responsive interaction patterns",
+      "Reusable interface components",
+      "Architecture prepared for future mobile clients",
+    ],
+  },
+];
+
+const principles = [
+  {
+    title: "Prototype fast",
+    description: "Turn the idea into something visible early, then improve it with evidence instead of assumptions.",
+    stack: "IDEA / PROTOTYPE / TEST",
+  },
+  {
+    title: "Think in systems",
+    description: "Treat interface, logic, data, infrastructure and deployment as connected parts of the same product.",
+    stack: "UI / LOGIC / DATA / INFRA",
+  },
+  {
+    title: "Automate repetition",
+    description: "If a process keeps repeating, I look for a clean way to make the machine do more of it.",
+    stack: "SCRIPTS / APIs / WORKFLOWS",
+  },
+  {
+    title: "Keep learning",
+    description: "New tools are useful when they solve a real problem. I learn by building, breaking, debugging and rebuilding.",
+    stack: "BUILD / BREAK / LEARN / SHIP",
+  },
+];
 
 function ExternalLink({ href, children, className = "", ...props }) {
   return <a href={href} target="_blank" rel="noopener noreferrer" className={className} {...props}>{children}</a>;
@@ -73,10 +195,10 @@ function PortraitStage() {
     const rect = stage.getBoundingClientRect();
     const x = (event.clientX - rect.left) / rect.width - 0.5;
     const y = (event.clientY - rect.top) / rect.height - 0.5;
-    stage.style.setProperty("--tilt-x", `${(-y * 10).toFixed(2)}deg`);
-    stage.style.setProperty("--tilt-y", `${(x * 12).toFixed(2)}deg`);
-    stage.style.setProperty("--shift-x", `${(x * 18).toFixed(2)}px`);
-    stage.style.setProperty("--shift-y", `${(y * 18).toFixed(2)}px`);
+    stage.style.setProperty("--tilt-x", `${(-y * 8).toFixed(2)}deg`);
+    stage.style.setProperty("--tilt-y", `${(x * 10).toFixed(2)}deg`);
+    stage.style.setProperty("--shift-x", `${(x * 14).toFixed(2)}px`);
+    stage.style.setProperty("--shift-y", `${(y * 14).toFixed(2)}px`);
   };
   const resetTilt = () => {
     const stage = stageRef.current;
@@ -88,7 +210,7 @@ function PortraitStage() {
     <div className="portrait-stage" ref={stageRef} onPointerMove={handlePointerMove} onPointerLeave={resetTilt}>
       <div className="orbit orbit-one" aria-hidden="true" /><div className="orbit orbit-two" aria-hidden="true" /><div className="portrait-glow" aria-hidden="true" />
       <div className="portrait-card">
-        <img src={profile.portrait} alt="Stylized portrait of Lumu Francis Xavier" width="360" height="360" fetchPriority="high" />
+        <img src={profile.portrait} alt="Stylized portrait of Lumu Francis Xavier" width="1080" height="1080" fetchPriority="high" style={{ width: "88%", height: "88%", objectFit: "contain", margin: "6% auto", borderRadius: "24px", filter: "none" }} />
         <div className="portrait-overlay" aria-hidden="true" />
         <div className="portrait-corner top-left">01 / 26</div><div className="portrait-corner bottom-right">BUILD / LEARN / SHIP</div>
       </div>
@@ -109,8 +231,8 @@ function Hero() {
           <p className="eyebrow hero-eyebrow"><span className="status-dot" /> SOFTWARE ENGINEER · KAMPALA / WORLDWIDE</p>
           <h1>I build digital systems<span className="hero-outline"> that feel like the future.</span></h1>
           <p className="hero-lead">From web applications and business systems to AI, networks and data — I turn ambitious ideas into working technology.</p>
-          <div className="hero-actions"><a className="button button-primary" href="#work">Explore projects <ArrowRight size={18} /></a><ExternalLink className="button button-ghost" href={profile.whatsapp}>Let&apos;s build <ArrowUpRight size={18} /></ExternalLink></div>
-          <div className="hero-proof"><div><strong>06</strong><span>capability lanes</span></div><div><strong>{projects.length.toString().padStart(2, "0")}</strong><span>featured builds</span></div><div><strong>∞</strong><span>room to build</span></div></div>
+          <div className="hero-actions"><a className="button button-primary" href="#systems">See what I build <ArrowRight size={18} /></a><ExternalLink className="button button-ghost" href={profile.whatsapp}>Let&apos;s build <ArrowUpRight size={18} /></ExternalLink></div>
+          <div className="hero-proof"><div><strong>06</strong><span>capability lanes</span></div><div><strong>{buildDomains.length.toString().padStart(2, "0")}</strong><span>build domains</span></div><div><strong>∞</strong><span>room to build</span></div></div>
         </div>
         <div className="hero-visual" data-reveal><PortraitStage /></div>
       </div>
@@ -131,7 +253,7 @@ function About() {
   return (
     <section className="about section" id="about"><div className="page-shell about-grid">
       <div className="about-intro" data-reveal><p className="eyebrow">01 / ABOUT</p><h2>Not just websites.<br /><span>Systems.</span></h2></div>
-      <div className="about-copy" data-reveal><p className="about-lead">I&apos;m Lumu Francis Xavier — a software engineering student and hands-on builder working across product, infrastructure and intelligent systems.</p><p>My work moves between interfaces people touch and the deeper layers they depend on: APIs, databases, Linux services, networks, automation and machine learning. That range lets me think beyond a single page and design the whole experience around the problem.</p><p>I&apos;m still learning aggressively, but I build like the answer is discoverable: research it, prototype it, break it, improve it, ship it.</p></div>
+      <div className="about-copy" data-reveal><p className="about-lead">I&apos;m Lumu Francis Xavier — a software engineering student and hands-on builder working across product, infrastructure and intelligent systems.</p><p>My work moves between interfaces people touch and the deeper layers they depend on: APIs, databases, Linux services, networks, automation and machine learning. That range lets me think beyond a single page and design the whole experience around the problem.</p><p>I learn aggressively and build with a simple mindset: understand the problem, prototype the idea, test the assumptions, improve the system and ship something useful.</p></div>
       <div className="about-object" data-reveal aria-hidden="true"><div className="core-orb"><div className="core-ring ring-a" /><div className="core-ring ring-b" /><div className="core-ring ring-c" /><div className="core-center"><Cpu size={34} /></div></div><span>IDEA</span><span>ARCHITECTURE</span><span>BUILD</span><span>ITERATE</span></div>
     </div></section>
   );
@@ -146,17 +268,18 @@ function Capabilities() {
   );
 }
 
-function ProjectCard({ project, index }) {
-  const icons = [Layers3, BrainCircuit, Cpu, Code2, Terminal, Network, Database]; const Icon = icons[index % icons.length];
-  return <article className="project-card" data-reveal><div className={`project-visual project-tone-${(index % 4) + 1}`}><div className="project-visual-grid" aria-hidden="true" /><div className="project-visual-top"><span>{project.number}</span><span>{project.category}</span></div><div className="project-symbol" aria-hidden="true"><div className="project-symbol-ring" /><Icon size={56} /></div><div className="project-visual-title">{project.title}</div><div className="project-status">{project.status}</div></div><div className="project-copy"><div className="project-copy-top"><span>{project.role}</span><ArrowUpRight size={20} /></div><h3>{project.summary}</h3><p>{project.detail}</p><div className="tag-row project-tags">{project.stack.map((item) => <span key={item}>{item}</span>)}</div><ul className="project-points">{project.highlights.slice(0, 3).map((item) => <li key={item}>{item}</li>)}</ul></div></article>;
+function BuildCard({ item, index }) {
+  const icons = [Layers3, Code2, BrainCircuit, Network, Database, Smartphone];
+  const Icon = icons[index % icons.length];
+  return <article className="project-card" data-reveal><div className={`project-visual project-tone-${(index % 4) + 1}`}><div className="project-visual-grid" aria-hidden="true" /><div className="project-visual-top"><span>{item.number}</span><span>{item.category}</span></div><div className="project-symbol" aria-hidden="true"><div className="project-symbol-ring" /><Icon size={56} /></div><div className="project-visual-title">{item.title}</div><div className="project-status">{item.status}</div></div><div className="project-copy"><div className="project-copy-top"><span>{item.role}</span><ArrowUpRight size={20} /></div><h3>{item.summary}</h3><p>{item.detail}</p><div className="tag-row project-tags">{item.stack.map((tech) => <span key={tech}>{tech}</span>)}</div><ul className="project-points">{item.highlights.map((point) => <li key={point}>{point}</li>)}</ul></div></article>;
 }
 
-function Work() {
-  return <section className="section work" id="work"><div className="page-shell"><SectionHeading kicker="03 / SELECTED WORK" title="Proof lives in the build." copy="A mix of client work, product experiments, infrastructure labs and applied AI — each one teaching a different layer of engineering." /><div className="project-list">{projects.map((project, index) => <ProjectCard key={project.id} project={project} index={index} />)}</div></div></section>;
+function Systems() {
+  return <section className="section work" id="systems"><div className="page-shell"><SectionHeading kicker="03 / WHAT I BUILD" title="Capability without exposing private work." copy="This is the kind of engineering I can take on. The portfolio shows the thinking and technical range without publishing private client names, unfinished products or confidential project details." /><div className="project-list">{buildDomains.map((item, index) => <BuildCard key={item.id} item={item} index={index} />)}</div></div></section>;
 }
 
-function Lab() {
-  return <section className="section lab" id="lab"><div className="page-shell"><SectionHeading kicker="04 / EXPERIMENTS" title="The lab is always open." copy="Small builds are where I test new tools, architectures and ideas before they become bigger systems." /><div className="lab-grid">{experiments.map((item, index) => <article className={`lab-card lab-card-${index + 1}`} key={item.title} data-reveal><div className="lab-index">0{index + 1}</div><h3>{item.title}</h3><p>{item.description}</p><span>{item.stack}</span><ArrowUpRight size={20} /></article>)}<article className="lab-card lab-manifesto" data-reveal><Sparkles size={30} /><p>Nothing is impossible. Some things just need a better first prototype.</p></article></div></div></section>;
+function Approach() {
+  return <section className="section lab" id="approach"><div className="page-shell"><SectionHeading kicker="04 / APPROACH" title="Build. Test. Improve. Repeat." copy="The tools change. The method stays simple: understand the problem deeply, make the architecture clear and keep moving until the system works." /><div className="lab-grid">{principles.map((item, index) => <article className={`lab-card lab-card-${index + 1}`} key={item.title} data-reveal><div className="lab-index">0{index + 1}</div><h3>{item.title}</h3><p>{item.description}</p><span>{item.stack}</span><ArrowUpRight size={20} /></article>)}<article className="lab-card lab-manifesto" data-reveal><Sparkles size={30} /><p>Nothing is impossible. Some things just need a better first prototype.</p></article></div></div></section>;
 }
 
 function Contact() {
@@ -176,5 +299,5 @@ export default function App() {
     document.querySelectorAll("[data-reveal]").forEach((node) => observer.observe(node));
     return () => { window.removeEventListener("pointermove", onPointerMove); observer.disconnect(); };
   }, []);
-  return <div className="site-wrap"><div className="cursor-glow" aria-hidden="true" /><Header /><main><Hero /><Marquee /><About /><Capabilities /><Work /><Lab /><Contact /></main><Footer /></div>;
+  return <div className="site-wrap"><div className="cursor-glow" aria-hidden="true" /><Header /><main><Hero /><Marquee /><About /><Capabilities /><Systems /><Approach /><Contact /></main><Footer /></div>;
 }
