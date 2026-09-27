@@ -7,7 +7,7 @@ import {
   Code2,
   Cpu,
   Database,
-  Github,
+  GitBranch as Github,
   Layers3,
   Menu,
   Network,
