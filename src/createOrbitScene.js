@@ -51,12 +51,12 @@ export function createOrbitScene(host, motion = true) {
   scene.add(sculpture);
   const geometry = new TorusKnotGeometry(1.06, 0.29, 160, 24, 2, 3);
   const material = new MeshPhysicalMaterial({
-    color: 0xc8c7ee,
+    color: 0xc5cddc,
     metalness: 0.97,
-    roughness: 0.16,
+    roughness: 0.2,
     clearcoat: 1,
     clearcoatRoughness: 0.1,
-    iridescence: 0.65,
+    iridescence: 0.2,
     iridescenceIOR: 1.6,
     envMapIntensity: 1.1,
   });
@@ -65,7 +65,7 @@ export function createOrbitScene(host, motion = true) {
   sculpture.add(knot);
   const ringGeometry = new TorusGeometry(1.86, 0.009, 6, 110);
   const ringMaterial = new MeshBasicMaterial({
-    color: 0xb8a0ff,
+    color: 0x586f91,
     transparent: true,
     opacity: 0.38,
   });
@@ -88,11 +88,11 @@ export function createOrbitScene(host, motion = true) {
     sculpture.add(satellite);
     satellites.push(satellite);
   }
-  const key = new DirectionalLight(0xc5adff, 5);
+  const key = new DirectionalLight(0xf0effc, 5);
   key.position.set(-3, 3, 4);
-  const fill = new DirectionalLight(0x78f4ec, 4);
+  const fill = new DirectionalLight(0xa9bfdc, 4);
   fill.position.set(3, -1, 2);
-  scene.add(key, fill, new AmbientLight(0xc8c6ff, 0.5));
+  scene.add(key, fill, new AmbientLight(0xd0d9eb, 0.5));
   host.appendChild(renderer.domElement);
 
   let moving = motion,

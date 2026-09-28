@@ -2,9 +2,11 @@
 
 A glass-and-motion React portfolio for Lumu Francis Xavier, a software engineering student in Kampala, Uganda. The design brings together a floating portrait, a reflective 3D sculpture, layered glass cards, interactive capability stories, and responsive layouts.
 
+The reference-inspired palette pairs a lavender-grey hero and white glass panels with charcoal typography and slate buttons. A deep navy expertise section provides contrast, while the sculpture and illustrated cards use coordinated silver and blue-grey tones.
+
 The site intentionally presents **capability rather than named project case studies**. Private client work, unfinished products, and confidential project details are not published. The copy describes experience across web applications, systems, AI/ML, networking, databases, and an ongoing exploration of mobile applications.
 
-![Verified live portfolio preview](docs/portfolio-live-20260928.jpg)
+![Lavender and navy portfolio theme](docs/portfolio-light-20260928.jpg)
 
 ## Local development
 
@@ -63,6 +65,8 @@ The contact form validates the visitor's name and message, then opens a WhatsApp
 
 ## Verification
 
+The palette update was checked at desktop and 390px/320px phone widths, including the mobile navigation, capability dialog, and contact form. Selected body text, glass-panel text, form placeholders, and button color pairs meet a 4.5:1 contrast ratio; this is a focused color check, not a full accessibility audit.
+
 The production build includes server rendering and asset generation. Browser checks cover desktop and narrow phone layouts, navigation, capability filters, native dialog opening and Escape dismissal, motion controls, and contact validation. The deployed site was verified on 2026-09-28 UTC: the homepage loaded over HTTPS, the motion control responded, capability filtering and dialog opening/Escape dismissal worked, and the public contact destinations matched the configured links. The available browser has WebGL disabled, so the animated fallback is visually checked; the WebGL sculpture requires a browser with GPU support for visual verification.
 
 ## Structure
@@ -71,7 +75,8 @@ The production build includes server rendering and asset generation. Browser che
 src/App.jsx             Sections, interactions, dialogs, and contact composer
 src/profile.js          Public profile, build domains, skills, and links
 src/createOrbitScene.js  Lazy-loaded Three.js sculpture and lifecycle
-src/styles.css          Glass theme, animation, and responsive layout
+src/styles.css          Glass surfaces, animation, and responsive layout
+src/theme.css           Reference palette and section-specific colors
 src/main.jsx            React hydration and locally bundled fonts
 src/render.jsx          Server render used during the build
 scripts/prerender.mjs    Build-time HTML generation
