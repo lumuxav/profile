@@ -4,7 +4,7 @@ A glass-and-motion React portfolio for Lumu Francis Xavier, a software engineeri
 
 The site intentionally presents **capability rather than named project case studies**. Private client work, unfinished products, and confidential project details are not published. The copy describes experience across web applications, systems, AI/ML, networking, databases, and an ongoing exploration of mobile applications.
 
-![Desktop portfolio preview](docs/portfolio-glass-20260927.jpg)
+![Verified live portfolio preview](docs/portfolio-live-20260928.jpg)
 
 ## Local development
 
@@ -63,7 +63,7 @@ The contact form validates the visitor's name and message, then opens a WhatsApp
 
 ## Verification
 
-The production build includes server rendering and asset generation. Browser checks cover desktop and narrow phone layouts, navigation, capability filters, native dialog opening and Escape dismissal, motion controls, and contact validation. The available browser has WebGL disabled, so the animated fallback is visually checked; the WebGL sculpture requires a browser with GPU support for visual verification.
+The production build includes server rendering and asset generation. Browser checks cover desktop and narrow phone layouts, navigation, capability filters, native dialog opening and Escape dismissal, motion controls, and contact validation. The deployed site was verified on 2026-09-28 UTC: the homepage loaded over HTTPS, the motion control responded, capability filtering and dialog opening/Escape dismissal worked, and the public contact destinations matched the configured links. The available browser has WebGL disabled, so the animated fallback is visually checked; the WebGL sculpture requires a browser with GPU support for visual verification.
 
 ## Structure
 
