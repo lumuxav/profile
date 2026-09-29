@@ -351,15 +351,104 @@
   translate: none;
 }
 
-@media (max-width: 900px) {
+@keyframes mobile-portrait-sway {
+  0%,
+  100% {
+    transform: perspective(1000px) rotateX(1deg) rotateY(-2deg) rotateZ(5deg)
+      translateY(0);
+  }
+  50% {
+    transform: perspective(1000px) rotateX(-1deg) rotateY(2deg) rotateZ(7deg)
+      translateY(-6px);
+  }
+}
+@keyframes mobile-orbit-drift {
+  0%,
+  100% {
+    translate: 0 0;
+    rotate: -3deg;
+  }
+  50% {
+    translate: 5px -7px;
+    rotate: 3deg;
+  }
+}
+@keyframes mobile-icon-drift {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0);
+  }
+  50% {
+    transform: translateY(-4px) rotate(-6deg);
+  }
+}
+@keyframes mobile-card-light {
+  0%,
+  100% {
+    opacity: 0.3;
+    scale: 0.35 1;
+  }
+  50% {
+    opacity: 1;
+    scale: 1 1;
+  }
+}
+@keyframes mobile-window-drift {
+  0%,
+  100% {
+    translate: 0 0;
+    rotate: -0.7deg;
+  }
+  50% {
+    translate: 0 -6px;
+    rotate: 0.7deg;
+  }
+}
+
+@media (max-width: 900px), (hover: none), (pointer: coarse) {
+  .motion-toggle {
+    display: none;
+  }
   .hero-visual {
-    translate: none;
+    translate: 0 var(--hero-shift, 0px);
+    transition: translate 180ms ease-out;
   }
   .hero-orbit {
-    transform: none;
+    transform: translateY(calc(var(--hero-shift, 0px) * -0.6));
+    animation: mobile-orbit-drift 7s ease-in-out infinite;
+  }
+  .portrait-stage {
+    animation: mobile-portrait-sway 9s ease-in-out infinite;
   }
   .signal-field {
-    opacity: 0.6;
+    opacity: 0.8;
+  }
+  .orbit-fallback {
+    animation-duration: 12s;
+  }
+  .track-one {
+    animation-duration: 28s;
+  }
+  .track-two {
+    animation-duration: 38s;
+  }
+  .skill-icon {
+    animation: mobile-icon-drift 6s ease-in-out infinite;
+  }
+  .skill-card::before {
+    animation: mobile-card-light 6s ease-in-out infinite;
+  }
+  .skill-shell:nth-child(2n) .skill-icon,
+  .skill-shell:nth-child(2n) .skill-card::before {
+    animation-delay: -2s;
+  }
+  .skill-shell:nth-child(3n) .skill-icon,
+  .skill-shell:nth-child(3n) .skill-card::before {
+    animation-delay: -4s;
+  }
+  .rental-browser,
+  .sm-browser {
+    animation: mobile-window-drift 9s ease-in-out infinite;
   }
   [data-reveal] {
     transition-delay: 0ms;

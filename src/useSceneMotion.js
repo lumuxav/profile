@@ -1,14 +1,19 @@
 import { useEffect } from "react";
 
+export const automaticMotionQuery =
+  "(max-width: 900px), (hover: none), (pointer: coarse)";
+
 export function useSceneMotion(root, motion) {
   useEffect(() => {
     const page = root.current;
     if (!page) return;
 
     const hero = page.querySelector(".hero");
+    const visual = page.querySelector(".hero-visual");
     const about = page.querySelector(".about-section");
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
     const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)");
+    const automatic = window.matchMedia(automaticMotionQuery);
     let frame = 0;
     let pointerX = 0;
     let pointerY = 0;
@@ -21,9 +26,20 @@ export function useSceneMotion(root, motion) {
         height > 0 ? Math.min(1, Math.max(0, window.scrollY / height)) : 0;
       page.style.setProperty("--reading-progress", progress);
       const top = hero.getBoundingClientRect().top;
+      const visualBox = visual.getBoundingClientRect();
+      const mobileShift = Math.max(
+        -12,
+        Math.min(
+          12,
+          (window.innerHeight / 2 - visualBox.top - visualBox.height / 2) *
+            0.045,
+        ),
+      );
       hero.style.setProperty(
         "--hero-shift",
-        depth ? `${Math.min(48, Math.max(0, -top * 0.075))}px` : "0px",
+        depth
+          ? `${automatic.matches ? mobileShift : Math.min(48, Math.max(0, -top * 0.075))}px`
+          : "0px",
       );
       hero.style.setProperty("--pointer-x", depth ? pointerX : 0);
       hero.style.setProperty("--pointer-y", depth ? pointerY : 0);
@@ -45,6 +61,7 @@ export function useSceneMotion(root, motion) {
     function pointer(event) {
       if (
         !motion ||
+        automatic.matches ||
         reduced.matches ||
         !finePointer.matches ||
         event.pointerType !== "mouse"
@@ -115,6 +132,7 @@ export function useSceneMotion(root, motion) {
     hero.addEventListener("pointermove", pointer, { passive: true });
     hero.addEventListener("pointerleave", leave);
     reduced.addEventListener("change", schedule);
+    automatic.addEventListener("change", leave);
     document.addEventListener("visibilitychange", visibility);
 
     return () => {
@@ -127,6 +145,7 @@ export function useSceneMotion(root, motion) {
       hero.removeEventListener("pointermove", pointer);
       hero.removeEventListener("pointerleave", leave);
       reduced.removeEventListener("change", schedule);
+      automatic.removeEventListener("change", leave);
       document.removeEventListener("visibilitychange", visibility);
       scenes.forEach((scene) => delete scene.dataset.inView);
       delete page.dataset.pageHidden;

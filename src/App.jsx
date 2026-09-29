@@ -26,7 +26,7 @@ import {
   X,
 } from "lucide-react";
 import { experiments, profile, projects, skills, toolbelt } from "./profile";
-import { useSceneMotion } from "./useSceneMotion";
+import { automaticMotionQuery, useSceneMotion } from "./useSceneMotion";
 
 const icons = {
   code: Code2,
@@ -56,27 +56,36 @@ function ExternalLink({ href, children, ...props }) {
 
 function useMotion() {
   const [motion, setMotion] = useState(true);
+  const [automaticMotion, setAutomaticMotion] = useState(false);
   useEffect(() => {
     const media = window.matchMedia("(prefers-reduced-motion: reduce)");
-    let preference;
-    try {
-      preference = localStorage.getItem("lumu-motion");
-    } catch {}
-    setMotion(
-      preference === null || preference === undefined
-        ? !media.matches
-        : preference === "on",
-    );
+    const automatic = window.matchMedia(automaticMotionQuery);
     const update = () => {
+      setAutomaticMotion(automatic.matches);
+      if (automatic.matches) {
+        setMotion(!media.matches);
+        return;
+      }
+      let preference;
       try {
-        if (localStorage.getItem("lumu-motion") !== null) return;
+        preference = localStorage.getItem("lumu-motion");
       } catch {}
-      setMotion(!media.matches);
+      setMotion(
+        preference === null || preference === undefined
+          ? !media.matches
+          : preference === "on",
+      );
     };
+    update();
     media.addEventListener("change", update);
-    return () => media.removeEventListener("change", update);
+    automatic.addEventListener("change", update);
+    return () => {
+      media.removeEventListener("change", update);
+      automatic.removeEventListener("change", update);
+    };
   }, []);
   function toggle() {
+    if (automaticMotion) return;
     setMotion((value) => {
       try {
         localStorage.setItem("lumu-motion", value ? "off" : "on");
@@ -84,7 +93,7 @@ function useMotion() {
       return !value;
     });
   }
-  return [motion, toggle];
+  return [motion, toggle, automaticMotion];
 }
 
 function useReveal(root, motion) {
@@ -188,7 +197,7 @@ function OrbitScene({ motion }) {
   );
 }
 
-function Header({ motion, onToggle }) {
+function Header({ motion, onToggle, automaticMotion }) {
   const [open, setOpen] = useState(false);
   useEffect(() => {
     if (!open) return;
@@ -236,16 +245,18 @@ function Header({ motion, onToggle }) {
           </a>
         </nav>
         <div className="header-controls">
-          <button
-            className="motion-toggle"
-            type="button"
-            onClick={onToggle}
-            aria-label={motion ? "Pause motion" : "Enable motion"}
-            aria-pressed={!motion}
-            title={motion ? "Pause motion" : "Enable motion"}
-          >
-            {motion ? <AudioLines size={17} /> : <Play size={15} />}
-          </button>
+          {!automaticMotion && (
+            <button
+              className="motion-toggle"
+              type="button"
+              onClick={onToggle}
+              aria-label={motion ? "Pause motion" : "Enable motion"}
+              aria-pressed={!motion}
+              title={motion ? "Pause motion" : "Enable motion"}
+            >
+              {motion ? <AudioLines size={17} /> : <Play size={15} />}
+            </button>
+          )}
           <a href="#contact" className="header-cta">
             Let’s talk <ArrowUpRight size={15} aria-hidden="true" />
           </a>
@@ -1313,7 +1324,7 @@ function Footer() {
 }
 
 export default function App() {
-  const [motion, toggleMotion] = useMotion();
+  const [motion, toggleMotion, automaticMotion] = useMotion();
   const [project, setProject] = useState(null);
   const root = useRef(null);
   useReveal(root, motion);
@@ -1323,13 +1334,18 @@ export default function App() {
       className="portfolio"
       ref={root}
       data-motion={motion ? "running" : "paused"}
+      data-motion-mode={automaticMotion ? "automatic" : "interactive"}
     >
       <a className="skip-link" href="#main">
         Skip to content
       </a>
       <div className="ambient-backdrop" aria-hidden="true" />
       <div className="reading-progress" aria-hidden="true" />
-      <Header motion={motion} onToggle={toggleMotion} />
+      <Header
+        motion={motion}
+        onToggle={toggleMotion}
+        automaticMotion={automaticMotion}
+      />
       <main id="main">
         <Hero motion={motion} />
         <CapabilityRail />
