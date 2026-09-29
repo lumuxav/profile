@@ -1,8 +1,6 @@
 export const profile = {
   name: "Lumu Francis Xavier",
   location: "Kampala, Uganda",
-  university: "International University of East Africa",
-  degree: "B.Sc. Software Engineering",
   github: "https://github.com/lumuxav",
   whatsapp: "https://wa.me/256757742177",
   whatsappDisplay: "0757 742 177",
@@ -24,10 +22,10 @@ export const projects = [
     challenge:
       "A model only becomes useful when its output can support a real decision. I think about the data, the interface, and the people using both.",
     detail:
-      "My applied ML work brings together detection, tracking, sequence classification, and interactive dashboards. I explore how models connect to software, how errors surface, and how an interface can make complex output understandable.",
+      "I connect detection, object tracking, sequence classification, and model evaluation into usable software. The work extends beyond training: inspecting failure cases, handling multi-label predictions, and building interfaces that make model behaviour clear.",
     result:
-      "I bring hands-on Python and computer-vision foundations, an appetite for experimentation, and the patience to investigate what a model is actually learning.",
-    role: "Applied ML · Prototyping · Integration",
+      "An engineering approach to AI: clear data flows, deliberate model choices, honest evaluation, and useful ways for people to interact with the results.",
+    role: "Vision pipelines · Model evaluation · Application integration",
     stack: ["Python", "PyTorch", "OpenCV", "YOLO"],
     highlights: [
       "Computer-vision detection and tracking",
@@ -68,7 +66,7 @@ export const projects = [
     status: "Workflows → software",
     summary: "Built around how a business works.",
     description:
-      "Clear websites, operational interfaces, and automation that connect a business with the people it serves.",
+      "Business platforms, connected workflows, and automation shaped around the people who use them.",
     challenge:
       "Every organisation has its own processes, vocabulary, and constraints. Useful software begins by listening closely enough to understand them.",
     detail:
@@ -87,54 +85,54 @@ export const projects = [
     id: "network-infrastructure",
     number: "04",
     title: "Connected by design",
-    category: "Networks & automation",
+    category: "Infrastructure & operations",
     filter: "Networks",
-    status: "Below the interface",
+    status: "Architecture → operations",
     summary: "The intelligence beneath the interface.",
     description:
-      "Segmented networks, Linux services, and repeatable automation—the foundations that keep applications connected.",
+      "Network architecture, service delivery, access design, and infrastructure automation—considered as one connected system.",
     challenge:
-      "Reliable applications depend on reliable infrastructure. I want to understand how devices communicate, how services are reached, and where that chain can break.",
+      "Connectivity is an operational system. Applications need clear traffic paths, dependable services, deliberate access boundaries, and a way to diagnose failure.",
     detail:
-      "My hands-on networking experience covers Cisco configuration, VLANs and inter-VLAN routing, Linux environments in GNS3, and DHCP/DNS automation with Bash. I use labs to test ideas and make setup repeatable.",
+      "I approach networks from topology and addressing through routing, service configuration, segmentation, and fault isolation. Linux administration and scripting make configuration repeatable, while application requirements guide how the pieces fit together.",
     result:
-      "I connect application development with an understanding of routing, segmentation, and Linux service administration. It is a foundation for exploring useful connectivity products for local businesses.",
-    role: "Network configuration · Linux services · Automation",
-    stack: ["Cisco IOS", "GNS3", "Linux", "Bash"],
+      "A view across the network lifecycle: design the connections, configure the services, investigate the behaviour, and automate recurring work. My focus is infrastructure that is understandable, maintainable, and useful to the business above it.",
+    role: "Network architecture · Service operations · Automation",
+    stack: ["Network design", "Linux", "Service operations", "Automation"],
     highlights: [
-      "Routing, switching, and segmentation",
-      "DHCP and DNS service configuration",
-      "Linux administration and automation",
+      "Topology, traffic flow, and access boundaries",
+      "Service delivery and connectivity troubleshooting",
+      "Repeatable provisioning and operational workflows",
     ],
   },
 ];
 
 export const experiments = [
   {
-    title: "Conversational interfaces",
+    title: "Conversational AI systems",
     description:
-      "Connecting application backends to messaging and language-model APIs, with an emphasis on the interaction from request to response.",
+      "Messaging experiences that connect application backends, language models, and external services. I shape the complete interaction—from incoming request to a useful, clearly presented response.",
     stack: "Node.js · Express · API integration",
     icon: "message",
   },
   {
-    title: "Mobile-ready experiences",
+    title: "Mobile product experiences",
     description:
-      "Responsive product interfaces and API-first foundations, while extending my web development experience toward dedicated mobile applications.",
+      "Touch-friendly interfaces, clear navigation, and API-connected journeys that work across screen sizes. My approach carries product logic and design consistency from the desktop into the way people use their phones.",
     stack: "Responsive UI · APIs · Mobile UX",
     icon: "window",
   },
   {
     title: "Interactive experiences",
     description:
-      "Exploring real-time interaction, browser graphics, and the logic behind responsive game systems using JavaScript and HTML5 Canvas.",
+      "Browser graphics, real-time interaction, and state-driven experiences. I work through the details of input, timing, game logic, and visual feedback to make the experience feel responsive.",
     stack: "JavaScript · HTML5 Canvas",
     icon: "game",
   },
   {
     title: "Local AI & developer tools",
     description:
-      "Experimenting with self-hosted language models, local coding assistants, and Linux-based workflows that make development more independent.",
+      "Self-hosted language models, local coding assistants, and Linux workflows that put the development environment under direct control. Practical tooling for a more independent engineering process.",
     stack: "Ollama · Linux · Developer tools",
     icon: "terminal",
   },
@@ -144,19 +142,19 @@ export const skills = [
   {
     id: "web",
     number: "01",
-    title: "Web applications",
+    title: "Full-stack applications",
     short: "Web",
     icon: "code",
     description:
-      "Thoughtful interfaces. Connected services. From the first interaction to the API behind it, I build web experiences with purpose.",
+      "Digital products built as a complete experience: expressive interfaces, connected services, clear application logic, and a deliberate path to deployment.",
     items: [
-      "React & Vite",
-      "JavaScript",
-      "Node.js & Express",
-      "REST APIs",
-      "HTML / CSS",
+      "Product interfaces",
+      "Application architecture",
+      "API integration",
+      "Responsive systems",
+      "Web deployment",
     ],
-    proof: "Responsive interfaces · APIs · Deployment",
+    proof: "From product concept to working application",
   },
   {
     id: "ai",
@@ -165,82 +163,82 @@ export const skills = [
     short: "AI / ML",
     icon: "brain",
     description:
-      "Turning data into useful intelligence through computer vision, deep learning, and systems that make model outputs usable.",
+      "Intelligence engineered into the product. I connect computer vision, sequence modelling, and evaluation to software people can actually use.",
     items: [
-      "Python & PyTorch",
-      "YOLO & OpenCV",
-      "CNNs / RNNs",
-      "BiLSTM & attention",
-      "Streamlit",
+      "Computer vision",
+      "Detection & tracking",
+      "Sequence modelling",
+      "Model evaluation",
+      "Inference interfaces",
     ],
-    proof: "Applied vision · Sequence models · Dashboards",
+    proof: "From raw inputs to actionable intelligence",
   },
   {
     id: "networks",
     number: "03",
-    title: "Network engineering",
+    title: "Network & infrastructure",
     short: "Networks",
     icon: "network",
     description:
-      "Thinking beyond the screen: routing, segmentation, Linux services, and the infrastructure that keeps everything connected.",
+      "The complete connectivity picture: network architecture, traffic flow, access boundaries, service operations, and automation that makes change repeatable.",
     items: [
-      "Cisco IOS & GNS3",
-      "VLAN / VTP",
-      "IPv4 / IPv6",
-      "DHCP & DNS",
-      "Bash automation",
+      "Network architecture",
+      "Service operations",
+      "Access & segmentation",
+      "Fault isolation",
+      "Infrastructure automation",
     ],
-    proof: "Applied in Cisco and Linux network labs",
+    proof: "From network design to connected operations",
   },
   {
     id: "systems",
     number: "04",
-    title: "System development",
+    title: "Systems engineering",
     short: "Systems",
     icon: "cpu",
     description:
-      "Breaking complex problems into connected parts—from API integrations and desktop interfaces to automation and embedded fundamentals.",
+      "Turning complex workflows into coherent software. I connect interfaces, services, and operating environments around clear responsibilities and practical automation.",
     items: [
-      "Java · Swing / AWT",
-      "C / C++",
-      "Linux administration",
-      "Arduino & Proteus",
-      "Git / GitHub",
+      "Systems integration",
+      "Workflow automation",
+      "Linux environments",
+      "API-driven services",
+      "Developer tooling",
     ],
-    proof: "Built: API integrations · Linux automation",
+    proof: "Connected components. Considered behaviour.",
   },
   {
     id: "mobile",
     number: "05",
-    title: "Mobile applications",
+    title: "Mobile experiences",
     short: "Mobile",
     icon: "phone",
     description:
-      "Small screens, big possibilities. I'm extending my React and API foundations into mobile application development, with intuitive journeys at the centre.",
+      "Product experiences designed around real movement: fast interactions, intuitive navigation, touch-friendly interfaces, and connected application journeys.",
     items: [
-      "Mobile-first UX",
-      "Responsive interfaces",
-      "API integration",
-      "Cross-platform exploration",
+      "Mobile product UX",
+      "Touch interactions",
+      "Adaptive interfaces",
+      "Connected workflows",
     ],
-    proof: "Next frontier: dedicated mobile applications",
+    proof: "One product vision, across every screen",
   },
   {
     id: "data",
     number: "06",
-    title: "Database management",
+    title: "Data architecture",
     short: "Databases",
     icon: "database",
     description:
-      "Good software starts with trustworthy data. I work with relational structures, clear relationships, and queries that make information useful.",
+      "Data structures that support the product above them. I connect relational modelling, integrity, transactions, and query design to the way an application works.",
     items: [
-      "SQL & MySQL",
-      "Schema design",
-      "Normalization to 3NF",
-      "ACID & transactions",
-      "Foreign keys",
+      "Relational modelling",
+      "Data integrity",
+      "Transactional workflows",
+      "Query design",
+      "Application data layers",
     ],
-    proof: "Applied database coursework & debugging",
+    proof: "Structured for clarity. Built around the product.",
   },
 ];
 

@@ -120,6 +120,12 @@ export function createOrbitScene(host, motion = true) {
       ring.rotation.z = -0.5 + elapsed * 0.05;
       ring2.rotation.y = 0.8 - elapsed * 0.035;
       satellites.forEach((satellite, i) => {
+        const angle = elapsed * 0.22 + i * Math.PI * 0.5;
+        satellite.position.set(
+          Math.cos(angle) * 1.84,
+          Math.sin(angle) * 1.64,
+          Math.sin(angle + 1) * 0.62,
+        );
         satellite.rotation.y = elapsed * 0.35 + i;
       });
     }
@@ -142,7 +148,8 @@ export function createOrbitScene(host, motion = true) {
     draw();
   }
   function pointer(event) {
-    if (!moving || event.pointerType === "touch") return;
+    if (!moving || !visible || document.hidden || event.pointerType === "touch")
+      return;
     const rect = host.getBoundingClientRect();
     targetX = Math.max(
       -1,

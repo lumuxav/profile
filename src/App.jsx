@@ -12,7 +12,6 @@ import {
   Gamepad2,
   GitBranch,
   Globe2,
-  GraduationCap,
   Layers3,
   Menu,
   MessageCircle,
@@ -27,6 +26,7 @@ import {
   X,
 } from "lucide-react";
 import { experiments, profile, projects, skills, toolbelt } from "./profile";
+import { useSceneMotion } from "./useSceneMotion";
 
 const icons = {
   code: Code2,
@@ -266,12 +266,54 @@ function Header({ motion, onToggle }) {
   );
 }
 
+function SignalField() {
+  return (
+    <svg
+      className="signal-field"
+      viewBox="0 0 600 620"
+      fill="none"
+      aria-hidden="true"
+    >
+      <g className="signal-traces">
+        <path d="M20 160H120Q158 160 158 122V80H450Q510 80 510 140V405Q510 456 560 456" />
+        <path d="M55 485H195Q236 485 236 527V567H426Q474 567 474 519V262Q474 220 540 220" />
+      </g>
+      <g className="signal-packets">
+        <path
+          pathLength="100"
+          d="M20 160H120Q158 160 158 122V80H450Q510 80 510 140V405Q510 456 560 456"
+        />
+        <path
+          pathLength="100"
+          d="M55 485H195Q236 485 236 527V567H426Q474 567 474 519V262Q474 220 540 220"
+        />
+      </g>
+      {[
+        [20, 160],
+        [560, 456],
+        [55, 485],
+        [540, 220],
+      ].map(([x, y], index) => (
+        <g
+          className="signal-node"
+          key={index}
+          style={{ "--node-delay": `${index * -1.1}s` }}
+        >
+          <circle cx={x} cy={y} r="8" />
+          <circle cx={x} cy={y} r="2.5" />
+        </g>
+      ))}
+    </svg>
+  );
+}
+
 function Hero({ motion }) {
   return (
     <section
       className="hero section-shell"
       id="home"
       aria-labelledby="hero-title"
+      data-motion-scene
     >
       <div className="hero-aurora" aria-hidden="true" />
       <div className="hero-grid container">
@@ -282,18 +324,16 @@ function Hero({ motion }) {
           </div>
           <p className="hero-introduction">Hello, I’m Lumu Francis Xavier.</p>
           <h1 id="hero-title">
-            Big ideas.
-            <br />
-            Real-world
-            <br />
+            <span className="hero-line">Big ideas.</span>
+            <span className="hero-line">Real-world</span>
             <em>possibilities.</em>
             <span className="title-star" aria-hidden="true">
               ✳
             </span>
           </h1>
           <p className="hero-description">
-            I turn curiosity into code—and ambitious ideas into thoughtful
-            digital experiences. Web, AI, and the systems that connect it all.
+            I design and build digital products—from considered interfaces and
+            intelligent software to the infrastructure that connects it all.
           </p>
           <div className="hero-actions">
             <a href="#work" className="button button-light">
@@ -310,6 +350,7 @@ function Hero({ motion }) {
         </div>
         <div className="hero-visual">
           <div className="portrait-halo" aria-hidden="true" />
+          <SignalField />
           <div className="orbit-track track-one" aria-hidden="true" />
           <div className="orbit-track track-two" aria-hidden="true" />
           <span className="visual-coordinate coord-top" aria-hidden="true">
@@ -345,7 +386,7 @@ function Hero({ motion }) {
           </div>
           <div className="floating-badge badge-code glass">
             <Code2 size={18} aria-hidden="true" />
-            <span>Built with curiosity.</span>
+            <span>Engineered with intent.</span>
           </div>
           <div className="hero-orbit">
             <OrbitScene motion={motion} />
@@ -362,12 +403,12 @@ function Hero({ motion }) {
             <ArrowUpRight size={21} aria-hidden="true" />
           </div>
           <span className="visual-coordinate coord-bottom" aria-hidden="true">
-            ALWAYS EXPLORING / ALWAYS EVOLVING
+            PRODUCT THINKING / SYSTEMS ENGINEERING
           </span>
         </div>
       </div>
       <div className="hero-bottom container">
-        <span>SOFTWARE ENGINEERING STUDENT @ IUEA</span>
+        <span>SOFTWARE ENGINEERING / AI / CONNECTED SYSTEMS</span>
         <a href="#expertise">
           SCROLL TO DISCOVER <ArrowDown size={15} aria-hidden="true" />
         </a>
@@ -381,7 +422,8 @@ function CapabilityRail() {
   return (
     <div
       className="capability-rail"
-      aria-label="Web applications, artificial intelligence, networks, mobile applications, systems, and databases"
+      aria-label="Web applications, artificial intelligence, network infrastructure, mobile experiences, and data architecture"
+      data-motion-scene
     >
       <div className="rail-track" aria-hidden="true">
         {[0, 1].map((copy) => (
@@ -389,9 +431,9 @@ function CapabilityRail() {
             {[
               "Web experiences",
               "Artificial intelligence",
-              "Network systems",
-              "Mobile applications",
-              "Database design",
+              "Network infrastructure",
+              "Mobile experiences",
+              "Data architecture",
             ].map((text) => (
               <span key={text}>
                 {text}
@@ -426,10 +468,11 @@ function Expertise({ motion }) {
       className="expertise-section container section"
       id="expertise"
       aria-labelledby="expertise-title"
+      data-motion-scene
     >
       <SectionHeading
         number="01"
-        label="A MULTIDISCIPLINARY MIND"
+        label="ENGINEERING ACROSS THE STACK"
         title={
           <span id="expertise-title">
             Different dimensions.
@@ -440,7 +483,7 @@ function Expertise({ motion }) {
         description="The best ideas rarely fit into one box. I connect interfaces, intelligence, data, and infrastructure to bring the bigger picture to life."
       />
       <div className="skills-grid">
-        {skills.map((skill) => {
+        {skills.map((skill, index) => {
           const Icon = icons[skill.icon];
           return (
             <Tilt
@@ -448,6 +491,7 @@ function Expertise({ motion }) {
               motion={motion}
               className={`skill-shell skill-${skill.id}`}
               data-reveal
+              style={{ "--reveal-delay": `${(index % 3) * 90}ms` }}
             >
               <article className="skill-card glass">
                 <div className="skill-top">
@@ -664,7 +708,7 @@ function ProjectVisual({ id }) {
       <div className="visual-grid" />
       <div className="network-topline">
         <Network size={17} />
-        <span>CONNECTED BY DESIGN</span>
+        <span>NETWORK ARCHITECTURE</span>
         <span>SYS.04</span>
       </div>
       <svg className="network-diagram" viewBox="0 0 540 230">
@@ -703,19 +747,19 @@ function ProjectVisual({ id }) {
           fontSize="10"
         >
           <text x="270" y="41">
-            CORE / ROUTING
+            NETWORK FABRIC
           </text>
           <text x="70" y="190">
-            VLAN 20
+            ACCESS
           </text>
           <text x="200" y="190">
-            VLAN 30
+            SERVICES
           </text>
           <text x="340" y="190">
-            VLAN 40
+            OBSERVE
           </text>
           <text x="470" y="190">
-            VLAN 50
+            AUTOMATE
           </text>
         </g>
         <g fill="#81e0c4">
@@ -725,7 +769,7 @@ function ProjectVisual({ id }) {
         </g>
       </svg>
       <div className="terminal-strip">
-        <span>~</span> automate the routine. understand the system.
+        <span>~</span> design. connect. observe. automate.
         <i />
       </div>
     </div>
@@ -740,6 +784,7 @@ function ProjectCard({ project, onOpen, motion }) {
     <article
       className={`project-card ${wide ? "project-wide" : ""} project-${project.id}`}
       data-reveal
+      data-motion-scene
     >
       <Tilt className="project-art" motion={motion}>
         <ProjectVisual id={project.id} />
@@ -829,7 +874,7 @@ function Work({ onOpen, motion }) {
       </div>
       <div className="workbench" data-reveal>
         <div className="workbench-heading">
-          <span className="eyebrow">ALWAYS EXPLORING</span>
+          <span className="eyebrow">BEYOND THE INTERFACE</span>
           <span className="micro">MORE WAYS TO TURN IDEAS INTO REALITY.</span>
         </div>
         {experiments.map((experiment, index) => {
@@ -963,6 +1008,7 @@ function About() {
       className="about-section section container"
       id="about"
       aria-labelledby="about-title"
+      data-motion-scene
     >
       <div className="about-portrait" data-reveal>
         <div className="about-photo-frame">
@@ -975,7 +1021,7 @@ function About() {
           />
           <div className="about-photo-gradient" />
           <div className="photo-caption">
-            <span>CURIOUS MIND. BUILDER AT HEART.</span>
+            <span>PRODUCT THINKING. ENGINEERING INSTINCT.</span>
             <strong>
               More than
               <br />a line of code.
@@ -995,50 +1041,55 @@ function About() {
           <span>03</span>THE HUMAN BEHIND THE SYSTEMS
         </p>
         <h2 id="about-title">
-          Curiosity is
+          Think in systems.
           <br />
-          my <em>operating system.</em>
+          <em>Build for people.</em>
         </h2>
         <p className="about-lead">
-          I’m Lumu, a software engineering student who sees technology as a way
-          to turn “what if?” into “it works.”
+          I’m Lumu Francis Xavier, a software engineer connecting product
+          design, applied AI, and infrastructure to turn ambitious ideas into
+          working systems.
         </p>
         <p>
-          I move between building web platforms, training computer vision
-          models, configuring networks, and understanding the data underneath.
-          Every project adds a new way to think. Every challenge is an
-          invitation to go deeper.
+          I work across the interface, the intelligence behind it, and the
+          systems underneath. That perspective helps me see how a product should
+          feel, how its data should move, and how its components should work
+          together.
         </p>
         <p>
-          My ambition is to build independent, useful products that solve real
-          problems—starting with the communities and businesses around me, and
-          thinking far beyond them.
+          My approach is direct: understand the problem, make deliberate
+          technical choices, and build something useful. Based in Kampala, I’m
+          focused on independent products and practical solutions for businesses
+          with real problems to solve.
         </p>
         <div className="about-credentials">
           <div>
-            <GraduationCap size={21} aria-hidden="true" />
+            <Layers3 size={21} aria-hidden="true" />
             <span>
-              B.Sc. Software Engineering
-              <small>International University of East Africa</small>
+              Product-minded engineering
+              <small>Interfaces, application logic & connected services</small>
             </span>
           </div>
           <div>
             <BrainCircuit size={21} aria-hidden="true" />
             <span>
-              IUEA-Labs AI Team
-              <small>Junior member · Applied computer vision</small>
+              Applied intelligence
+              <small>
+                Computer vision, model pipelines & useful interfaces
+              </small>
             </span>
           </div>
           <div>
-            <Code2 size={21} aria-hidden="true" />
+            <Network size={21} aria-hidden="true" />
             <span>
-              Bank of Uganda Hackathon<small>Participant</small>
+              Infrastructure perspective
+              <small>Network design, Linux systems & automation</small>
             </span>
           </div>
         </div>
         <div className="about-signoff">
           <span className="signature">Lumu Xavier</span>
-          <span className="micro">THINKPAD. FEDORA. POSSIBILITIES.</span>
+          <span className="micro">CLEAR THINKING. CONSIDERED EXECUTION.</span>
         </div>
       </div>
     </section>
@@ -1051,6 +1102,7 @@ function Philosophy() {
       className="philosophy container"
       aria-labelledby="philosophy-title"
       data-reveal
+      data-motion-scene
     >
       <div className="philosophy-light" aria-hidden="true" />
       <span className="philosophy-star" aria-hidden="true">
@@ -1087,9 +1139,11 @@ function Philosophy() {
       <div className="exploration">
         <ShieldCheck size={17} aria-hidden="true" />
         <p>
-          Currently exploring{" "}
-          <strong>network access & bandwidth products</strong> for small
-          businesses in Uganda.
+          A product focus:{" "}
+          <strong>
+            intelligent software, connected businesses, and better digital
+            experiences.
+          </strong>
         </p>
         <ArrowUpRight size={18} aria-hidden="true" />
       </div>
@@ -1263,6 +1317,7 @@ export default function App() {
   const [project, setProject] = useState(null);
   const root = useRef(null);
   useReveal(root, motion);
+  useSceneMotion(root, motion);
   return (
     <div
       className="portfolio"
@@ -1273,6 +1328,7 @@ export default function App() {
         Skip to content
       </a>
       <div className="ambient-backdrop" aria-hidden="true" />
+      <div className="reading-progress" aria-hidden="true" />
       <Header motion={motion} onToggle={toggleMotion} />
       <main id="main">
         <Hero motion={motion} />

@@ -6,6 +6,7 @@ import "@fontsource/ibm-plex-mono/latin-400.css";
 import "@fontsource-variable/manrope/wght.css";
 import "./styles.css";
 import "./theme.css";
+import "./motion.css";
 
 const root = document.getElementById("root");
 if (root.hasChildNodes()) hydrateRoot(root, <App />);
