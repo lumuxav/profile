@@ -27,7 +27,7 @@ import {
 } from "lucide-react";
 import { experiments, profile, projects, skills, toolbelt } from "./profile";
 import { automaticMotionQuery, useSceneMotion } from "./useSceneMotion";
-import ImmersiveLab from "./ImmersiveLab";
+import { GlobalAtmosphere, NetworkAtmosphere, SceneArt, SplineAtmosphere, useCinematicAnimations } from "./SiteEffects";
 
 const icons = {
   code: Code2,
@@ -44,7 +44,6 @@ const icons = {
 const navigation = [
   ["work", "Work"],
   ["expertise", "Expertise"],
-  ["lab", "3D Lab"],
   ["about", "About"],
 ];
 
@@ -328,6 +327,7 @@ function Hero({ motion }) {
       aria-labelledby="hero-title"
       data-motion-scene
     >
+      <NetworkAtmosphere motion={motion} tone="light" />
       <div className="hero-aurora" aria-hidden="true" />
       <div className="hero-grid container">
         <div className="hero-copy">
@@ -483,6 +483,7 @@ function Expertise({ motion }) {
       aria-labelledby="expertise-title"
       data-motion-scene
     >
+      <SceneArt kind="network" motion={motion} className="expertise-art" />
       <SectionHeading
         number="01"
         label="ENGINEERING ACROSS THE STACK"
@@ -843,6 +844,7 @@ function Work({ onOpen, motion }) {
       id="work"
       aria-labelledby="work-title"
     >
+      <SceneArt kind="flow" motion={motion} className="work-art" />
       <SectionHeading
         number="02"
         label="WHAT I BUILD"
@@ -1015,7 +1017,7 @@ function ProjectDialog({ project, onClose }) {
   );
 }
 
-function About() {
+function About({ motion }) {
   return (
     <section
       className="about-section section container"
@@ -1023,6 +1025,8 @@ function About() {
       aria-labelledby="about-title"
       data-motion-scene
     >
+      <SceneArt kind="crystal" motion={motion} className="about-art" />
+      <SplineAtmosphere motion={motion} />
       <div className="about-portrait" data-reveal>
         <div className="about-photo-frame">
           <img
@@ -1109,7 +1113,7 @@ function About() {
   );
 }
 
-function Philosophy() {
+function Philosophy({ motion }) {
   return (
     <section
       className="philosophy container"
@@ -1117,6 +1121,7 @@ function Philosophy() {
       data-reveal
       data-motion-scene
     >
+      <SceneArt kind="rings" motion={motion} className="philosophy-art" />
       <div className="philosophy-light" aria-hidden="true" />
       <span className="philosophy-star" aria-hidden="true">
         ✳
@@ -1256,13 +1261,15 @@ function ContactForm() {
   );
 }
 
-function Contact() {
+function Contact({ motion }) {
   return (
     <section
       className="contact-section section container"
       id="contact"
       aria-labelledby="contact-title"
     >
+      <NetworkAtmosphere motion={motion} tone="light" />
+      <SceneArt kind="network" motion={motion} className="contact-art" />
       <div className="contact-copy" data-reveal>
         <p className="eyebrow">
           <span>04</span>YOUR NEXT IDEA STARTS HERE
@@ -1296,7 +1303,7 @@ function Contact() {
           </ExternalLink>
         </div>
       </div>
-      <div data-reveal>
+      <div className="contact-form-wrap" data-reveal>
         <ContactForm />
       </div>
     </section>
@@ -1331,6 +1338,7 @@ export default function App() {
   const root = useRef(null);
   useReveal(root, motion);
   useSceneMotion(root, motion);
+  useCinematicAnimations(root, motion);
   return (
     <div
       className="portfolio"
@@ -1342,6 +1350,7 @@ export default function App() {
         Skip to content
       </a>
       <div className="ambient-backdrop" aria-hidden="true" />
+      <GlobalAtmosphere />
       <div className="reading-progress" aria-hidden="true" />
       <Header
         motion={motion}
@@ -1353,10 +1362,9 @@ export default function App() {
         <CapabilityRail />
         <Expertise motion={motion} />
         <Work motion={motion} onOpen={setProject} />
-        <ImmersiveLab motion={motion} />
-        <About />
-        <Philosophy />
-        <Contact />
+        <About motion={motion} />
+        <Philosophy motion={motion} />
+        <Contact motion={motion} />
       </main>
       <Footer />
       <ProjectDialog project={project} onClose={() => setProject(null)} />
