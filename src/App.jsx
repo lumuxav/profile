@@ -27,6 +27,7 @@ import {
 } from "lucide-react";
 import { experiments, profile, projects, skills, toolbelt } from "./profile";
 import { automaticMotionQuery, useSceneMotion } from "./useSceneMotion";
+import ImmersiveLab from "./ImmersiveLab";
 
 const icons = {
   code: Code2,
@@ -43,6 +44,7 @@ const icons = {
 const navigation = [
   ["work", "Work"],
   ["expertise", "Expertise"],
+  ["lab", "3D Lab"],
   ["about", "About"],
 ];
 
@@ -1351,6 +1353,7 @@ export default function App() {
         <CapabilityRail />
         <Expertise motion={motion} />
         <Work motion={motion} onOpen={setProject} />
+        <ImmersiveLab motion={motion} />
         <About />
         <Philosophy />
         <Contact />
