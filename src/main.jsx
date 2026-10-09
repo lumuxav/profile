@@ -8,6 +8,8 @@ import "./styles.css";
 import "./theme.css";
 import "./motion.css";
 import "./immersive.css";
+import "./site-atmosphere.css";
+import "./SiteAtmosphere";
 
 const root = document.getElementById("root");
 if (root.hasChildNodes()) hydrateRoot(root, <App />);
