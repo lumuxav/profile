@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { ArrowRight, ArrowUpRight, Box, Cpu, MousePointer2, MoveUpRight, Play, Sparkles, X } from "lucide-react";
 
-const DEMO_SCENE = "https://prod.spline.design/U9O6K7fXziMEU7Wu/scene.splinecode";
+const DEMO_SCENE = "https://prod.spline.design/6Wq1Q7YGyM-iab9i/scene.splinecode";
 const SPLINE_VIEWER = "https://unpkg.com/@splinetool/viewer/build/spline-viewer.js";
 const LEGACY_THREE = "https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js";
 const VANTA_NET = "https://cdn.jsdelivr.net/npm/vanta@0.5.24/dist/vanta.net.min.js";
