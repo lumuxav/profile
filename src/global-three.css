@@ -1,0 +1,174 @@
+.constellation-field {
+  display: none !important;
+}
+
+.global-three-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.64;
+  mix-blend-mode: multiply;
+}
+
+.portfolio {
+  position: relative;
+  isolation: isolate;
+}
+
+.site-header,
+.reading-progress {
+  z-index: 50;
+}
+
+.hero-grid,
+.hero-bottom,
+.capability-rail,
+.expertise-section > .section-heading,
+.expertise-section > .skills-grid,
+.expertise-section > .toolbelt,
+.work-section > .section-heading,
+.work-section > .work-toolbar,
+.work-section > .projects-grid,
+.work-section > .workbench,
+.about-section > .about-portrait,
+.about-section > .about-content,
+.philosophy > .eyebrow,
+.philosophy > h2,
+.philosophy > .process,
+.philosophy > .exploration,
+.contact-section > .contact-copy,
+.contact-section > .contact-form-wrap,
+.site-footer {
+  position: relative;
+  z-index: 4;
+}
+
+.hero,
+.expertise-section,
+.work-section,
+.about-section,
+.philosophy,
+.contact-section {
+  overflow: hidden;
+}
+
+.hero::before,
+.work-section::before,
+.about-section::before,
+.contact-section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background: radial-gradient(ellipse at 35% 32%, #f5f7fcbd 0%, #f5f7fc82 28%, transparent 58%);
+}
+
+.expertise-section::after {
+  content: "";
+  position: absolute;
+  inset: 0 calc(50% - 50vw);
+  z-index: 2;
+  pointer-events: none;
+  background: radial-gradient(ellipse at 35% 16%, #030712e0 0%, #03071296 43%, transparent 72%);
+}
+
+.hero-visual,
+.portrait-stage,
+.floating-badge,
+.idea-note {
+  position: relative;
+  z-index: 5;
+}
+
+.hero-orbit {
+  z-index: 3;
+  opacity: 0.82;
+  filter: drop-shadow(0 16px 30px #37587e30);
+}
+
+.work-section .project-card,
+.expertise-section .skill-card,
+.contact-form,
+.about-photo-frame,
+.philosophy {
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+.work-section .project-card {
+  background: linear-gradient(150deg, #fffffff4, #f0f3f9ee);
+}
+
+.expertise-section .skill-card {
+  background: linear-gradient(145deg, #243247f5, #172233f7);
+}
+
+.contact-form {
+  background: linear-gradient(160deg, #fffffff2, #f2f5faf0);
+}
+
+@media (max-width: 900px) {
+  .global-three-canvas {
+    opacity: 0.7;
+    mix-blend-mode: multiply;
+  }
+
+  .hero::before,
+  .work-section::before,
+  .about-section::before,
+  .contact-section::before {
+    background: radial-gradient(ellipse at 45% 22%, #f5f7fcb8 0%, #f5f7fc80 31%, transparent 65%);
+  }
+
+  .expertise-section::after {
+    background: radial-gradient(ellipse at 52% 10%, #030712e6 0%, #03071296 42%, transparent 76%);
+  }
+
+  .hero-orbit {
+    display: block;
+    width: 150px;
+    height: 150px;
+    left: auto;
+    right: 2%;
+    bottom: 22px;
+    opacity: 0.76;
+  }
+
+  .hero-orbit .webgl-host {
+    display: none;
+  }
+}
+
+@media (max-width: 540px) {
+  .global-three-canvas {
+    opacity: 0.74;
+  }
+
+  .hero::before {
+    background: radial-gradient(ellipse at 45% 28%, #f5f7fcdf 0%, #f5f7fc95 40%, transparent 78%);
+  }
+
+  .hero-orbit {
+    width: 112px;
+    height: 112px;
+    right: -2px;
+    bottom: 34px;
+  }
+
+  .work-section .project-card,
+  .expertise-section .skill-card,
+  .contact-form {
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .global-three-canvas {
+    opacity: 0.35;
+  }
+}
