@@ -28,6 +28,7 @@ import {
 import { experiments, profile, projects, skills, toolbelt } from "./profile";
 import { automaticMotionQuery, useSceneMotion } from "./useSceneMotion";
 import ConstellationField from "./ConstellationField";
+import { CinematicHero, CinematicInterlude } from "./CinematicExperience";
 
 const icons = {
   code: Code2,
@@ -1355,7 +1356,8 @@ export default function App() {
         automaticMotion={automaticMotion}
       />
       <main id="main">
-        <Hero motion={motion} />
+        <CinematicHero motion={motion} />
+        <CinematicInterlude />
         <CapabilityRail />
         <Expertise motion={motion} />
         <Work motion={motion} onOpen={setProject} />
