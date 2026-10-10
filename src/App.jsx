@@ -29,6 +29,7 @@ import { experiments, profile, projects, skills, toolbelt } from "./profile";
 import { automaticMotionQuery, useSceneMotion } from "./useSceneMotion";
 import ConstellationField from "./ConstellationField";
 import { CinematicHero, CinematicInterlude } from "./CinematicExperience";
+import { mountGlobalThree } from "./GlobalThreeRuntime";
 
 const icons = {
   code: Code2,
@@ -1338,6 +1339,7 @@ export default function App() {
   const root = useRef(null);
   useReveal(root, motion);
   useSceneMotion(root, motion);
+  useEffect(() => mountGlobalThree(root.current), []);
   return (
     <div
       className="portfolio"

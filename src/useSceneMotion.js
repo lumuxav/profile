@@ -8,9 +8,10 @@ export function useSceneMotion(root, motion) {
     const page = root.current;
     if (!page) return;
 
-    const hero = page.querySelector(".hero");
-    const visual = page.querySelector(".hero-visual");
+    const hero = page.querySelector(".hero, .film-hero");
+    const visual = page.querySelector(".hero-visual, .film-portrait");
     const about = page.querySelector(".about-section");
+    if (!hero || !visual || !about) return;
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
     const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)");
     const automatic = window.matchMedia(automaticMotionQuery);

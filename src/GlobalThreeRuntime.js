@@ -271,17 +271,15 @@ function createWorld(container) {
   };
 }
 
-function mount() {
-  const container = document.querySelector(".portfolio");
-  if (!container || container.querySelector(".global-three-canvas")) return;
-  const dispose = createWorld(container);
-  window.__lumuGlobalThreeDispose = dispose;
-}
-
-if (isBrowser) {
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", mount, { once: true });
-  } else {
-    queueMicrotask(mount);
+export function mountGlobalThree(container) {
+  if (!isBrowser || !container || container.querySelector(".global-three-canvas")) {
+    return () => {};
+  }
+  try {
+    return createWorld(container);
+  } catch (error) {
+    container.querySelector(".global-three-canvas")?.remove();
+    console.warn("3D background unavailable; portfolio remains fully usable.", error);
+    return () => {};
   }
 }
