@@ -8,6 +8,8 @@ import "./styles.css";
 import "./theme.css";
 import "./motion.css";
 import "./constellation.css";
+import "./global-three.css";
+import "./GlobalThreeRuntime";
 
 const root = document.getElementById("root");
 if (root.hasChildNodes()) hydrateRoot(root, <App />);
