@@ -7,7 +7,7 @@ import "@fontsource-variable/manrope/wght.css";
 import "./styles.css";
 import "./theme.css";
 import "./motion.css";
-import "./cinematic.css";
+import "./constellation.css";
 
 const root = document.getElementById("root");
 if (root.hasChildNodes()) hydrateRoot(root, <App />);

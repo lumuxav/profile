@@ -27,7 +27,7 @@ import {
 } from "lucide-react";
 import { experiments, profile, projects, skills, toolbelt } from "./profile";
 import { automaticMotionQuery, useSceneMotion } from "./useSceneMotion";
-import { GlobalAtmosphere, NetworkAtmosphere, SceneArt, SplineAtmosphere, useCinematicAnimations } from "./SiteEffects";
+import ConstellationField from "./ConstellationField";
 
 const icons = {
   code: Code2,
@@ -164,6 +164,7 @@ function OrbitScene({ motion }) {
     controller.current?.setMotion(motion);
   }, [motion]);
   useEffect(() => {
+    if (window.matchMedia("(max-width: 900px), (prefers-reduced-motion: reduce)").matches || navigator.connection?.saveData) return;
     let cancelled = false;
     import("./createOrbitScene")
       .then(({ createOrbitScene }) => {
@@ -327,7 +328,7 @@ function Hero({ motion }) {
       aria-labelledby="hero-title"
       data-motion-scene
     >
-      <NetworkAtmosphere motion={motion} tone="light" />
+      <ConstellationField scene={0} tone="light" placement="constellation-hero" />
       <div className="hero-aurora" aria-hidden="true" />
       <div className="hero-grid container">
         <div className="hero-copy">
@@ -483,7 +484,7 @@ function Expertise({ motion }) {
       aria-labelledby="expertise-title"
       data-motion-scene
     >
-      <SceneArt kind="network" motion={motion} className="expertise-art" />
+      <ConstellationField scene={1} tone="dark" placement="constellation-expertise" />
       <SectionHeading
         number="01"
         label="ENGINEERING ACROSS THE STACK"
@@ -844,7 +845,7 @@ function Work({ onOpen, motion }) {
       id="work"
       aria-labelledby="work-title"
     >
-      <SceneArt kind="flow" motion={motion} className="work-art" />
+      <ConstellationField scene={2} tone="light" placement="constellation-work" />
       <SectionHeading
         number="02"
         label="WHAT I BUILD"
@@ -1017,7 +1018,7 @@ function ProjectDialog({ project, onClose }) {
   );
 }
 
-function About({ motion }) {
+function About() {
   return (
     <section
       className="about-section section container"
@@ -1025,8 +1026,7 @@ function About({ motion }) {
       aria-labelledby="about-title"
       data-motion-scene
     >
-      <SceneArt kind="crystal" motion={motion} className="about-art" />
-      <SplineAtmosphere motion={motion} />
+      <ConstellationField scene={3} tone="light" placement="constellation-about" />
       <div className="about-portrait" data-reveal>
         <div className="about-photo-frame">
           <img
@@ -1113,7 +1113,7 @@ function About({ motion }) {
   );
 }
 
-function Philosophy({ motion }) {
+function Philosophy() {
   return (
     <section
       className="philosophy container"
@@ -1121,7 +1121,7 @@ function Philosophy({ motion }) {
       data-reveal
       data-motion-scene
     >
-      <SceneArt kind="rings" motion={motion} className="philosophy-art" />
+      <ConstellationField scene={4} tone="light" placement="constellation-philosophy" />
       <div className="philosophy-light" aria-hidden="true" />
       <span className="philosophy-star" aria-hidden="true">
         ✳
@@ -1261,15 +1261,14 @@ function ContactForm() {
   );
 }
 
-function Contact({ motion }) {
+function Contact() {
   return (
     <section
       className="contact-section section container"
       id="contact"
       aria-labelledby="contact-title"
     >
-      <NetworkAtmosphere motion={motion} tone="light" />
-      <SceneArt kind="network" motion={motion} className="contact-art" />
+      <ConstellationField scene={5} tone="light" placement="constellation-contact" />
       <div className="contact-copy" data-reveal>
         <p className="eyebrow">
           <span>04</span>YOUR NEXT IDEA STARTS HERE
@@ -1338,7 +1337,6 @@ export default function App() {
   const root = useRef(null);
   useReveal(root, motion);
   useSceneMotion(root, motion);
-  useCinematicAnimations(root, motion);
   return (
     <div
       className="portfolio"
@@ -1350,7 +1348,6 @@ export default function App() {
         Skip to content
       </a>
       <div className="ambient-backdrop" aria-hidden="true" />
-      <GlobalAtmosphere />
       <div className="reading-progress" aria-hidden="true" />
       <Header
         motion={motion}
@@ -1362,9 +1359,9 @@ export default function App() {
         <CapabilityRail />
         <Expertise motion={motion} />
         <Work motion={motion} onOpen={setProject} />
-        <About motion={motion} />
-        <Philosophy motion={motion} />
-        <Contact motion={motion} />
+        <About />
+        <Philosophy />
+        <Contact />
       </main>
       <Footer />
       <ProjectDialog project={project} onClose={() => setProject(null)} />
