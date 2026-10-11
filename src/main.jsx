@@ -8,7 +8,6 @@ import "./styles.css";
 import "./theme.css";
 import "./motion.css";
 import "./constellation.css";
-import "./global-three.css";
 import "./cinema.css";
 
 const root = document.getElementById("root");

@@ -29,7 +29,6 @@ import { experiments, profile, projects, skills, toolbelt } from "./profile";
 import { automaticMotionQuery, useSceneMotion } from "./useSceneMotion";
 import ConstellationField from "./ConstellationField";
 import { CinematicHero, CinematicInterlude } from "./CinematicExperience";
-import { mountGlobalThree } from "./GlobalThreeRuntime";
 
 const icons = {
   code: Code2,
@@ -156,51 +155,6 @@ function Tilt({ children, className = "", motion = true, ...props }) {
   );
 }
 
-function OrbitScene({ motion }) {
-  const host = useRef(null);
-  const controller = useRef(null);
-  const [ready, setReady] = useState(false);
-  const currentMotion = useRef(motion);
-  useEffect(() => {
-    currentMotion.current = motion;
-    controller.current?.setMotion(motion);
-  }, [motion]);
-  useEffect(() => {
-    if (window.matchMedia("(max-width: 900px), (prefers-reduced-motion: reduce)").matches || navigator.connection?.saveData) return;
-    let cancelled = false;
-    import("./createOrbitScene")
-      .then(({ createOrbitScene }) => {
-        if (cancelled || !host.current) return;
-        controller.current = createOrbitScene(
-          host.current,
-          currentMotion.current,
-        );
-        setReady(true);
-      })
-      .catch(() => {
-        if (!cancelled) setReady(false);
-      });
-    return () => {
-      cancelled = true;
-      controller.current?.dispose();
-      controller.current = null;
-    };
-  }, []);
-  return (
-    <div
-      className={`orbit-scene ${ready ? "is-ready" : ""}`}
-      aria-hidden="true"
-    >
-      <div className="orbit-fallback">
-        <i />
-        <i />
-        <i />
-      </div>
-      <div className="webgl-host" ref={host} />
-    </div>
-  );
-}
-
 function Header({ motion, onToggle, automaticMotion }) {
   const [open, setOpen] = useState(false);
   useEffect(() => {
@@ -281,159 +235,6 @@ function Header({ motion, onToggle, automaticMotion }) {
   );
 }
 
-function SignalField() {
-  return (
-    <svg
-      className="signal-field"
-      viewBox="0 0 600 620"
-      fill="none"
-      aria-hidden="true"
-    >
-      <g className="signal-traces">
-        <path d="M20 160H120Q158 160 158 122V80H450Q510 80 510 140V405Q510 456 560 456" />
-        <path d="M55 485H195Q236 485 236 527V567H426Q474 567 474 519V262Q474 220 540 220" />
-      </g>
-      <g className="signal-packets">
-        <path
-          pathLength="100"
-          d="M20 160H120Q158 160 158 122V80H450Q510 80 510 140V405Q510 456 560 456"
-        />
-        <path
-          pathLength="100"
-          d="M55 485H195Q236 485 236 527V567H426Q474 567 474 519V262Q474 220 540 220"
-        />
-      </g>
-      {[
-        [20, 160],
-        [560, 456],
-        [55, 485],
-        [540, 220],
-      ].map(([x, y], index) => (
-        <g
-          className="signal-node"
-          key={index}
-          style={{ "--node-delay": `${index * -1.1}s` }}
-        >
-          <circle cx={x} cy={y} r="8" />
-          <circle cx={x} cy={y} r="2.5" />
-        </g>
-      ))}
-    </svg>
-  );
-}
-
-function Hero({ motion }) {
-  return (
-    <section
-      className="hero section-shell"
-      id="home"
-      aria-labelledby="hero-title"
-      data-motion-scene
-    >
-      <ConstellationField scene={0} tone="light" placement="constellation-hero" />
-      <div className="hero-aurora" aria-hidden="true" />
-      <div className="hero-grid container">
-        <div className="hero-copy">
-          <div className="availability">
-            <span className="status-dot" /> OPEN TO COLLABORATIONS{" "}
-            <span className="availability-line" />
-          </div>
-          <p className="hero-introduction">Hello, I’m Lumu Francis Xavier.</p>
-          <h1 id="hero-title">
-            <span className="hero-line">Big ideas.</span>
-            <span className="hero-line">Real-world</span>
-            <em>possibilities.</em>
-            <span className="title-star" aria-hidden="true">
-              ✳
-            </span>
-          </h1>
-          <p className="hero-description">
-            I design and build digital products—from considered interfaces and
-            intelligent software to the infrastructure that connects it all.
-          </p>
-          <div className="hero-actions">
-            <a href="#work" className="button button-light">
-              Explore my work <ArrowUpRight size={19} aria-hidden="true" />
-            </a>
-            <a href="#contact" className="button button-outline">
-              Let’s build something <ArrowRight size={18} aria-hidden="true" />
-            </a>
-          </div>
-          <div className="hero-location">
-            <Globe2 size={15} aria-hidden="true" />
-            <span>Based in Kampala. Building beyond borders.</span>
-          </div>
-        </div>
-        <div className="hero-visual">
-          <div className="portrait-halo" aria-hidden="true" />
-          <SignalField />
-          <div className="orbit-track track-one" aria-hidden="true" />
-          <div className="orbit-track track-two" aria-hidden="true" />
-          <span className="visual-coordinate coord-top" aria-hidden="true">
-            00°19′ N · 32°35′ E
-          </span>
-          <Tilt className="portrait-stage" motion={motion}>
-            <div className="portrait-outline" />
-            <div className="portrait-image">
-              <img
-                src={profile.portrait}
-                alt="Lumu Francis Xavier"
-                width="1080"
-                height="1080"
-                fetchPriority="high"
-              />
-              <div className="portrait-shade" />
-            </div>
-            <div className="portrait-caption">
-              <span>THE MIND BEHIND THE CODE</span>
-              <strong>
-                Lumu Xavier<span>↗</span>
-              </strong>
-            </div>
-            <div className="portrait-glint" aria-hidden="true" />
-          </Tilt>
-          <div className="floating-badge badge-ai glass">
-            <BrainCircuit size={20} aria-hidden="true" />
-            <div>
-              <strong>Intelligence, applied.</strong>
-              <span>AI & MACHINE LEARNING</span>
-            </div>
-            <span className="badge-dot" />
-          </div>
-          <div className="floating-badge badge-code glass">
-            <Code2 size={18} aria-hidden="true" />
-            <span>Engineered with intent.</span>
-          </div>
-          <div className="hero-orbit">
-            <OrbitScene motion={motion} />
-          </div>
-          <div className="idea-note glass">
-            <span className="note-icon">
-              <Sparkles size={19} aria-hidden="true" />
-            </span>
-            <p>
-              Imagine it.
-              <br />
-              <strong>Let’s engineer it.</strong>
-            </p>
-            <ArrowUpRight size={21} aria-hidden="true" />
-          </div>
-          <span className="visual-coordinate coord-bottom" aria-hidden="true">
-            PRODUCT THINKING / SYSTEMS ENGINEERING
-          </span>
-        </div>
-      </div>
-      <div className="hero-bottom container">
-        <span>SOFTWARE ENGINEERING / AI / CONNECTED SYSTEMS</span>
-        <a href="#expertise">
-          SCROLL TO DISCOVER <ArrowDown size={15} aria-hidden="true" />
-        </a>
-        <span className="hero-bottom-last">IDEAS HAVE NO CEILING.</span>
-      </div>
-    </section>
-  );
-}
-
 function CapabilityRail() {
   return (
     <div
@@ -486,7 +287,11 @@ function Expertise({ motion }) {
       aria-labelledby="expertise-title"
       data-motion-scene
     >
-      <ConstellationField scene={1} tone="dark" placement="constellation-expertise" />
+      <ConstellationField
+        scene={1}
+        tone="dark"
+        placement="constellation-expertise"
+      />
       <SectionHeading
         number="01"
         label="ENGINEERING ACROSS THE STACK"
@@ -847,7 +652,11 @@ function Work({ onOpen, motion }) {
       id="work"
       aria-labelledby="work-title"
     >
-      <ConstellationField scene={2} tone="light" placement="constellation-work" />
+      <ConstellationField
+        scene={2}
+        tone="light"
+        placement="constellation-work"
+      />
       <SectionHeading
         number="02"
         label="WHAT I BUILD"
@@ -1028,7 +837,11 @@ function About() {
       aria-labelledby="about-title"
       data-motion-scene
     >
-      <ConstellationField scene={3} tone="light" placement="constellation-about" />
+      <ConstellationField
+        scene={3}
+        tone="light"
+        placement="constellation-about"
+      />
       <div className="about-portrait" data-reveal>
         <div className="about-photo-frame">
           <img
@@ -1123,7 +936,11 @@ function Philosophy() {
       data-reveal
       data-motion-scene
     >
-      <ConstellationField scene={4} tone="light" placement="constellation-philosophy" />
+      <ConstellationField
+        scene={4}
+        tone="light"
+        placement="constellation-philosophy"
+      />
       <div className="philosophy-light" aria-hidden="true" />
       <span className="philosophy-star" aria-hidden="true">
         ✳
@@ -1270,7 +1087,11 @@ function Contact() {
       id="contact"
       aria-labelledby="contact-title"
     >
-      <ConstellationField scene={5} tone="light" placement="constellation-contact" />
+      <ConstellationField
+        scene={5}
+        tone="light"
+        placement="constellation-contact"
+      />
       <div className="contact-copy" data-reveal>
         <p className="eyebrow">
           <span>04</span>YOUR NEXT IDEA STARTS HERE
@@ -1339,7 +1160,6 @@ export default function App() {
   const root = useRef(null);
   useReveal(root, motion);
   useSceneMotion(root, motion);
-  useEffect(() => mountGlobalThree(root.current), []);
   return (
     <div
       className="portfolio"
@@ -1359,7 +1179,7 @@ export default function App() {
       />
       <main id="main">
         <CinematicHero motion={motion} />
-        <CinematicInterlude />
+        <CinematicInterlude motion={motion} />
         <CapabilityRail />
         <Expertise motion={motion} />
         <Work motion={motion} onOpen={setProject} />
