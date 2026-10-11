@@ -1,7 +1,7 @@
 
 .portfolio{isolation:isolate}
 .hero,.expertise-section,.work-section,.about-section,.philosophy,.contact-section{position:relative;isolation:isolate}
-.constellation-field{position:absolute;inset:0;z-index:0;overflow:hidden;pointer-events:none;user-select:none;contain:paint;--stars:#607d9e;--sky-opacity:.23}
+.constellation-field{position:absolute;inset:0;z-index:0;overflow:hidden;pointer-events:none;user-select:none;contain:paint;--stars:#7b7a76;--sky-opacity:.23}
 .constellation-field .constellation-map{position:absolute;inset:0;width:100%;height:100%;overflow:hidden;opacity:var(--sky-opacity);transform:translate3d(0,0,0) scale(1.025);animation:constellation-drift 38s ease-in-out infinite alternate}
 .constellation-links line{stroke:var(--stars);stroke-width:1;stroke-opacity:.36;vector-effect:non-scaling-stroke}
 .constellation-points circle{fill:var(--stars);fill-opacity:.83}
@@ -9,17 +9,17 @@
 .constellation-bright{animation:constellation-twinkle 7s ease-in-out infinite alternate}
 .constellation-bright{fill-opacity:1}
 .constellation-accents circle{fill:none;stroke:var(--stars);stroke-width:.7;stroke-opacity:.18}
-.constellation-soft-light{position:absolute;width:min(45vw,430px);height:min(45vw,430px);border-radius:50%;top:12%;right:-12%;background:radial-gradient(circle,#91adc41a 0%,#aec8e30b 42%,transparent 73%);filter:blur(22px);animation:constellation-glow 22s ease-in-out infinite alternate}
-.constellation-light{--stars:#54779a;--sky-opacity:.24}
-.constellation-dark{--stars:#bad5ef;--sky-opacity:.32}
-.constellation-dark .constellation-soft-light{background:radial-gradient(circle,#6988b921,transparent 69%);opacity:.6}
-.constellation-hero{mask-image:linear-gradient(90deg,transparent 0%,#000 48%,#000 100%);-webkit-mask-image:linear-gradient(90deg,transparent 0%,#000 48%,#000 100%)}
+.constellation-soft-light{position:absolute;width:min(45vw,430px);height:min(45vw,430px);border-radius:50%;top:12%;right:-12%;background:radial-gradient(circle,#abaaa61a 0%,#c6c5c10b 42%,transparent 73%);filter:blur(22px);animation:constellation-glow 22s ease-in-out infinite alternate}
+.constellation-light{--stars:#74736f;--sky-opacity:.24}
+.constellation-dark{--stars:#d3d2ce;--sky-opacity:.32}
+.constellation-dark .constellation-soft-light{background:radial-gradient(circle,#87868221,transparent 69%);opacity:.6}
+.constellation-hero{mask-image:linear-gradient(90deg,transparent 0%,#000000 48%,#000000 100%);-webkit-mask-image:linear-gradient(90deg,transparent 0%,#000000 48%,#000000 100%)}
 .constellation-hero .constellation-map{opacity:.22}
-.constellation-expertise{--sky-opacity:.38;mask-image:linear-gradient(90deg,#000 0%,#000 70%,transparent 100%);-webkit-mask-image:linear-gradient(90deg,#000 0%,#000 70%,transparent 100%)}
+.constellation-expertise{--sky-opacity:.38;mask-image:linear-gradient(90deg,#000000 0%,#000000 70%,transparent 100%);-webkit-mask-image:linear-gradient(90deg,#000000 0%,#000000 70%,transparent 100%)}
 .constellation-work .constellation-soft-light{top:38%;right:0}
 .constellation-about .constellation-soft-light{top:20%;left:-12%}
 .constellation-philosophy{border-radius:inherit}
-.constellation-contact{mask-image:linear-gradient(90deg,transparent 3%,#000 34%,#000 100%);-webkit-mask-image:linear-gradient(90deg,transparent 3%,#000 34%,#000 100%)}
+.constellation-contact{mask-image:linear-gradient(90deg,transparent 3%,#000000 34%,#000000 100%);-webkit-mask-image:linear-gradient(90deg,transparent 3%,#000000 34%,#000000 100%)}
 .constellation-contact .constellation-soft-light{top:18%;right:-9%}
 .hero .hero-grid,.hero .hero-bottom{position:relative;z-index:2}
 .hero .hero-aurora{opacity:.32}
@@ -29,14 +29,14 @@
 .about-section>.about-portrait,.about-section>.about-content{position:relative;z-index:2}
 .philosophy>.eyebrow,.philosophy>h2,.philosophy>.process,.philosophy>.exploration,.philosophy>.philosophy-star{position:relative;z-index:2}
 .contact-section>.contact-copy,.contact-section>.contact-form-wrap{position:relative;z-index:2}
-.expertise-section .skill-card{background:linear-gradient(145deg,#223149f7,#172437fb);box-shadow:inset 0 1px #ffffff12,0 14px 32px #00000024}
-.expertise-section .skill-shell:hover .skill-card{background:linear-gradient(145deg,#2e4260,#202e43)}
-.work-section .project-card{background:linear-gradient(150deg,#fffffffa,#f2f4f9fc);box-shadow:0 14px 32px #263b5214;transition:box-shadow .35s,border-color .35s,translate .35s}
-.work-section .project-card:hover{box-shadow:0 22px 42px #273d5c20;translate:0 -4px}
-.about-section .about-photo-frame{box-shadow:0 18px 55px #2c3b5126}
-.contact-section .contact-form{background:linear-gradient(160deg,#fffffffa,#eff2f9f5);box-shadow:0 19px 48px #26374f1c}
-.philosophy{background:linear-gradient(135deg,#e0e4ee,#f0f1f7 66%,#e8ecf4);box-shadow:0 14px 44px #1c2b4412}
-.hero-orbit{left:auto;right:-10px;bottom:15px;width:220px;height:220px;z-index:1;opacity:.82;filter:drop-shadow(0 12px 25px #2e45681e)}
+.expertise-section .skill-card{background:linear-gradient(145deg,#303230f7,#232523fb);box-shadow:inset 0 1px #ffffff12,0 14px 32px #00000024}
+.expertise-section .skill-shell:hover .skill-card{background:linear-gradient(145deg,#404240,#2d2f2d)}
+.work-section .project-card{background:linear-gradient(150deg,#fffffffa,#f6f5f1fc);box-shadow:0 14px 32px #383a3814;transition:box-shadow .35s,border-color .35s,translate .35s}
+.work-section .project-card:hover{box-shadow:0 22px 42px #3b3d3b20;translate:0 -4px}
+.about-section .about-photo-frame{box-shadow:0 18px 55px #393b3926}
+.contact-section .contact-form{background:linear-gradient(160deg,#fffffffa,#f4f3eff5);box-shadow:0 19px 48px #3537351c}
+.philosophy{background:linear-gradient(135deg,#e6e5e1,#f3f2ee 66%,#eeede9);box-shadow:0 14px 44px #2a2c2a12}
+.hero-orbit{left:auto;right:-10px;bottom:15px;width:220px;height:220px;z-index:1;opacity:.82;filter:drop-shadow(0 12px 25px #4544401e)}
 .hero .portrait-stage{z-index:3}
 .hero .floating-badge,.hero .idea-note{z-index:5}
 @keyframes constellation-drift{0%{transform:translate3d(-9px,5px,0) scale(1.025)}100%{transform:translate3d(12px,-8px,0) scale(1.025)}}
@@ -47,9 +47,9 @@
 .constellation-field{--sky-opacity:.24}
 .constellation-dark{--sky-opacity:.34}
 .constellation-map{animation-duration:46s!important}
-.constellation-hero{mask-image:linear-gradient(180deg,transparent 0%,#000 42%,#000 92%,transparent 100%);-webkit-mask-image:linear-gradient(180deg,transparent 0%,#000 42%,#000 92%,transparent 100%)}
+.constellation-hero{mask-image:linear-gradient(180deg,transparent 0%,#000000 42%,#000000 92%,transparent 100%);-webkit-mask-image:linear-gradient(180deg,transparent 0%,#000000 42%,#000000 92%,transparent 100%)}
 .constellation-hero .constellation-map{opacity:.23}
-.constellation-contact{mask-image:linear-gradient(180deg,transparent 0%,#000 30%,#000 96%);-webkit-mask-image:linear-gradient(180deg,transparent 0%,#000 30%,#000 96%)}
+.constellation-contact{mask-image:linear-gradient(180deg,transparent 0%,#000000 30%,#000000 96%);-webkit-mask-image:linear-gradient(180deg,transparent 0%,#000000 30%,#000000 96%)}
 .constellation-expertise{mask-image:none;-webkit-mask-image:none}
 .hero-orbit{width:150px;height:150px;right:2%;bottom:15px;left:auto;z-index:1;opacity:.72}
 .hero .orbit-fallback{opacity:.7}
@@ -64,6 +64,6 @@
 .constellation-soft-light{width:220px;height:220px;filter:blur(20px)}
 .hero-orbit{width:116px;height:116px;right:0;bottom:29px}
 .hero .hero-orbit .orbit-fallback i{border-width:10px}
-.contact-section .contact-form{background:#f6f8fc}
+.contact-section .contact-form{background:#faf9f5}
 }
 @media(prefers-reduced-motion:reduce){.constellation-map,.constellation-star,.constellation-soft-light{animation:none!important}.constellation-map{transform:none!important}.hero-orbit{opacity:.65}}

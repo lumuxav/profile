@@ -4,7 +4,7 @@
   inset: 0 0 auto;
   z-index: 60;
   height: 3px;
-  background: linear-gradient(90deg, #24364f, #6c89a0, #28845e);
+  background: linear-gradient(90deg, #615b4d, #a18c68, #d0bc97);
   transform: scaleX(var(--reading-progress, 0));
   transform-origin: left;
   pointer-events: none;
@@ -70,11 +70,11 @@
   overflow: visible;
 }
 .signal-traces {
-  stroke: #60779429;
+  stroke: #76757129;
   stroke-width: 0.8;
 }
 .signal-packets {
-  stroke: #617e9f;
+  stroke: #7c7b77;
   stroke-width: 1.6;
   stroke-linecap: round;
   stroke-dasharray: 4 96;
@@ -87,14 +87,14 @@
   animation-delay: -4s;
 }
 .signal-node circle:first-child {
-  stroke: #70849f42;
-  fill: #e9edf655;
+  stroke: #84837f42;
+  fill: #efeeea55;
   transform-box: fill-box;
   transform-origin: center;
   animation: signal-breathe 4.5s var(--node-delay) ease-in-out infinite;
 }
 .signal-node circle:last-child {
-  fill: #66829b;
+  fill: #807f7b;
 }
 
 [data-reveal] {
@@ -123,8 +123,8 @@
 }
 .skill-shell:hover .skill-card {
   box-shadow:
-    inset 0 1px #fff2,
-    0 22px 55px #0004;
+    inset 0 1px #ffffff22,
+    0 22px 55px #00000044;
 }
 .skill-icon {
   transition:
@@ -142,8 +142,8 @@
     translate 0.8s;
 }
 .project-card:hover {
-  border-color: #667f9b60;
-  box-shadow: 0 22px 65px #20314c16;
+  border-color: #7e7d7960;
+  box-shadow: 0 22px 65px #2f312f16;
 }
 .project-link svg,
 .button svg,
@@ -169,7 +169,7 @@
   background: linear-gradient(
     100deg,
     transparent 35%,
-    #fff3 49%,
+    #ffffff33 49%,
     transparent 63%
   );
   transform: translateX(-100%);
@@ -199,7 +199,7 @@
   background: linear-gradient(
     90deg,
     transparent 20%,
-    #5c769dc4 50%,
+    #757470c4 50%,
     transparent 80%
   );
   background-size: 35% 100%;
@@ -219,7 +219,7 @@
     translate 0.35s;
 }
 .process > div:hover > span {
-  color: #213d59;
+  color: #393b39;
   translate: 4px 0;
 }
 .experiment[open] > p {

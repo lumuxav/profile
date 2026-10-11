@@ -15,20 +15,20 @@ import {
 
 export function createSpatialModels(compact = false) {
   const chrome = new MeshPhysicalMaterial({
-    color: 0xc5cbdc,
+    color: 0xcdd0c9,
     metalness: 0.92,
     roughness: 0.2,
     clearcoat: 1,
   });
-  const coral = new MeshStandardMaterial({
-    color: 0xff6775,
+  const champagne = new MeshStandardMaterial({
+    color: 0xc6ae81,
     metalness: 0.55,
     roughness: 0.24,
-    emissive: 0x701528,
+    emissive: 0x45361e,
     emissiveIntensity: 0.25,
   });
   const glass = new MeshPhysicalMaterial({
-    color: 0xd1d9fb,
+    color: 0xe5e5df,
     metalness: 0.08,
     roughness: 0.13,
     clearcoat: 1,
@@ -39,7 +39,7 @@ export function createSpatialModels(compact = false) {
     opacity: compact ? 0.52 : 1,
   });
   const line = new LineBasicMaterial({
-    color: 0x8a9bc8,
+    color: 0x999c94,
     transparent: true,
     opacity: 0.58,
   });
@@ -64,7 +64,7 @@ export function createSpatialModels(compact = false) {
   );
   knot.rotation.set(0.35, -0.2, -0.35);
   groups.systems.add(knot);
-  const orbit = new Mesh(new TorusGeometry(1.66, 0.022, 8, 96), coral);
+  const orbit = new Mesh(new TorusGeometry(1.66, 0.022, 8, 96), champagne);
   orbit.rotation.set(1.1, 0.25, -0.3);
   groups.systems.add(orbit);
   const glassOrb = new Mesh(
@@ -88,11 +88,11 @@ export function createSpatialModels(compact = false) {
     const key = `${x.toFixed(3)}:${y.toFixed(3)}:${z.toFixed(3)}`;
     if (seen.has(key)) continue;
     seen.add(key);
-    const node = new Mesh(nodeGeometry, seen.size % 3 ? chrome : coral);
+    const node = new Mesh(nodeGeometry, seen.size % 3 ? chrome : champagne);
     node.position.set(x, y, z);
     groups.intelligence.add(node);
   }
-  const intelligenceCore = new Mesh(new IcosahedronGeometry(0.53, 1), coral);
+  const intelligenceCore = new Mesh(new IcosahedronGeometry(0.53, 1), champagne);
   groups.intelligence.add(intelligenceCore);
 
   const panelGeometry = new BoxGeometry(1.64, 1.08, 0.09);
@@ -105,14 +105,14 @@ export function createSpatialModels(compact = false) {
     );
     const header = new Mesh(
       new BoxGeometry(1.22, 0.035, 0.025),
-      i === 2 ? coral : chrome,
+      i === 2 ? champagne : chrome,
     );
     header.position.set(0, 0.27, 0.062);
     panel.add(header);
     for (let j = 0; j < 3; j += 1) {
       const tile = new Mesh(
         new BoxGeometry(0.32, 0.36, 0.035),
-        j === i ? coral : chrome,
+        j === i ? champagne : chrome,
       );
       tile.position.set((j - 1) * 0.44, -0.08, 0.08);
       panel.add(tile);
@@ -124,7 +124,7 @@ export function createSpatialModels(compact = false) {
   const orbiters = new Group();
   const satelliteGeometry = new IcosahedronGeometry(0.1, 0);
   for (let i = 0; i < 5; i += 1) {
-    const satellite = new Mesh(satelliteGeometry, i % 2 ? coral : chrome);
+    const satellite = new Mesh(satelliteGeometry, i % 2 ? champagne : chrome);
     const angle = (i / 5) * Math.PI * 2;
     satellite.position.set(
       Math.cos(angle) * 1.65,
