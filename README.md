@@ -2,11 +2,11 @@
 
 A glass-and-motion React portfolio for Lumu Francis Xavier, a software engineer in Kampala, Uganda. The design brings together a floating portrait, a reflective 3D sculpture, layered glass cards, interactive capability stories, and responsive layouts.
 
-The cinematic hero combines oversized background typography, the supplied portrait, translucent graphite glass, and muted champagne highlights. Scrolling reveals a warm ivory perspective section with a glass scene explorer. Three.js sculptures connect the visual story to systems engineering, AI, and interfaces.
+The cinematic hero combines oversized background typography, the supplied portrait, frosted white glass, and precise vermilion highlights on a pearl-and-silver background. Scrolling reveals a bright silver perspective section with a glass scene explorer. Three.js sculptures connect the visual story to systems engineering, AI, and interfaces.
 
 The site presents engineering capabilities across full-stack applications, systems, AI/ML, network infrastructure, data architecture, and mobile product experiences. Copy focuses on approach and outcomes, with no academic labels, invented credentials, unverified business metrics, or claim of shipped native mobile apps. Private client work, unfinished products, and confidential project details are not published.
 
-![Cinematic desktop portfolio](docs/portfolio-graphite-desktop-20261011.jpg)
+![Cinematic desktop portfolio](docs/portfolio-pearl-desktop-20261011.jpg)
 
 ## Local development
 
@@ -69,7 +69,7 @@ The contact form validates the visitor's name and message, then opens a WhatsApp
 
 ## Verification
 
-The graphite, ivory, and champagne palette was checked across the hero, scene explorer, expertise cards, project artwork, and contact section on 2026-10-11. Desktop and phone layouts were visually reviewed. Selected body text, bronze headings, primary buttons, and form placeholders exceed 4.5:1 contrast against their intended surfaces; this is a focused palette check, not a full accessibility audit. The Three.js materials, CSS scene fallback, SVG artwork, browser theme color, and favicon use the same palette.
+The pearl, silver, black, and vermilion palette follows the supplied color reference. The hero, scene explorer, expertise cards, work artwork, contact section, and mobile navigation were visually reviewed. The 390px and 320px phone previews have no horizontal overflow and start motion automatically. Checked hero and skill text, red headings, primary buttons, and form placeholders exceed 4.5:1 contrast against their intended surfaces; this is a focused palette check, not a full accessibility audit. The Three.js materials, CSS scene fallback, SVG artwork, browser theme color, and favicon use the same palette.
 
 The cinematic Three.js revision was checked on 2026-10-11 at desktop, 768px tablet, and 390px/320px phone widths. These layouts had no horizontal overflow. Checks covered the three discipline selectors and their descriptions, desktop pause/resume, mobile navigation, capability filtering, and dialog opening. Mobile starts motion automatically, including after reload with a saved desktop pause; transform samples confirmed that the fallback keeps moving without interaction.
 

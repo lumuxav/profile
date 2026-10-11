@@ -536,8 +536,8 @@ function ProjectVisual({ id }) {
       <svg className="network-diagram" viewBox="0 0 540 230">
         <defs>
           <linearGradient id="networkLine">
-            <stop stopColor="#c8b48e" />
-            <stop offset="1" stopColor="#e5dec9" />
+            <stop stopColor="#ee6b5e" />
+            <stop offset="1" stopColor="#e0e7ef" />
           </linearGradient>
         </defs>
         <g
@@ -550,13 +550,13 @@ function ProjectVisual({ id }) {
         </g>
         <g
           className="network-pulses"
-          stroke="#d8dccf"
+          stroke="#d8e1ec"
           strokeWidth="2"
           fill="none"
         >
           <path d="M270 52V100H70V168M270 100H200V168M270 100H340V168M270 100H470V168" />
         </g>
-        <g fill="#1d271f" stroke="#798b71">
+        <g fill="#202830" stroke="#8898ac">
           <rect x="207" y="12" width="126" height="50" rx="12" />
           {[30, 160, 300, 430].map((x) => (
             <rect x={x} y="165" width="80" height="42" rx="10" key={x} />
@@ -564,7 +564,7 @@ function ProjectVisual({ id }) {
         </g>
         <g
           textAnchor="middle"
-          fill="#e2e7d6"
+          fill="#e5edf6"
           fontFamily="monospace"
           fontSize="10"
         >
@@ -584,7 +584,7 @@ function ProjectVisual({ id }) {
             AUTOMATE
           </text>
         </g>
-        <g fill="#cbb795">
+        <g fill="#ee6b5e">
           {[248, 270, 292].map((x) => (
             <circle cx={x} cy="53" r="1.6" key={x} />
           ))}

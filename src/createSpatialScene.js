@@ -48,11 +48,11 @@ export function createSpatialScene(
   generator.dispose();
   const key = new DirectionalLight(0xffffff, 3);
   key.position.set(-3, 4, 4);
-  const rim = new DirectionalLight(0xffe2b6, 2.6);
+  const rim = new DirectionalLight(0xffded9, 2.6);
   rim.position.set(3, -0.4, 2);
-  const fill = new DirectionalLight(0xf1f3eb, 2);
+  const fill = new DirectionalLight(0xe4ecff, 2);
   fill.position.set(-2, -2, 2);
-  scene.add(key, rim, fill, new AmbientLight(0xdcddd5, 0.65));
+  scene.add(key, rim, fill, new AmbientLight(0xe5ebf5, 0.65));
   const model = createSpatialModels(compact);
   model.setVariant(variant);
   scene.add(model.root);
