@@ -95,9 +95,9 @@ export function CinematicHero({ motion = true }) {
           </div>
           <div className="film-portrait">
             <img
-              src={profile.portrait}
-              width="1080"
-              height="1080"
+              src={profile.heroPortrait}
+              width="1254"
+              height="1254"
               fetchPriority="high"
               alt="Lumu Francis Xavier"
             />

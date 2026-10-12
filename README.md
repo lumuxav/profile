@@ -6,7 +6,7 @@ The cinematic hero combines oversized background typography, the supplied portra
 
 The site presents engineering capabilities across full-stack applications, systems, AI/ML, network infrastructure, data architecture, and mobile product experiences. Copy focuses on approach and outcomes, with no academic labels, invented credentials, unverified business metrics, or claim of shipped native mobile apps. Private client work, unfinished products, and confidential project details are not published.
 
-![Cinematic desktop portfolio](docs/portfolio-pearl-desktop-20261011.jpg)
+![Cinematic desktop portfolio](docs/portfolio-hero-blend-20261012.jpg)
 
 ## Local development
 
@@ -57,7 +57,7 @@ For manual deployment, upload the **contents** of `dist/` into the domain's `htd
 
 ## Content and privacy
 
-Edit `src/profile.js` for public contact information, capability descriptions, and technology lists. Capability artwork is illustrative, not a screenshot or disclosure of a private product. No individual project repository or demo links are included. The portrait is the supplied original image; the lower-resolution legacy portrait remains available at its existing path.
+Edit `src/profile.js` for public contact information, capability descriptions, and technology lists. Capability artwork is illustrative, not a screenshot or disclosure of a private product. No individual project repository or demo links are included. The about section uses the supplied original portrait. The hero uses a transparent background-removal edit at `public/images/xavier-hero-cutout.webp`, with the name behind the subject and CSS feathering at the shoulders. The original and lower-resolution legacy portrait remain available at their existing paths. See [portrait edit notes](docs/hero-portrait-edit.md) for the asset provenance and edit prompt.
 
 Public contact links:
 
@@ -68,6 +68,8 @@ Public contact links:
 The contact form validates the visitor's name and message, then opens a WhatsApp draft. The visitor chooses whether to send. There is no form submission server or stored message database. The study year, student identifier, private project details, and unsupported credentials are omitted.
 
 ## Verification
+
+The hero portrait blend was visually checked on 2026-10-12 on desktop, a 1280×640 laptop preview, and 390px/320px phone previews. The clean cutout removes the black backdrop around the face and cap; combined edge masks soften the shoulders without making the face transparent. Phone motion remains automatic, and the 320px preview has no horizontal overflow.
 
 The pearl, silver, black, and vermilion palette follows the supplied color reference. The hero, scene explorer, expertise cards, work artwork, contact section, and mobile navigation were visually reviewed. The 390px and 320px phone previews have no horizontal overflow and start motion automatically. Checked hero and skill text, red headings, primary buttons, and form placeholders exceed 4.5:1 contrast against their intended surfaces; this is a focused palette check, not a full accessibility audit. The Three.js materials, CSS scene fallback, SVG artwork, browser theme color, and favicon use the same palette.
 

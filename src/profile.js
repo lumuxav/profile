@@ -6,6 +6,7 @@ export const profile = {
   whatsappDisplay: "0757 742 177",
   instagram: "https://www.instagram.com/_l.u.m.u_/",
   portrait: "./images/xavier-portrait.png",
+  heroPortrait: "./images/xavier-hero-cutout.webp",
 };
 
 export const projects = [
